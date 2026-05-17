@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Gilpin Hotel &amp; Lake House — Layered</title>
+  <meta name="description" content="Case study: AI-powered staff training portal and knowledge base built for The Gilpin Hotel & Lake House — a five-star Relais & Châteaux property in the Lake District.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Figtree:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:         oklch(97.5% 0.007 85);
+      --bg-alt:     oklch(95.5% 0.009 85);
+      --surface:    oklch(99.5% 0.003 85);
+      --border:     oklch(89%   0.009 85);
+      --border-str: oklch(80%   0.011 85);
+      --text:       oklch(16%   0.012 85);
+      --text-2:     oklch(40%   0.009 85);
+      --text-3:     oklch(60%   0.007 85);
+      --accent:     oklch(38%   0.14  158);
+      --accent-mid: oklch(50%   0.14  158);
+      --accent-sub: oklch(94%   0.045 158);
+      --dk:         oklch(13%   0.014 85);
+      --dk-bdr:     oklch(25%   0.013 85);
+      --dk-txt:     oklch(93%   0.007 85);
+      --dk-mut:     oklch(58%   0.009 85);
+      --gold:       #C46A3A;
+      --gold-dim:   rgba(196, 106, 58, 0.15);
+      --gold-bdr:   rgba(196, 106, 58, 0.3);
+      --display: 'Bricolage Grotesque', sans-serif;
+      --body:    'Figtree', sans-serif;
+      --sp-2: 8px; --sp-3: 12px; --sp-4: 16px; --sp-5: 24px;
+      --sp-6: 32px; --sp-7: 48px; --sp-8: 64px; --sp-9: 96px;
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--body); background: var(--bg); color: var(--text); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    .rv { opacity: 0; transform: translateY(20px); transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out); }
+    .rv.in { opacity: 1; transform: none; }
+    .d1 { transition-delay: 0.06s; } .d2 { transition-delay: 0.13s; } .d3 { transition-delay: 0.2s; }
+
+    .wrap { width: 100%; max-width: 1100px; margin: 0 auto; padding: 0 var(--sp-8); }
+    .wrap-narrow { width: 100%; max-width: 760px; margin: 0 auto; padding: 0 var(--sp-8); }
+
+    /* NAV */
+    .nav { position: fixed; inset: 0 0 auto; z-index: 100; padding: var(--sp-5) 0; }
+    .nav-in {
+      display: flex; align-items: center; justify-content: space-between; gap: var(--sp-5);
+      background: oklch(97.5% 0.007 85 / 0.93); border: 1px solid var(--border);
+      border-radius: 100px; padding: var(--sp-3) var(--sp-4);
+      box-shadow: 0 2px 20px oklch(16% 0.012 85 / 0.07);
+      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+    }
+    .nav-brand { font-family: var(--display); font-size: 1.05rem; font-weight: 700; color: var(--text); letter-spacing: -0.02em; padding: 0 var(--sp-2); display: flex; align-items: center; gap: 7px; }
+    .brand-mark { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; flex-shrink: 0; }
+    .nav-back { font-size: 0.78rem; font-weight: 600; color: var(--text-2); border: 1px solid var(--border); padding: var(--sp-2) var(--sp-5); border-radius: 100px; transition: border-color 0.2s, color 0.2s; display: flex; align-items: center; gap: 6px; }
+    .nav-back:hover { border-color: var(--border-str); color: var(--text); }
+    .nav-back svg { width: 12px; height: 12px; }
+
+    /* HERO — dark, gold accented */
+    .hero {
+      background: #070707;
+      background-image: radial-gradient(#1a1a1a 1px, transparent 1px);
+      background-size: 40px 40px;
+      padding: 140px 0 var(--sp-9);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(196,106,58,0.1), transparent 70%);
+      top: -150px; right: -100px;
+      pointer-events: none;
+    }
+    .hero-inner { position: relative; z-index: 2; }
+
+    .status-pill { display: inline-flex; align-items: center; gap: var(--sp-2); font-size: 0.62rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; border: 1px solid var(--gold-bdr); color: var(--gold); padding: 4px 12px; border-radius: 100px; margin-bottom: var(--sp-5); }
+    .status-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); animation: pulse 2.5s ease-in-out infinite; flex-shrink: 0; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+    .hero h1 { font-family: var(--display); font-size: clamp(2.4rem, 5vw, 4.2rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1; color: var(--dk-txt); margin-bottom: var(--sp-4); }
+    .hero-sub { font-size: 1rem; font-weight: 400; line-height: 1.75; color: var(--dk-mut); max-width: 54ch; margin-bottom: var(--sp-7); }
+    .hero-meta { display: flex; align-items: center; gap: var(--sp-5); flex-wrap: wrap; }
+    .meta-item { display: flex; flex-direction: column; gap: 3px; }
+    .meta-label { font-size: 0.6rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dk-mut); }
+    .meta-value { font-size: 0.88rem; font-weight: 500; color: var(--dk-txt); }
+    .meta-sep { width: 1px; height: 32px; background: var(--dk-bdr); }
+
+    /* SECTIONS */
+    .sec { padding: var(--sp-9) 0; }
+    .sec-alt { background: var(--bg-alt); }
+    .sec-dk { background: #070707; background-image: radial-gradient(#1a1a1a 1px, transparent 1px); background-size: 40px 40px; }
+
+    .eyebrow { font-size: 0.67rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); display: inline-flex; align-items: center; gap: var(--sp-2); margin-bottom: var(--sp-4); }
+    .eyebrow::before { content: ''; width: 16px; height: 1px; background: var(--accent); flex-shrink: 0; }
+    .eyebrow-gold { color: var(--gold); }
+    .eyebrow-gold::before { background: var(--gold); }
+
+    h2 { font-family: var(--display); font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 700; letter-spacing: -0.035em; line-height: 1.05; color: var(--text); margin-bottom: var(--sp-5); }
+    h2.inv { color: var(--dk-txt); }
+    .lead { font-size: 1.02rem; font-weight: 400; line-height: 1.8; color: var(--text-2); max-width: 65ch; margin-bottom: var(--sp-5); }
+    .lead.inv { color: var(--dk-mut); }
+    p.body { font-size: 0.93rem; font-weight: 400; line-height: 1.82; color: var(--text-2); max-width: 68ch; margin-bottom: var(--sp-4); }
+    p.body.inv { color: var(--dk-mut); }
+
+    /* PREVIEW */
+    .preview-frame { border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: 0 24px 64px oklch(16% 0.012 85 / 0.12); margin-top: var(--sp-7); }
+    .preview-bar { background: var(--bg-alt); padding: var(--sp-2) var(--sp-4); display: flex; align-items: center; gap: var(--sp-3); border-bottom: 1px solid var(--border); }
+    .preview-dots { display: flex; gap: 5px; }
+    .preview-dots span { width: 9px; height: 9px; border-radius: 50%; background: var(--border-str); }
+    .preview-url { font-size: 0.68rem; color: var(--text-3); background: var(--bg); border: 1px solid var(--border); padding: 3px 10px; border-radius: 100px; }
+
+    /* FEATURES */
+    .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; margin-top: var(--sp-7); }
+    .feat { background: var(--surface); padding: var(--sp-6) var(--sp-5); transition: background 0.2s; }
+    .feat:hover { background: var(--bg); }
+    .feat-ico { font-size: 1.4rem; margin-bottom: var(--sp-3); }
+    .feat h4 { font-family: var(--display); font-size: 0.95rem; font-weight: 700; letter-spacing: -0.02em; color: var(--text); margin-bottom: var(--sp-2); }
+    .feat p { font-size: 0.82rem; line-height: 1.68; color: var(--text-2); }
+
+    /* GOLD FEATURES (dark section) */
+    .features-grid-dk { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(196,106,58,0.2); border: 1px solid rgba(196,106,58,0.2); border-radius: 16px; overflow: hidden; margin-top: var(--sp-7); }
+    .feat-dk { background: rgba(15,15,15,0.9); padding: var(--sp-6) var(--sp-5); transition: background 0.2s; }
+    .feat-dk:hover { background: rgba(25,25,25,0.95); }
+    .feat-dk h4 { font-family: var(--display); font-size: 0.95rem; font-weight: 700; letter-spacing: -0.02em; color: var(--dk-txt); margin-bottom: var(--sp-2); }
+    .feat-dk p { font-size: 0.82rem; line-height: 1.68; color: var(--dk-mut); }
+
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-9); align-items: start; }
+    .two-col-narrow { display: grid; grid-template-columns: 1fr 1.4fr; gap: var(--sp-9); align-items: start; }
+
+    .stat-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; margin-top: var(--sp-7); }
+    .stat-block { background: var(--surface); padding: var(--sp-6) var(--sp-5); text-align: center; }
+    .stat-n { font-family: var(--display); font-size: 2rem; font-weight: 800; letter-spacing: -0.04em; color: var(--accent); line-height: 1; margin-bottom: var(--sp-2); }
+    .stat-l { font-size: 0.72rem; font-weight: 500; color: var(--text-3); letter-spacing: 0.04em; }
+
+    .tags { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-top: var(--sp-5); }
+    .tag { font-size: 0.72rem; font-weight: 500; color: var(--text-2); background: var(--bg-alt); border: 1px solid var(--border); padding: 4px 12px; border-radius: 100px; }
+    .tag-dk { font-size: 0.72rem; font-weight: 500; color: var(--dk-mut); background: rgba(196,106,58,0.08); border: 1px solid rgba(196,106,58,0.25); padding: 4px 12px; border-radius: 100px; }
+
+    /* PLATO highlight block */
+    .plato-block {
+      background: #070707;
+      background-image: radial-gradient(#1a1a1a 1px, transparent 1px);
+      background-size: 40px 40px;
+      border: 1px solid rgba(196,106,58,0.25);
+      border-radius: 20px;
+      padding: var(--sp-8);
+      margin-top: var(--sp-7);
+    }
+    .plato-label { font-size: 0.67rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); display: inline-flex; align-items: center; gap: var(--sp-2); margin-bottom: var(--sp-4); }
+    .plato-label::before { content: ''; width: 16px; height: 1px; background: var(--gold); flex-shrink: 0; }
+    .plato-block h3 { font-family: var(--display); font-size: clamp(1.4rem, 2.5vw, 1.9rem); font-weight: 700; letter-spacing: -0.03em; color: var(--dk-txt); margin-bottom: var(--sp-4); }
+    .plato-block p { font-size: 0.93rem; line-height: 1.8; color: var(--dk-mut); max-width: 66ch; }
+    .plato-capabilities { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--sp-3); margin-top: var(--sp-6); }
+    .plato-cap { display: flex; align-items: flex-start; gap: var(--sp-3); }
+    .plato-cap::before { content: ''; width: 5px; height: 5px; background: var(--gold); border-radius: 50%; flex-shrink: 0; margin-top: 6px; }
+    .plato-cap span { font-size: 0.85rem; color: var(--dk-mut); line-height: 1.5; }
+
+    .cta-band { background: var(--dk); padding: var(--sp-9) 0; }
+    .cta-inner { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-6); flex-wrap: wrap; }
+    .cta-inner h2 { font-family: var(--display); font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700; letter-spacing: -0.035em; color: var(--dk-txt); margin-bottom: 0; }
+    .cta-inner p { font-size: 0.9rem; color: var(--dk-mut); margin-top: var(--sp-2); max-width: 44ch; }
+    .btn { display: inline-flex; align-items: center; gap: var(--sp-2); font-family: var(--body); font-size: 0.82rem; font-weight: 600; letter-spacing: 0.01em; padding: 13px var(--sp-5); border-radius: 100px; border: none; transition: 0.28s var(--ease-out); cursor: pointer; white-space: nowrap; }
+    .btn svg { width: 13px; height: 13px; flex-shrink: 0; transition: transform 0.28s var(--ease-out); }
+    .btn:hover svg { transform: translate(2px, -2px); }
+    .btn-p { background: var(--accent); color: oklch(97% 0.007 85); }
+    .btn-p:hover { background: var(--accent-mid); transform: translateY(-2px); box-shadow: 0 8px 28px oklch(38% 0.14 158 / 0.38); }
+
+    @media (max-width: 900px) { .two-col, .two-col-narrow { grid-template-columns: 1fr; gap: var(--sp-7); } .features-grid, .features-grid-dk { grid-template-columns: 1fr 1fr; } .stat-strip { grid-template-columns: repeat(2, 1fr); } .plato-capabilities { grid-template-columns: 1fr; } }
+    @media (max-width: 600px) { .features-grid, .features-grid-dk { grid-template-columns: 1fr; } .stat-strip { grid-template-columns: 1fr 1fr; } .wrap, .wrap-narrow { padding: 0 var(--sp-4); } .cta-inner { flex-direction: column; align-items: flex-start; } }
+    @media (prefers-reduced-motion: reduce) { .rv { opacity: 1 !important; transform: none !important; } }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <div class="nav-in">
+      <a href="index.html" class="nav-brand"><span class="brand-mark"></span>Layered</a>
+      <a href="index.html#portfolio" class="nav-back">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+        All Work
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-inner">
+      <div class="status-pill rv"><span class="status-dot"></span>Live</div>
+      <h1 class="rv d1">The Gilpin Hotel &amp; Lake House</h1>
+      <p class="hero-sub rv d2">A bespoke AI-powered staff training portal built for one of England's finest country house hotels — a Relais &amp; Châteaux and Pride of Britain member, with two properties in the Lake District.</p>
+      <div class="hero-meta rv d3">
+        <div class="meta-item"><span class="meta-label">Sector</span><span class="meta-value">Hospitality</span></div>
+        <div class="meta-sep"></div>
+        <div class="meta-item"><span class="meta-label">Type</span><span class="meta-value">AI Integration &amp; Web App</span></div>
+        <div class="meta-sep"></div>
+        <div class="meta-item"><span class="meta-label">Location</span><span class="meta-value">Windermere, Lake District</span></div>
+        <div class="meta-sep"></div>
+        <div class="meta-item"><span class="meta-label">Status</span><span class="meta-value">Live — all staff</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PREVIEW -->
+<section class="sec" style="padding-top: var(--sp-8); padding-bottom: var(--sp-9);">
+  <div class="wrap">
+    <div class="preview-frame rv">
+      <div class="preview-bar">
+        <div class="preview-dots"><span></span><span></span><span></span></div>
+        <div class="preview-url">gilpin.layered.studio / staff portal</div>
+      </div>
+      <div style="background:#070707;background-image:radial-gradient(#1a1a1a 1px,transparent 1px);background-size:40px 40px;font-family:system-ui,sans-serif">
+        <!-- Nav -->
+        <div style="background:rgba(7,7,7,0.9);border-bottom:1px solid rgba(196,106,58,0.4);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between">
+          <img src="images/gilpin-logo.png" style="height:24px;opacity:0.92;display:block" alt="Gilpin Hotel &amp; Lake House" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <span style="display:none;font-size:12px;font-weight:700;color:#f8fafc;letter-spacing:.05em">GILPIN</span>
+          <div style="display:flex;gap:8px;align-items:center">
+            <span style="font-size:8px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;border:1px solid rgba(196,106,58,.3);color:rgba(248,250,252,.8);padding:5px 12px;border-radius:7px">My Profile</span>
+            <span style="font-size:8px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;border:1px solid rgba(196,106,58,.3);color:rgba(248,250,252,.8);padding:5px 12px;border-radius:7px">Sign Out</span>
+          </div>
+        </div>
+        <!-- Hero -->
+        <div style="position:relative;height:220px;background-image:url('https://thegilpin.co.uk/wp-content/uploads/Gilpin-Hotel-scaled-1-1024x697.jpg');background-size:cover;background-position:center top">
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(7,7,7,0.95) 0%,rgba(7,7,7,0.6) 40%,rgba(7,7,7,0.2) 100%)"></div>
+          <div style="position:absolute;bottom:28px;left:32px">
+            <div style="font-size:8px;font-weight:800;letter-spacing:.25em;text-transform:uppercase;color:#C46A3A;margin-bottom:8px">Welcome to the team</div>
+            <div style="font-family:Georgia,serif;font-size:34px;font-weight:600;font-style:italic;color:#fff;line-height:1.15;text-shadow:0 2px 12px rgba(0,0,0,.8)">Hello, Sarah</div>
+            <div style="font-size:12px;color:rgba(255,255,255,.8);margin-top:8px;line-height:1.6">Everything you need to grow, learn, and thrive at Gilpin — right here.</div>
+          </div>
+        </div>
+        <!-- Photo strip -->
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;height:72px">
+          <div style="background-image:url('https://thegilpin.co.uk/wp-content/uploads/Gilpin-Lake-House-4-1024x697.jpg');background-size:cover;background-position:center;filter:brightness(.65)"></div>
+          <div style="background-image:url('https://thegilpin.co.uk/wp-content/uploads/Gilpin-Hotel-Bedroom-2-scaled-1-1-1024x697.jpg');background-size:cover;background-position:center;filter:brightness(.65)"></div>
+          <div style="background-image:url('https://thegilpin.co.uk/wp-content/uploads/Gilpin-Lake-House-Bedroom-2-scaled-1-1-1024x697.jpg');background-size:cover;background-position:center;filter:brightness(.65)"></div>
+        </div>
+        <!-- Nav cards -->
+        <div style="padding:24px 28px;background:#070707;background-image:radial-gradient(#1a1a1a 1px,transparent 1px);background-size:40px 40px">
+          <div style="font-size:8px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:#C46A3A;margin-bottom:14px">Where would you like to go?</div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px">
+            <div style="background:rgba(15,15,15,.8);border:1px solid rgba(196,106,58,.15);border-radius:10px;padding:14px 12px">
+              <div style="font-size:18px;margin-bottom:6px">🏨</div>
+              <div style="font-size:10px;font-weight:700;color:#f8fafc;margin-bottom:3px">Our Hotel</div>
+              <div style="font-size:8.5px;color:#94a3b8;line-height:1.4">History &amp; what makes us one of England's finest.</div>
+            </div>
+            <div style="background:rgba(15,15,15,.8);border:1px solid rgba(196,106,58,.15);border-radius:10px;padding:14px 12px">
+              <div style="font-size:18px;margin-bottom:6px">📋</div>
+              <div style="font-size:10px;font-weight:700;color:#f8fafc;margin-bottom:3px">SOPs</div>
+              <div style="font-size:8.5px;color:#94a3b8;line-height:1.4">Procedures, standards &amp; operational guides.</div>
+            </div>
+            <div style="background:rgba(15,15,15,.8);border:1px solid rgba(196,106,58,.15);border-radius:10px;padding:14px 12px">
+              <div style="font-size:18px;margin-bottom:6px">🍽️</div>
+              <div style="font-size:10px;font-weight:700;color:#f8fafc;margin-bottom:3px">Restaurants</div>
+              <div style="font-size:8.5px;color:#94a3b8;line-height:1.4">SOURCE, Gilpin Spice &amp; Lake House dining.</div>
+            </div>
+            <div style="background:rgba(196,106,58,.1);border:1px solid rgba(196,106,58,.35);border-radius:10px;padding:14px 12px">
+              <div style="font-size:18px;margin-bottom:6px">🤖</div>
+              <div style="font-size:10px;font-weight:700;color:#C46A3A;margin-bottom:3px">Ask Plato</div>
+              <div style="font-size:8.5px;color:#94a3b8;line-height:1.4">AI trainer — ask anything, 24/7.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BRIEF -->
+<section class="sec sec-alt">
+  <div class="wrap">
+    <div class="two-col-narrow">
+      <div class="rv">
+        <div class="eyebrow">The Brief</div>
+        <h2>Paper-based training for a five-star hotel in 2024 wasn't working.</h2>
+      </div>
+      <div class="rv d1">
+        <p class="lead">The Gilpin Hotel &amp; Lake House is one of England's most celebrated independent hotels — a Relais &amp; Châteaux property with two distinct venues, multiple restaurants, and a team of staff spanning front-of-house, food and beverage, housekeeping, and management.</p>
+        <p class="body">Staff training was largely paper-based and inconsistent. New team members received printed induction packs that were quickly outdated. SOPs lived in binders. Institutional knowledge walked out the door when staff moved on. There was no central, accessible source of truth about how Gilpin operates.</p>
+        <p class="body">The brief: build a digital staff training hub — one that any member of the team could access from any device, that kept all knowledge centralised and up-to-date, and that made onboarding faster and more consistent across every department.</p>
+        <p class="body">And with the emergence of capable AI, one additional ask: could the system answer questions in real time, drawing on Gilpin's own knowledge base?</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLATO AI BLOCK -->
+<section class="sec sec-dk">
+  <div class="wrap">
+    <div class="rv">
+      <div class="eyebrow eyebrow-gold">The AI System</div>
+      <h2 class="inv">Meet Plato — Gilpin's AI trainer.</h2>
+      <p class="lead inv">Plato is a custom AI assistant built specifically for the Gilpin team. It's trained on the hotel's own internal documentation — SOPs, menus, brand standards, property guides, and operational manuals — and can answer any question a staff member might have, instantly and accurately.</p>
+    </div>
+    <div class="plato-block rv d1">
+      <div class="plato-label">What Plato can do</div>
+      <h3>"What's the allergen information for tonight's amuse-bouche?"<br>"What's our dog policy at Lake House?" <br>"How do I process a late checkout?"</h3>
+      <p>Questions that used to mean tracking down a manager, hunting through a binder, or guessing — Plato answers in seconds, with accuracy grounded in Gilpin's own documents. It doesn't make things up, and it knows when to refer staff to a senior team member.</p>
+      <div class="plato-capabilities">
+        <div class="plato-cap"><span>Answers questions using Gilpin's actual SOPs and guides</span></div>
+        <div class="plato-cap"><span>Trained on menus, allergen info, and restaurant procedures</span></div>
+        <div class="plato-cap"><span>Covers both Gilpin Hotel and Lake House properties</span></div>
+        <div class="plato-cap"><span>Knows when to escalate to a human — doesn't overstep</span></div>
+        <div class="plato-cap"><span>Accessible from any device, at any time, from anywhere on property</span></div>
+        <div class="plato-cap"><span>Knowledge base updated as menus, policies, and procedures change</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT WE BUILT -->
+<section class="sec">
+  <div class="wrap rv">
+    <div class="eyebrow">What We Built</div>
+    <h2>A complete staff training platform — not an off-the-shelf tool.</h2>
+    <div class="features-grid">
+      <div class="feat rv d1">
+        <div class="feat-ico">🏠</div>
+        <h4>Staff Home Portal</h4>
+        <p>A personalised dashboard for every team member — their progress, their weeks with Gilpin, and a full navigation hub for all training content, SOPs, and resources, designed to feel like home on day one.</p>
+      </div>
+      <div class="feat rv d2">
+        <div class="feat-ico">📂</div>
+        <h4>SOP Library</h4>
+        <p>A structured, searchable library of all Gilpin's standard operating procedures — organised by department, regularly updated, and always accessible. Staff can read, search, and bookmark procedures from any device.</p>
+      </div>
+      <div class="feat rv d3">
+        <div class="feat-ico">🤖</div>
+        <h4>Plato AI Chat</h4>
+        <p>A dedicated AI chat interface powered by the Plato system — trained on Gilpin's internal knowledge base and able to answer practical operational questions in plain English, around the clock.</p>
+      </div>
+      <div class="feat rv d1">
+        <div class="feat-ico">📈</div>
+        <h4>Progress Tracking</h4>
+        <p>Staff can track their learning journey — time with the company, modules completed, and the Peak Performance development pathway. Managers can view team-wide progress through the admin dashboard.</p>
+      </div>
+      <div class="feat rv d2">
+        <div class="feat-ico">🎛️</div>
+        <h4>Admin Dashboard</h4>
+        <p>A full management interface for the Gilpin team to add and update content, manage staff accounts, monitor activity, and update the AI knowledge base as the business evolves.</p>
+      </div>
+      <div class="feat rv d3">
+        <div class="feat-ico">🏨</div>
+        <h4>Hotel &amp; Brand Knowledge</h4>
+        <p>Dedicated sections covering the history of Gilpin, the Cunliffe family, Relais &amp; Châteaux and Pride of Britain membership standards, both properties and their spas, all four restaurant concepts, and the GILPIN values.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DESIGN -->
+<section class="sec sec-alt">
+  <div class="wrap">
+    <div class="two-col rv">
+      <div>
+        <div class="eyebrow">Design Direction</div>
+        <h2>Luxury-grade design for the people who deliver the luxury.</h2>
+        <p class="body">The Gilpin brand is built on warmth, quality, and understated elegance. The staff portal needed to feel like a natural extension of that — not a generic HR software tool bolted onto their world.</p>
+        <p class="body">The dark theme with a dot-pattern background creates a sense of depth and quality. The Gilpin gold — <code style="font-size:0.82rem;background:var(--bg-alt);padding:2px 6px;border-radius:4px;border:1px solid var(--border)">#C46A3A</code> — is used sparingly as an accent throughout. Playfair Display italic in the hero echoes the serif typefaces used across the Gilpin marketing site.</p>
+        <p class="body">Real hotel photography is used throughout — the hero pulls directly from the Gilpin marketing site, so it always reflects the property as it actually looks.</p>
+        <div class="tags rv d1">
+          <span class="tag">Python / Flask</span>
+          <span class="tag">PostgreSQL</span>
+          <span class="tag">OpenAI API</span>
+          <span class="tag">Playfair Display</span>
+          <span class="tag">Inter</span>
+          <span class="tag">Gold #C46A3A</span>
+          <span class="tag">Dark theme</span>
+          <span class="tag">Cloudflare</span>
+          <span class="tag">Employment Hero API</span>
+          <span class="tag">Knack DB</span>
+        </div>
+      </div>
+      <div class="rv d2" style="display:flex;flex-direction:column;gap:12px">
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:var(--sp-5)">
+          <div style="font-size:0.67rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-3);margin-bottom:var(--sp-3)">Brand colours</div>
+          <div style="display:flex;gap:8px">
+            <div style="flex:1;height:48px;background:#070707;border-radius:8px;border:1px solid var(--border)"></div>
+            <div style="flex:1;height:48px;background:#C46A3A;border-radius:8px"></div>
+            <div style="flex:1;height:48px;background:#D68255;border-radius:8px"></div>
+            <div style="flex:1;height:48px;background:rgba(196,106,58,0.15);border-radius:8px;border:1px solid rgba(196,106,58,0.3)"></div>
+          </div>
+          <div style="display:flex;gap:8px;margin-top:6px">
+            <div style="flex:1;font-size:0.6rem;color:var(--text-3);text-align:center">#070707</div>
+            <div style="flex:1;font-size:0.6rem;color:var(--text-3);text-align:center">#C46A3A</div>
+            <div style="flex:1;font-size:0.6rem;color:var(--text-3);text-align:center">#D68255</div>
+            <div style="flex:1;font-size:0.6rem;color:var(--text-3);text-align:center">Gold / 15%</div>
+          </div>
+        </div>
+        <div style="background:#070707;background-image:radial-gradient(#1a1a1a 1px,transparent 1px);background-size:40px 40px;border:1px solid rgba(196,106,58,0.2);border-radius:12px;padding:var(--sp-5)">
+          <div style="font-size:0.67rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:rgba(196,106,58,0.6);margin-bottom:var(--sp-3)">Type specimen</div>
+          <div style="font-family:Georgia,serif;font-size:1.6rem;font-weight:600;font-style:italic;color:#f8fafc;line-height:1.2">Hello, Sarah</div>
+          <div style="font-size:0.8rem;color:rgba(148,163,184,0.8);margin-top:var(--sp-2);line-height:1.6">Playfair Display 600 italic · Hero<br>Inter 400 · Body &amp; UI</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section class="sec">
+  <div class="wrap rv">
+    <div class="eyebrow">The Outcome</div>
+    <h2>Training that travels with the team.</h2>
+    <div class="stat-strip">
+      <div class="stat-block"><div class="stat-n">24/7</div><div class="stat-l">Plato AI availability</div></div>
+      <div class="stat-block"><div class="stat-n">100%</div><div class="stat-l">Staff on the platform</div></div>
+      <div class="stat-block"><div class="stat-n">2</div><div class="stat-l">Properties covered</div></div>
+      <div class="stat-block"><div class="stat-n">∞</div><div class="stat-l">SOPs, always up to date</div></div>
+    </div>
+    <p class="body" style="margin-top: var(--sp-6);">Every member of the Gilpin team — across both the Hotel and Lake House — uses the platform daily. New starters can onboard faster, experienced staff can look up procedures without interrupting managers, and Plato handles the questions that used to mean tracking someone down in a busy service.</p>
+    <p class="body">The knowledge base updates as the business evolves: new menus, new team members, new procedures — all reflected in Plato's answers within hours, not weeks.</p>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-band">
+  <div class="wrap">
+    <div class="cta-inner rv">
+      <div>
+        <h2>Want something like this?</h2>
+        <p>Whether it's a web app, an AI system, or both — we'd love to hear what you're trying to solve.</p>
+      </div>
+      <a href="index.html#contact" class="btn btn-p">Start a Conversation <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+  </div>
+</div>
+
+<script>
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(x => { if (x.isIntersecting) { x.target.classList.add('in'); io.unobserve(x.target); } });
+  }, {threshold: 0.08, rootMargin: '0px 0px -32px 0px'});
+  document.querySelectorAll('.rv').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

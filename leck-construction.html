@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leck Construction Ltd — Layered</title>
+  <meta name="description" content="Case study: Complete website redesign for Leck Construction Ltd, one of Cumbria's largest and longest-established construction companies.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Figtree:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:         oklch(97.5% 0.007 85);
+      --bg-alt:     oklch(95.5% 0.009 85);
+      --surface:    oklch(99.5% 0.003 85);
+      --border:     oklch(89%   0.009 85);
+      --border-str: oklch(80%   0.011 85);
+      --text:       oklch(16%   0.012 85);
+      --text-2:     oklch(40%   0.009 85);
+      --text-3:     oklch(60%   0.007 85);
+      --accent:     oklch(38%   0.14  158);
+      --accent-mid: oklch(50%   0.14  158);
+      --accent-sub: oklch(94%   0.045 158);
+      --dk:         oklch(13%   0.014 85);
+      --dk-bdr:     oklch(25%   0.013 85);
+      --dk-txt:     oklch(93%   0.007 85);
+      --dk-mut:     oklch(58%   0.009 85);
+      --display: 'Bricolage Grotesque', sans-serif;
+      --body:    'Figtree', sans-serif;
+      --sp-2: 8px; --sp-3: 12px; --sp-4: 16px; --sp-5: 24px;
+      --sp-6: 32px; --sp-7: 48px; --sp-8: 64px; --sp-9: 96px;
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--body); background: var(--bg); color: var(--text); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    .rv { opacity: 0; transform: translateY(20px); transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out); }
+    .rv.in { opacity: 1; transform: none; }
+    .d1 { transition-delay: 0.06s; } .d2 { transition-delay: 0.13s; } .d3 { transition-delay: 0.2s; }
+
+    .wrap { width: 100%; max-width: 1100px; margin: 0 auto; padding: 0 var(--sp-8); }
+    .wrap-narrow { width: 100%; max-width: 760px; margin: 0 auto; padding: 0 var(--sp-8); }
+
+    /* NAV */
+    .nav { position: fixed; inset: 0 0 auto; z-index: 100; padding: var(--sp-5) 0; }
+    .nav-in {
+      display: flex; align-items: center; justify-content: space-between; gap: var(--sp-5);
+      background: oklch(97.5% 0.007 85 / 0.93); border: 1px solid var(--border);
+      border-radius: 100px; padding: var(--sp-3) var(--sp-4);
+      box-shadow: 0 2px 20px oklch(16% 0.012 85 / 0.07);
+      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+    }
+    .nav-brand { font-family: var(--display); font-size: 1.05rem; font-weight: 700; color: var(--text); letter-spacing: -0.02em; padding: 0 var(--sp-2); display: flex; align-items: center; gap: 7px; }
+    .brand-mark { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; flex-shrink: 0; }
+    .nav-back { font-size: 0.78rem; font-weight: 600; color: var(--text-2); border: 1px solid var(--border); padding: var(--sp-2) var(--sp-5); border-radius: 100px; transition: border-color 0.2s, color 0.2s; display: flex; align-items: center; gap: 6px; }
+    .nav-back:hover { border-color: var(--border-str); color: var(--text); }
+    .nav-back svg { width: 12px; height: 12px; }
+
+    /* HERO */
+    .hero {
+      background: var(--dk);
+      padding: 140px 0 var(--sp-9);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: linear-gradient(oklch(100% 0 0 / 0.025) 1px, transparent 1px);
+      background-size: 100% 96px;
+      pointer-events: none;
+    }
+    .hero-inner { position: relative; z-index: 2; }
+    .status-pill {
+      display: inline-flex; align-items: center; gap: var(--sp-2);
+      font-size: 0.62rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+      border: 1px solid var(--dk-bdr); color: var(--dk-mut); padding: 4px 12px; border-radius: 100px;
+      margin-bottom: var(--sp-5);
+    }
+    .status-pill.live { border-color: oklch(50% 0.14 158 / 0.4); color: var(--accent-mid); }
+    .status-pill.soon { border-color: var(--dk-bdr); color: var(--dk-mut); }
+    .status-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+    .status-dot.live { background: var(--accent-mid); animation: pulse 2.5s ease-in-out infinite; }
+    .status-dot.soon { background: var(--dk-mut); }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+    .hero h1 { font-family: var(--display); font-size: clamp(2.4rem, 5vw, 4.2rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1; color: var(--dk-txt); margin-bottom: var(--sp-4); }
+    .hero-sub { font-size: 1rem; font-weight: 400; line-height: 1.75; color: var(--dk-mut); max-width: 54ch; margin-bottom: var(--sp-7); }
+    .hero-meta { display: flex; align-items: center; gap: var(--sp-5); flex-wrap: wrap; }
+    .meta-item { display: flex; flex-direction: column; gap: 3px; }
+    .meta-label { font-size: 0.6rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dk-mut); }
+    .meta-value { font-size: 0.88rem; font-weight: 500; color: var(--dk-txt); }
+    .meta-sep { width: 1px; height: 32px; background: var(--dk-bdr); }
+
+    /* SECTIONS */
+    .sec { padding: var(--sp-9) 0; }
+    .sec-alt { background: var(--bg-alt); }
+    .sec-dk { background: var(--dk); }
+
+    .eyebrow { font-size: 0.67rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); display: inline-flex; align-items: center; gap: var(--sp-2); margin-bottom: var(--sp-4); }
+    .eyebrow::before { content: ''; width: 16px; height: 1px; background: var(--accent); flex-shrink: 0; }
+    .eyebrow-inv { color: var(--accent-mid); }
+    .eyebrow-inv::before { background: var(--accent-mid); }
+
+    h2 { font-family: var(--display); font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 700; letter-spacing: -0.035em; line-height: 1.05; color: var(--text); margin-bottom: var(--sp-5); }
+    .lead { font-size: 1.02rem; font-weight: 400; line-height: 1.8; color: var(--text-2); max-width: 65ch; margin-bottom: var(--sp-5); }
+    p.body { font-size: 0.93rem; font-weight: 400; line-height: 1.82; color: var(--text-2); max-width: 68ch; margin-bottom: var(--sp-4); }
+
+    /* PREVIEW */
+    .preview-frame {
+      border: 1px solid var(--border); border-radius: 16px; overflow: hidden;
+      box-shadow: 0 24px 64px oklch(16% 0.012 85 / 0.12);
+      margin-top: var(--sp-7);
+    }
+    .preview-bar { background: var(--bg-deep, var(--bg-alt)); padding: var(--sp-2) var(--sp-4); display: flex; align-items: center; gap: var(--sp-3); border-bottom: 1px solid var(--border); }
+    .preview-dots { display: flex; gap: 5px; }
+    .preview-dots span { width: 9px; height: 9px; border-radius: 50%; background: var(--border-str); }
+    .preview-url { font-size: 0.68rem; color: var(--text-3); background: var(--bg); border: 1px solid var(--border); padding: 3px 10px; border-radius: 100px; font-family: var(--body); }
+
+    /* FEATURES GRID */
+    .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; margin-top: var(--sp-7); }
+    .feat { background: var(--surface); padding: var(--sp-6) var(--sp-5); transition: background 0.2s; }
+    .feat:hover { background: var(--bg); }
+    .feat-ico { font-size: 1.4rem; margin-bottom: var(--sp-3); }
+    .feat h4 { font-family: var(--display); font-size: 0.95rem; font-weight: 700; letter-spacing: -0.02em; color: var(--text); margin-bottom: var(--sp-2); }
+    .feat p { font-size: 0.82rem; line-height: 1.68; color: var(--text-2); }
+
+    /* CHALLENGE / SOLUTION layout */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-9); align-items: start; }
+    .two-col-narrow { display: grid; grid-template-columns: 1fr 1.4fr; gap: var(--sp-9); align-items: start; }
+
+    /* STAT STRIP */
+    .stat-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; margin-top: var(--sp-7); }
+    .stat-block { background: var(--surface); padding: var(--sp-6) var(--sp-5); text-align: center; }
+    .stat-n { font-family: var(--display); font-size: 2rem; font-weight: 800; letter-spacing: -0.04em; color: var(--accent); line-height: 1; margin-bottom: var(--sp-2); }
+    .stat-l { font-size: 0.72rem; font-weight: 500; color: var(--text-3); letter-spacing: 0.04em; }
+
+    /* TECH TAGS */
+    .tags { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-top: var(--sp-5); }
+    .tag { font-size: 0.72rem; font-weight: 500; color: var(--text-2); background: var(--bg-alt); border: 1px solid var(--border); padding: 4px 12px; border-radius: 100px; }
+
+    /* CTA */
+    .cta-band { background: var(--dk); padding: var(--sp-9) 0; }
+    .cta-inner { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-6); flex-wrap: wrap; }
+    .cta-inner h2 { font-family: var(--display); font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700; letter-spacing: -0.035em; color: var(--dk-txt); margin-bottom: 0; }
+    .cta-inner p { font-size: 0.9rem; color: var(--dk-mut); margin-top: var(--sp-2); max-width: 44ch; }
+    .btn { display: inline-flex; align-items: center; gap: var(--sp-2); font-family: var(--body); font-size: 0.82rem; font-weight: 600; letter-spacing: 0.01em; padding: 13px var(--sp-5); border-radius: 100px; border: none; transition: 0.28s var(--ease-out); cursor: pointer; white-space: nowrap; }
+    .btn svg { width: 13px; height: 13px; flex-shrink: 0; transition: transform 0.28s var(--ease-out); }
+    .btn:hover svg { transform: translate(2px, -2px); }
+    .btn-p { background: var(--accent); color: oklch(97% 0.007 85); }
+    .btn-p:hover { background: var(--accent-mid); transform: translateY(-2px); box-shadow: 0 8px 28px oklch(38% 0.14 158 / 0.38); }
+
+    @media (max-width: 900px) { .two-col, .two-col-narrow { grid-template-columns: 1fr; gap: var(--sp-7); } .features-grid { grid-template-columns: 1fr 1fr; } .stat-strip { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px) { .features-grid { grid-template-columns: 1fr; } .stat-strip { grid-template-columns: 1fr 1fr; } .wrap, .wrap-narrow { padding: 0 var(--sp-4); } .cta-inner { flex-direction: column; align-items: flex-start; } }
+    @media (prefers-reduced-motion: reduce) { .rv { opacity: 1 !important; transform: none !important; } }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <div class="nav-in">
+      <a href="index.html" class="nav-brand">
+        <span class="brand-mark"></span>Layered
+      </a>
+      <a href="index.html#portfolio" class="nav-back">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+        All Work
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-inner">
+      <div class="status-pill soon rv"><span class="status-dot soon"></span>In Development</div>
+      <h1 class="rv d1">Leck Construction Ltd</h1>
+      <p class="hero-sub rv d2">A complete website redesign for one of South Cumbria's largest and longest-established construction companies — built to reflect their eight decades of expertise and their standing in the industry.</p>
+      <div class="hero-meta rv d3">
+        <div class="meta-item">
+          <span class="meta-label">Sector</span>
+          <span class="meta-value">Construction</span>
+        </div>
+        <div class="meta-sep"></div>
+        <div class="meta-item">
+          <span class="meta-label">Founded</span>
+          <span class="meta-value">1946</span>
+        </div>
+        <div class="meta-sep"></div>
+        <div class="meta-item">
+          <span class="meta-label">Location</span>
+          <span class="meta-value">Barrow-in-Furness, Cumbria</span>
+        </div>
+        <div class="meta-sep"></div>
+        <div class="meta-item">
+          <span class="meta-label">Services</span>
+          <span class="meta-value">Web Design &amp; Development</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PREVIEW -->
+<section class="sec" style="padding-top: var(--sp-8); padding-bottom: var(--sp-9);">
+  <div class="wrap">
+    <div class="preview-frame rv">
+      <div class="preview-bar">
+        <div class="preview-dots"><span></span><span></span><span></span></div>
+        <div class="preview-url">leckconstruction.co.uk</div>
+      </div>
+      <!-- Accurate mini-site preview -->
+      <div style="background:#fff;font-family:system-ui,sans-serif">
+        <div style="background:#fff;border-top:3px solid #1B5FAD;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 1px 0 rgba(0,0,0,.06)">
+          <img src="https://raw.githubusercontent.com/billyaspden-oss/leck-construction-site/main/public/images/leck-logo.png" style="height:36px;object-fit:contain;display:block" alt="Leck Construction Ltd" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <span style="display:none;font-size:13px;font-weight:800;color:#1B2A4A;letter-spacing:-.01em">LECK CONSTRUCTION</span>
+          <div style="display:flex;gap:18px;align-items:center">
+            <span style="font-size:9.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#6B7280">Sectors</span>
+            <span style="font-size:9.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#6B7280">Projects</span>
+            <span style="font-size:9.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#6B7280">Approach</span>
+            <span style="font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:#1B2A4A;color:#fff;padding:7px 16px">Contact</span>
+          </div>
+        </div>
+        <div style="position:relative;height:280px;background-image:url('https://raw.githubusercontent.com/billyaspden-oss/leck-construction-site/main/public/images/projects/lanthwaite-dusk-02.jpg');background-size:cover;background-position:center">
+          <div style="position:absolute;inset:0;background:linear-gradient(100deg,rgba(0,0,0,.8),rgba(0,0,0,.52) 45%,rgba(0,0,0,.18))"></div>
+          <div style="position:absolute;bottom:36px;left:40px;right:40px">
+            <div style="display:flex;align-items:center;gap:10px;font-size:9px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:10px">
+              <span style="display:block;width:20px;height:2px;background:#fff;flex-shrink:0"></span>South Cumbria's Construction Specialist · Est. 1946
+            </div>
+            <div style="font-size:40px;font-weight:900;color:#fff;line-height:1.05;letter-spacing:-.025em;margin-bottom:14px">South Cumbria's<br>Construction Specialist.</div>
+            <div style="font-size:13px;color:rgba(255,255,255,.7);max-width:420px;line-height:1.7;margin-bottom:18px">Eight decades of delivering commercial, industrial, housing and heritage projects across Cumbria and the North West — built on quality, safety and trust.</div>
+            <div style="display:inline-flex;align-items:center;gap:8px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:#fff;color:#1B2A4A;padding:12px 22px">Find Out More →</div>
+          </div>
+        </div>
+        <div style="background:#fff;border-top:3px solid #1B5FAD;border-bottom:1px solid #E5E7EB;display:flex">
+          <div style="flex:1;padding:12px;border-right:1px solid #E5E7EB;text-align:center">
+            <div style="font-size:16px;font-weight:800;color:#1B2A4A">70+</div>
+            <div style="font-size:8px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9CA3AF;margin-top:3px">Years Est.</div>
+          </div>
+          <div style="flex:1;padding:12px;border-right:1px solid #E5E7EB;text-align:center">
+            <div style="font-size:16px;font-weight:800;color:#1B2A4A">NHBC</div>
+            <div style="font-size:8px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9CA3AF;margin-top:3px">Grade A Rated</div>
+          </div>
+          <div style="flex:1;padding:12px;border-right:1px solid #E5E7EB;text-align:center">
+            <div style="font-size:16px;font-weight:800;color:#1B2A4A">ISO</div>
+            <div style="font-size:8px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9CA3AF;margin-top:3px">9001 : 2015</div>
+          </div>
+          <div style="flex:1;padding:12px;border-right:1px solid #E5E7EB;text-align:center">
+            <div style="font-size:16px;font-weight:800;color:#1B2A4A">CHAS</div>
+            <div style="font-size:8px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9CA3AF;margin-top:3px">Accredited</div>
+          </div>
+          <div style="flex:1;padding:12px;text-align:center">
+            <div style="font-size:16px;font-weight:800;color:#1B2A4A">NFB</div>
+            <div style="font-size:8px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9CA3AF;margin-top:3px">Member</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BRIEF -->
+<section class="sec sec-alt">
+  <div class="wrap">
+    <div class="two-col-narrow">
+      <div class="rv">
+        <div class="eyebrow">The Brief</div>
+        <h2>A business with eight decades of history deserved a website to match.</h2>
+      </div>
+      <div class="rv d1">
+        <p class="lead">Leck Construction Ltd has been building across South Cumbria since 1946. NHBC Grade A rated, ISO 9001:2015 certified, CHAS accredited — their credentials are impeccable. Their website wasn't.</p>
+        <p class="body">The existing site failed to communicate the scale and professionalism of a company delivering major contracts for organisations like GlaxoSmithKline and BAE Systems. It didn't reflect the breadth of their five specialist sectors, and offered no coherent way for prospective clients to understand their work.</p>
+        <p class="body">The brief was clear: a complete ground-up redesign. Something built for the weight of the name — authoritative, detailed, and easy to navigate.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT WE BUILT -->
+<section class="sec">
+  <div class="wrap rv">
+    <div class="eyebrow">What We Built</div>
+    <h2>Five sector pages. A project gallery. A site that earns trust before anyone picks up the phone.</h2>
+    <div class="features-grid">
+      <div class="feat rv d1">
+        <div class="feat-ico">🎠</div>
+        <h4>Ken Burns Hero Carousel</h4>
+        <p>A full-height, full-bleed hero carousel cycling through real project photography — each slide with its own headline, sector label, and call to action. Smooth Ken Burns effect animates each background.</p>
+      </div>
+      <div class="feat rv d2">
+        <div class="feat-ico">🏗️</div>
+        <h4>Five Sector Pages</h4>
+        <p>Dedicated pages for each specialism: Strategic Partnerships, Commercial &amp; Education, Industrial &amp; Civil Engineering, Heritage Conservation, and Leck Homes — each with its own photography and project examples.</p>
+      </div>
+      <div class="feat rv d3">
+        <div class="feat-ico">📸</div>
+        <h4>Project Gallery</h4>
+        <p>A filterable gallery of completed projects — from the Emlyn Hughes Arena in Cleator Moor to bespoke homes, NHS facilities, and industrial piling contracts across the North West.</p>
+      </div>
+      <div class="feat rv d1">
+        <div class="feat-ico">🏅</div>
+        <h4>Credentials Strip</h4>
+        <p>A prominent credentials bar immediately below the hero — displaying 70+ years established, NHBC Grade A, ISO 9001:2015, CHAS Accredited, and NFB Member status. Trust signals, front and centre.</p>
+      </div>
+      <div class="feat rv d2">
+        <div class="feat-ico">🤝</div>
+        <h4>Partnerships Showcase</h4>
+        <p>A dedicated section highlighting long-term measured-term contracts with GlaxoSmithKline and BAE Systems — communicating the scale of work they're trusted to deliver.</p>
+      </div>
+      <div class="feat rv d3">
+        <div class="feat-ico">📋</div>
+        <h4>Approach &amp; Values</h4>
+        <p>A page outlining Leck's commitment to quality, safety culture, and community — backed by their certification history and the people who have kept the business growing across eight decades.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DESIGN -->
+<section class="sec sec-alt">
+  <div class="wrap">
+    <div class="two-col rv">
+      <div>
+        <div class="eyebrow">Design Direction</div>
+        <h2>Corporate authority, without the coldness.</h2>
+        <p class="body">Leck's existing brand uses a deep navy and corporate blue palette — we kept it, sharpened it, and built a typographic system around Inter at heavy weights that communicates confidence without shouting.</p>
+        <p class="body">The 3px blue border along the top of the navigation is a subtle but consistent detail carried through the credentials strip and section dividers — a visual thread that ties every page together.</p>
+        <p class="body">All photography is sourced from real project sites — no stock imagery. The site only works because the work speaks for itself.</p>
+        <div class="tags rv d1">
+          <span class="tag">Inter — Display</span>
+          <span class="tag">Outfit — Body</span>
+          <span class="tag">Navy #1B2A4A</span>
+          <span class="tag">Blue #1B5FAD</span>
+          <span class="tag">Light mode</span>
+          <span class="tag">Ken Burns carousel</span>
+          <span class="tag">Cloudflare Pages</span>
+          <span class="tag">HTML / CSS / JS</span>
+        </div>
+      </div>
+      <div class="rv d2" style="display:flex;flex-direction:column;gap:12px">
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:var(--sp-5)">
+          <div style="font-size:0.67rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-3);margin-bottom:var(--sp-3)">Brand colours</div>
+          <div style="display:flex;gap:8px">
+            <div style="flex:1;height:48px;background:#1B2A4A;border-radius:8px"></div>
+            <div style="flex:1;height:48px;background:#1B5FAD;border-radius:8px"></div>
+            <div style="flex:1;height:48px;background:#F8FAFC;border:1px solid #E5E7EB;border-radius:8px"></div>
+            <div style="flex:1;height:48px;background:#9CA3AF;border-radius:8px"></div>
+          </div>
+          <div style="display:flex;gap:8px;margin-top:6px">
+            <div style="flex:1;font-size:0.6rem;color:var(--text-3);text-align:center">#1B2A4A</div>
+            <div style="flex:1;font-size:0.6rem;color:var(--text-3);text-align:center">#1B5FAD</div>
+            <div style="flex:1;font-size:0.6rem;color:var(--text-3);text-align:center">#F8FAFC</div>
+            <div style="flex:1;font-size:0.6rem;color:var(--text-3);text-align:center">#9CA3AF</div>
+          </div>
+        </div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:var(--sp-5)">
+          <div style="font-size:0.67rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-3);margin-bottom:var(--sp-3)">Type specimen</div>
+          <div style="font-size:1.6rem;font-weight:900;color:var(--text);letter-spacing:-.02em;line-height:1.1;font-family:system-ui">South Cumbria's<br>Construction Specialist.</div>
+          <div style="font-size:0.8rem;color:var(--text-2);margin-top:var(--sp-2);font-weight:400;line-height:1.6">Inter 900 · Display heading<br>Outfit 400 · Body text</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="sec">
+  <div class="wrap rv">
+    <div class="eyebrow">By the Numbers</div>
+    <h2>Leck Construction, in figures.</h2>
+    <div class="stat-strip">
+      <div class="stat-block"><div class="stat-n">1946</div><div class="stat-l">Year established</div></div>
+      <div class="stat-block"><div class="stat-n">5</div><div class="stat-l">Specialist sectors</div></div>
+      <div class="stat-block"><div class="stat-n">500+</div><div class="stat-l">Projects completed</div></div>
+      <div class="stat-block"><div class="stat-n">A</div><div class="stat-l">NHBC Grade A rating</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-band">
+  <div class="wrap">
+    <div class="cta-inner rv">
+      <div>
+        <h2>Got a project in mind?</h2>
+        <p>We'd love to talk through what you're building. Free quote, no obligation.</p>
+      </div>
+      <a href="index.html#contact" class="btn btn-p">Start a Conversation <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+  </div>
+</div>
+
+<script>
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(x => { if (x.isIntersecting) { x.target.classList.add('in'); io.unobserve(x.target); } });
+  }, {threshold: 0.08, rootMargin: '0px 0px -32px 0px'});
+  document.querySelectorAll('.rv').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
