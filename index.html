@@ -3,10 +3,44 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Layered — Web Development &amp; AI Systems Integration</title>
-  <meta name="description" content="Layered builds custom websites and integrates intelligent AI systems for businesses that demand more. Precision web craft and intelligent automation, engineered layer by layer.">
+  <title>Web Design &amp; AI Systems · Kendal, Cumbria | Layered</title>
+  <meta name="description" content="Web design &amp; AI systems integration for Cumbria businesses. Bespoke, fast, and built to last. Based in Kendal — free consultation, quote within 24 hours.">
+  <meta name="keywords" content="web design Kendal, web design Cumbria, web development Lake District, AI systems integration, bespoke website design Cumbria, web agency Kendal">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://www.layeredstudios.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.layeredstudios.com/">
+  <meta property="og:site_name" content="Layered">
+  <meta property="og:title" content="Web Design &amp; AI Systems · Kendal, Cumbria | Layered">
+  <meta property="og:description" content="Bespoke web design and AI systems for Cumbria businesses. Fast turnaround, ongoing support, and a free no-obligation consultation.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Web Design &amp; AI Systems · Kendal, Cumbria | Layered">
+  <meta name="twitter:description" content="Bespoke web design and AI systems for Cumbria businesses. Free consultation, quote within 24 hours.">
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"LocalBusiness","name":"Layered","description":"Web development and AI systems integration for businesses","address":{"@type":"PostalAddress","addressLocality":"Kendal","addressRegion":"Cumbria","addressCountry":"GB"},"telephone":"07425781485","areaServed":"Cumbria, Lake District, South Lakeland"}
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Layered",
+    "description": "Web design and AI systems integration for businesses in Cumbria and the Lake District",
+    "url": "https://www.layeredstudios.com",
+    "telephone": "07425781485",
+    "email": "hello@layeredstudios.com",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Kendal",
+      "addressRegion": "Cumbria",
+      "addressCountry": "GB"
+    },
+    "areaServed": ["Cumbria", "Lake District", "South Lakeland", "North West England"],
+    "serviceType": ["Web Design", "Web Development", "AI Systems Integration"],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "07425781485",
+      "contactType": "customer service",
+      "availableLanguage": "English"
+    },
+    "priceRange": "££"
+  }
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -559,6 +593,8 @@
 
     .port-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-4); }
     .pc {
+      display: block;
+      position: relative;
       border: 1px solid var(--border);
       border-radius: 16px;
       overflow: hidden;
@@ -566,12 +602,17 @@
       transition: border-color 0.3s, transform 0.4s var(--ease-out), box-shadow 0.3s;
       cursor: pointer;
     }
+    .pc-link {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+    }
     .pc:hover {
       border-color: var(--border-str);
       transform: translateY(-4px);
       box-shadow: 0 20px 50px oklch(16% 0.012 85 / 0.1);
     }
-    .pt { position: relative; height: 220px; overflow: hidden; }
+    .pt { position: relative; height: 240px; overflow: hidden; }
     .pg { width: 100%; height: 100%; }
     .cs-badge {
       position: absolute;
@@ -916,16 +957,21 @@
   <div class="wrap">
     <div class="nav-in" id="nav-in">
       <a href="#top" class="nav-brand" aria-label="Layered — home">
-        <span class="brand-mark"></span>
-        Layered
+        <svg width="116" height="22" viewBox="0 0 148 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="0" y="3"  width="22" height="5" rx="2.5" fill="oklch(50% 0.14 158)"/>
+          <rect x="0" y="12" width="15" height="5" rx="2.5" fill="oklch(50% 0.14 158)" opacity="0.72"/>
+          <rect x="0" y="21" width="9"  height="5" rx="2.5" fill="oklch(50% 0.14 158)" opacity="0.46"/>
+          <text x="31" y="24" font-family="'Bricolage Grotesque', system-ui, sans-serif" font-size="21" font-weight="700" fill="currentColor" letter-spacing="-0.84">Layered</text>
+        </svg>
       </a>
       <ul class="nav-links">
         <li><a href="#services">Services</a></li>
         <li><a href="#portfolio">Work</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#process">Process</a></li>
+        <li><a href="contact.html">Contact</a></li>
       </ul>
-      <a href="#contact" class="nav-cta">Start a Project</a>
+      <a href="contact.html" class="nav-cta">Start a Project</a>
       <button class="hbg" id="hbg" aria-label="Open menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
@@ -939,7 +985,8 @@
   <div class="mm-link"><a href="#portfolio">Work</a></div>
   <div class="mm-link"><a href="#about">About</a></div>
   <div class="mm-link"><a href="#process">Process</a></div>
-  <div class="mm-link"><a href="#contact" class="mm-cta">Start a Project</a></div>
+  <div class="mm-link"><a href="contact.html">Contact</a></div>
+  <div class="mm-link"><a href="contact.html" class="mm-cta">Start a Project</a></div>
 </div>
 
 <!-- HERO -->
@@ -1064,52 +1111,54 @@
     <div class="port-grid">
 
       <!-- Leck Construction -->
-      <a href="leck-construction.html" class="pc rv d1">
+      <div class="pc rv d1">
+        <a href="leck-construction.html" class="pc-link" aria-label="View Leck Construction project"></a>
         <div class="pt">
           <div class="pg" style="background:#fff;display:block;padding:0;overflow:hidden;font-family:system-ui,sans-serif">
-            <!-- Nav -->
-            <div style="background:#fff;border-top:2px solid #1B5FAD;padding:6px 12px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 1px 0 rgba(0,0,0,.06)">
-              <img src="https://raw.githubusercontent.com/billyaspden-oss/leck-construction-site/main/public/images/leck-logo.png" style="height:22px;object-fit:contain;display:block" alt="Leck Construction Ltd" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
-              <span style="display:none;font-size:8px;font-weight:800;color:#1B2A4A;letter-spacing:-.01em">LECK CONSTRUCTION</span>
+            <!-- Nav — matches real site: white bg, 3px blue top border, logo image -->
+            <div style="background:#fff;border-top:3px solid #1B5FAD;padding:8px 14px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 1px 0 rgba(0,0,0,.06)">
+              <img src="images/leck-logo.png" alt="Leck Construction" style="height:18px;width:auto;display:block">
               <div style="display:flex;gap:10px;align-items:center">
-                <span style="font-size:5.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:#6B7280">Sectors</span>
-                <span style="font-size:5.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:#6B7280">Projects</span>
-                <span style="font-size:5.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:#6B7280">Approach</span>
-                <span style="font-size:5.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:#1B2A4A;color:#fff;padding:3px 8px">Contact</span>
+                <span style="font-size:5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#6B7280">About</span>
+                <span style="font-size:5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#6B7280">Sectors</span>
+                <span style="font-size:5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#6B7280">Our Work</span>
+                <span style="font-size:5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#6B7280">Contact</span>
+                <span style="font-size:5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:#1B2A4A;color:#fff;padding:3px 8px">Leck Homes ↗</span>
               </div>
             </div>
-            <!-- Hero -->
-            <div style="position:relative;height:128px;background-image:url('https://raw.githubusercontent.com/billyaspden-oss/leck-construction-site/main/public/images/projects/lanthwaite-dusk-02.jpg');background-size:cover;background-position:center">
-              <div style="position:absolute;inset:0;background:linear-gradient(100deg,rgba(0,0,0,.8),rgba(0,0,0,.52) 45%,rgba(0,0,0,.2))"></div>
-              <div style="position:absolute;bottom:12px;left:13px;right:13px">
-                <div style="display:flex;align-items:center;gap:7px;font-size:5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:5px">
-                  <span style="display:block;width:14px;height:1.5px;background:#fff;flex-shrink:0"></span>South Cumbria's Construction Specialist · Est. 1946
+            <!-- Hero — real photo with dark overlay, exact first slide -->
+            <div style="position:relative;height:158px;background-image:url('images/leck-hero.jpg');background-size:cover;background-position:center">
+              <div style="position:absolute;inset:0;background:linear-gradient(100deg,rgba(0,0,0,.78) 0%,rgba(0,0,0,.55) 45%,rgba(0,0,0,.22) 100%)"></div>
+              <div style="position:absolute;bottom:14px;left:14px;right:14px">
+                <div style="display:flex;align-items:center;gap:8px;font-size:4.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:5px">
+                  <span style="display:block;width:14px;height:2px;background:#fff;flex-shrink:0"></span>South Cumbria's Construction Specialist · Est. 1946
                 </div>
-                <div style="font-size:13.5px;font-weight:800;color:#fff;line-height:1.08;letter-spacing:-.025em;margin-bottom:7px">South Cumbria's<br>Construction Specialist.</div>
-                <div style="display:inline-flex;align-items:center;gap:5px;font-size:5.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:#fff;color:#1B2A4A;padding:4px 9px">Find Out More →</div>
+                <div style="font-family:'Inter',system-ui;font-size:14px;font-weight:800;color:#fff;line-height:1.04;letter-spacing:-.025em;margin-bottom:6px">South Cumbria's<br>Construction Specialist.</div>
+                <div style="font-size:5.5px;color:rgba(255,255,255,.7);line-height:1.6;max-width:180px;margin-bottom:9px">Eight decades of delivering commercial, industrial, housing and heritage projects across Cumbria and the North West.</div>
+                <div style="display:inline-flex;align-items:center;gap:5px;font-size:5.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:#fff;color:#1B2A4A;padding:5px 10px">Find Out More →</div>
               </div>
             </div>
-            <!-- Credentials strip -->
-            <div style="background:#fff;border-top:2px solid #1B5FAD;border-bottom:1px solid #E5E7EB;display:flex">
-              <div style="flex:1;padding:5px 6px;border-right:1px solid #E5E7EB;text-align:center">
-                <div style="font-size:9px;font-weight:800;color:#1B2A4A;letter-spacing:-.01em">70+</div>
-                <div style="font-size:4.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#9CA3AF;margin-top:2px">Years Est.</div>
+            <!-- Credentials strip — matches real site: 3px blue top border -->
+            <div style="background:#fff;border-top:3px solid #1B5FAD;border-bottom:1px solid #E5E7EB;display:flex">
+              <div style="flex:1;padding:6px 6px;border-right:1px solid #E5E7EB;text-align:center">
+                <div style="font-size:10px;font-weight:800;color:#1B2A4A">70+</div>
+                <div style="font-size:4.5px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9CA3AF;margin-top:2px">Years Est.</div>
               </div>
-              <div style="flex:1;padding:5px 6px;border-right:1px solid #E5E7EB;text-align:center">
-                <div style="font-size:9px;font-weight:800;color:#1B2A4A;letter-spacing:-.01em">NHBC</div>
-                <div style="font-size:4.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#9CA3AF;margin-top:2px">Grade A</div>
+              <div style="flex:1;padding:6px 6px;border-right:1px solid #E5E7EB;text-align:center">
+                <div style="font-size:10px;font-weight:800;color:#1B2A4A">NHBC</div>
+                <div style="font-size:4.5px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9CA3AF;margin-top:2px">Grade A</div>
               </div>
-              <div style="flex:1;padding:5px 6px;border-right:1px solid #E5E7EB;text-align:center">
-                <div style="font-size:9px;font-weight:800;color:#1B2A4A;letter-spacing:-.01em">ISO</div>
-                <div style="font-size:4.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#9CA3AF;margin-top:2px">9001:2015</div>
+              <div style="flex:1;padding:6px 6px;border-right:1px solid #E5E7EB;text-align:center">
+                <div style="font-size:10px;font-weight:800;color:#1B2A4A">ISO</div>
+                <div style="font-size:4.5px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9CA3AF;margin-top:2px">9001:2015</div>
               </div>
-              <div style="flex:1;padding:5px 6px;border-right:1px solid #E5E7EB;text-align:center">
-                <div style="font-size:9px;font-weight:800;color:#1B2A4A;letter-spacing:-.01em">CHAS</div>
-                <div style="font-size:4.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#9CA3AF;margin-top:2px">Accredited</div>
+              <div style="flex:1;padding:6px 6px;border-right:1px solid #E5E7EB;text-align:center">
+                <div style="font-size:10px;font-weight:800;color:#1B2A4A">CHAS</div>
+                <div style="font-size:4.5px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9CA3AF;margin-top:2px">Accredited</div>
               </div>
-              <div style="flex:1;padding:5px 6px;text-align:center">
-                <div style="font-size:9px;font-weight:800;color:#1B2A4A;letter-spacing:-.01em">NFB</div>
-                <div style="font-size:4.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#9CA3AF;margin-top:2px">Member</div>
+              <div style="flex:1;padding:6px 6px;text-align:center">
+                <div style="font-size:10px;font-weight:800;color:#1B2A4A">NFB</div>
+                <div style="font-size:4.5px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9CA3AF;margin-top:2px">Member</div>
               </div>
             </div>
           </div>
@@ -1121,10 +1170,11 @@
           <h3>Leck Construction Ltd</h3>
           <p>Complete website redesign for one of Cumbria's largest and longest-established construction companies. NHBC Grade A rated, est. 1946.</p>
         </div>
-      </a>
+      </div>
 
       <!-- Gilpin Hotel / Plato -->
-      <a href="gilpin.html" class="pc rv d2">
+      <div class="pc rv d2">
+        <a href="gilpin.html" class="pc-link" aria-label="View Gilpin Hotel project"></a>
         <div class="pt">
           <div class="pg" style="background:#070707;display:block;padding:0;overflow:hidden;font-family:system-ui,sans-serif">
             <!-- Nav -->
@@ -1136,7 +1186,7 @@
               </div>
             </div>
             <!-- Hero -->
-            <div style="position:relative;height:100px;background-image:url('https://thegilpin.co.uk/wp-content/uploads/Gilpin-Hotel-scaled-1-1024x697.jpg');background-size:cover;background-position:center top">
+            <div style="position:relative;height:100px;background-image:url('images/gilpin-hotel-hero.jpg');background-size:cover;background-position:center top">
               <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(7,7,7,0.95) 0%,rgba(7,7,7,0.65) 40%,rgba(7,7,7,0.25) 100%)"></div>
               <div style="position:absolute;bottom:9px;left:12px">
                 <div style="font-size:5px;font-weight:800;letter-spacing:.25em;text-transform:uppercase;color:#C46A3A;margin-bottom:4px">Welcome to the team</div>
@@ -1146,26 +1196,26 @@
             </div>
             <!-- Photo strip -->
             <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;height:36px">
-              <div style="background-image:url('https://thegilpin.co.uk/wp-content/uploads/Gilpin-Lake-House-4-1024x697.jpg');background-size:cover;background-position:center;filter:brightness(.65)"></div>
-              <div style="background-image:url('https://thegilpin.co.uk/wp-content/uploads/Gilpin-Hotel-Bedroom-2-scaled-1-1-1024x697.jpg');background-size:cover;background-position:center;filter:brightness(.65)"></div>
-              <div style="background-image:url('https://thegilpin.co.uk/wp-content/uploads/Gilpin-Lake-House-Bedroom-2-scaled-1-1-1024x697.jpg');background-size:cover;background-position:center;filter:brightness(.65)"></div>
+              <div style="background-image:url('images/gilpin-lake-house.jpg');background-size:cover;background-position:center;filter:brightness(.65)"></div>
+              <div style="background-image:url('images/gilpin-hotel-bedroom.jpg');background-size:cover;background-position:center;filter:brightness(.65)"></div>
+              <div style="background-image:url('images/gilpin-lake-bedroom.jpg');background-size:cover;background-position:center;filter:brightness(.65)"></div>
             </div>
             <!-- Nav cards -->
             <div style="padding:8px 10px;background:#070707;background-image:radial-gradient(#1a1a1a 1px,transparent 1px);background-size:40px 40px">
               <div style="font-size:5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:#C46A3A;margin-bottom:6px">Where would you like to go?</div>
               <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px">
                 <div style="background:rgba(15,15,15,.8);border:1px solid rgba(196,106,58,.15);border-radius:6px;padding:5px 6px">
-                  <div style="font-size:9px;margin-bottom:2px">🏨</div>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:9px;height:9px;display:block;margin-bottom:2px"><path d="M3 21h18M9 8h1m4 0h1M9 12h1m4 0h1M9 16h1m4 0h1M5 21V5a2 2 0 012-2h10a2 2 0 012 2v16"/></svg>
                   <div style="font-size:6px;font-weight:700;color:#f8fafc;margin-bottom:1px;letter-spacing:-.01em">Our Hotel</div>
                   <div style="font-size:5px;color:#94a3b8;line-height:1.3">History &amp; what makes us special.</div>
                 </div>
                 <div style="background:rgba(15,15,15,.8);border:1px solid rgba(196,106,58,.15);border-radius:6px;padding:5px 6px">
-                  <div style="font-size:9px;margin-bottom:2px">📋</div>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:9px;height:9px;display:block;margin-bottom:2px"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
                   <div style="font-size:6px;font-weight:700;color:#f8fafc;margin-bottom:1px;letter-spacing:-.01em">SOPs</div>
                   <div style="font-size:5px;color:#94a3b8;line-height:1.3">Procedures &amp; standards.</div>
                 </div>
                 <div style="background:rgba(15,15,15,.8);border:1px solid rgba(196,106,58,.15);border-radius:6px;padding:5px 6px">
-                  <div style="font-size:9px;margin-bottom:2px">🤖</div>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#C46A3A" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:9px;height:9px;display:block;margin-bottom:2px"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
                   <div style="font-size:6px;font-weight:700;color:#f8fafc;margin-bottom:1px;letter-spacing:-.01em">Ask Plato</div>
                   <div style="font-size:5px;color:#94a3b8;line-height:1.3">AI trainer, 24/7.</div>
                 </div>
@@ -1302,12 +1352,14 @@
             <label for="fmsg">Tell us about your project</label>
             <textarea id="fmsg" name="message" placeholder="I run a [type of business] and I'm looking for..." required></textarea>
           </div>
+          <input type="text" name="botcheck" id="botcheck" style="display:none" tabindex="-1" autocomplete="off">
           <button type="submit" class="btn f-sub" id="fsub">
             Send Message
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="13" height="13"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
           </button>
         </form>
         <div id="fs-ok" role="alert">&#10003;&nbsp; Message sent — we'll be in touch within 24 hours.</div>
+        <div id="fs-err" role="alert" style="display:none;margin-top:var(--sp-4);padding:14px var(--sp-5);background:oklch(35% 0.12 25 / 0.12);border:1px solid oklch(50% 0.12 25 / 0.3);border-radius:10px;color:oklch(70% 0.1 25);font-size:0.85rem;"></div>
       </div>
 
       <div class="ct-aside rv d2">
@@ -1327,7 +1379,7 @@
           </div>
           <div>
             <div class="ct-lbl">Email</div>
-            <div class="ct-val"><a href="mailto:hello@layered.studio">hello@layered.studio</a></div>
+            <div class="ct-val"><a href="mailto:hello@layeredstudios.com">hello@layeredstudios.com</a></div>
           </div>
         </div>
         <div class="ct-item">
@@ -1353,8 +1405,12 @@
     <div class="ft-top">
       <div>
         <div class="ft-brand">
-          <span style="width:8px;height:8px;background:var(--accent-mid);border-radius:50%;flex-shrink:0"></span>
-          Layered
+          <svg width="116" height="22" viewBox="0 0 148 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Layered">
+            <rect x="0" y="3"  width="22" height="5" rx="2.5" fill="oklch(50% 0.14 158)"/>
+            <rect x="0" y="12" width="15" height="5" rx="2.5" fill="oklch(50% 0.14 158)" opacity="0.72"/>
+            <rect x="0" y="21" width="9"  height="5" rx="2.5" fill="oklch(50% 0.14 158)" opacity="0.46"/>
+            <text x="31" y="24" font-family="'Bricolage Grotesque', system-ui, sans-serif" font-size="21" font-weight="700" fill="currentColor" letter-spacing="-0.84">Layered</text>
+          </svg>
         </div>
         <p class="ft-tagline">Web development &amp; AI systems integration, engineered layer by layer.</p>
       </div>
@@ -1364,7 +1420,7 @@
         <a href="#about">About</a>
         <a href="#process">Process</a>
         <a href="tel:07425781485">07425 781485</a>
-        <a href="mailto:hello@layered.studio">hello@layered.studio</a>
+        <a href="mailto:hello@layeredstudios.com">hello@layeredstudios.com</a>
       </nav>
     </div>
     <div class="ft-bot">
@@ -1408,16 +1464,66 @@
   document.querySelectorAll('.rv').forEach(el => io.observe(el));
 
   // Form submit
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    const b = document.getElementById('fsub');
-    b.textContent = 'Sending…';
-    b.disabled = true;
-    b.style.opacity = '0.6';
-    setTimeout(() => {
-      document.getElementById('fs-ok').style.display = 'block';
-      e.target.style.display = 'none';
-    }, 900);
+    const btn = document.getElementById('fsub');
+    const errEl = document.getElementById('fs-err');
+
+    const name    = document.getElementById('fname').value.trim();
+    const email   = document.getElementById('femail').value.trim();
+    const phone   = document.getElementById('fphone').value.trim();
+    const message = document.getElementById('fmsg').value.trim();
+
+    // Validate required fields
+    if (!name || !email || !message) {
+      errEl.textContent = 'Please fill in your name, email, and project details before sending.';
+      errEl.style.display = 'block';
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      errEl.textContent = 'Please enter a valid email address.';
+      errEl.style.display = 'block';
+      return;
+    }
+
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+    btn.style.opacity = '0.6';
+    errEl.style.display = 'none';
+
+    const data = {
+      access_key: '0beadfb4-1eb3-4719-bbd4-ffa6037237fb',
+      name,
+      email,
+      phone,
+      message,
+      subject:    'New Enquiry — Layered',
+      botcheck:   document.getElementById('botcheck').value,
+    };
+
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      const json = await res.json();
+      if (json.success) {
+        window.location.href = '/thank-you.html';
+      } else {
+        errEl.textContent = json.message || 'Something went wrong. Please try again.';
+        errEl.style.display = 'block';
+        btn.textContent = 'Send Message';
+        btn.disabled = false;
+        btn.style.opacity = '1';
+      }
+    } catch {
+      errEl.textContent = 'Could not send — please email us directly at hello@layeredstudios.com';
+      errEl.style.display = 'block';
+      btn.textContent = 'Send Message';
+      btn.disabled = false;
+      btn.style.opacity = '1';
+    }
   }
 </script>
 </body>

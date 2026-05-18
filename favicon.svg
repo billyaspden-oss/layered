@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Dark background -->
+  <rect width="32" height="32" rx="6" fill="oklch(13% 0.014 85)"/>
+  <!-- Three tapering bars — the "layers" motif -->
+  <rect x="6" y="9"  width="20" height="4" rx="2" fill="oklch(50% 0.14 158)"/>
+  <rect x="6" y="15" width="14" height="4" rx="2" fill="oklch(50% 0.14 158)" opacity="0.75"/>
+  <rect x="6" y="21" width="8"  height="4" rx="2" fill="oklch(50% 0.14 158)" opacity="0.5"/>
+</svg>

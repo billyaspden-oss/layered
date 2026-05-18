@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 148 28" role="img" aria-label="Layered">
+  <title>Layered</title>
+  <defs>
+    <style>@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700&amp;display=swap');</style>
+  </defs>
+  <!-- Mark: three tapering bars -->
+  <rect x="0" y="3"  width="22" height="5" rx="2.5" fill="oklch(50% 0.14 158)"/>
+  <rect x="0" y="12" width="15" height="5" rx="2.5" fill="oklch(50% 0.14 158)" opacity="0.72"/>
+  <rect x="0" y="21" width="9"  height="5" rx="2.5" fill="oklch(50% 0.14 158)" opacity="0.46"/>
+  <!-- Wordmark -->
+  <text x="31" y="24"
+    font-family="'Bricolage Grotesque', system-ui, sans-serif"
+    font-size="21"
+    font-weight="700"
+    fill="oklch(16% 0.012 85)"
+    letter-spacing="-0.84">Layered</text>
+</svg>

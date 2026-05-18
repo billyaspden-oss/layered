@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Message Received — Layered</title>
+  <meta name="description" content="Thanks for getting in touch. We'll come back to you within 24 hours.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://www.layeredstudios.com/thank-you.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Figtree:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:         oklch(97.5% 0.007 85);
+      --surface:    oklch(99.5% 0.003 85);
+      --border:     oklch(89%   0.009 85);
+      --border-str: oklch(80%   0.011 85);
+      --text:       oklch(16%   0.012 85);
+      --text-2:     oklch(40%   0.009 85);
+      --text-3:     oklch(60%   0.007 85);
+      --accent:     oklch(38%   0.14  158);
+      --accent-mid: oklch(50%   0.14  158);
+      --accent-sub: oklch(94%   0.045 158);
+      --dk:         oklch(13%   0.014 85);
+      --dk-bdr:     oklch(25%   0.013 85);
+      --dk-txt:     oklch(93%   0.007 85);
+      --dk-mut:     oklch(58%   0.009 85);
+      --display: 'Bricolage Grotesque', sans-serif;
+      --body:    'Figtree', sans-serif;
+      --sp-2: 8px; --sp-3: 12px; --sp-4: 16px; --sp-5: 24px;
+      --sp-6: 32px; --sp-7: 48px; --sp-8: 64px; --sp-9: 96px;
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--body);
+      background: var(--dk);
+      color: var(--text);
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* NAV */
+    .nav {
+      padding: var(--sp-5) var(--sp-8);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-brand {
+      font-family: var(--display);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--dk-txt);
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .brand-mark { width: 8px; height: 8px; background: var(--accent-mid); border-radius: 50%; flex-shrink: 0; }
+    .nav-back {
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--dk-mut);
+      display: flex;
+      align-items: center;
+      gap: var(--sp-2);
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--dk-txt); }
+    .nav-back svg { width: 13px; height: 13px; }
+
+    /* MAIN */
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--sp-8) var(--sp-8);
+      position: relative;
+      overflow: hidden;
+    }
+    main::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(oklch(100% 0 0 / 0.025) 1px, transparent 1px);
+      background-size: 100% 96px;
+      pointer-events: none;
+    }
+    main::after {
+      content: '';
+      position: absolute;
+      width: 700px;
+      height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, oklch(38% 0.14 158 / 0.1), transparent 70%);
+      top: -200px;
+      left: 50%;
+      transform: translateX(-50%);
+      pointer-events: none;
+    }
+
+    .card {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 520px;
+      width: 100%;
+      opacity: 0;
+      transform: translateY(24px);
+      animation: rise 0.7s var(--ease-out) 0.1s forwards;
+    }
+    @keyframes rise { to { opacity: 1; transform: none; } }
+
+    .check-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: var(--sp-7);
+    }
+    .check-ring {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: oklch(38% 0.14 158 / 0.12);
+      border: 1px solid oklch(50% 0.14 158 / 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-mid);
+      animation: pop 0.5s var(--ease-out) 0.5s both;
+    }
+    @keyframes pop { from { transform: scale(0.7); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+    .eyebrow {
+      font-size: 0.67rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent-mid);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--sp-2);
+      margin-bottom: var(--sp-5);
+    }
+    .eyebrow::before, .eyebrow::after { content: ''; flex: 1; max-width: 32px; height: 1px; background: var(--accent-mid); opacity: 0.5; }
+
+    h1 {
+      font-family: var(--display);
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 0.96;
+      color: var(--dk-txt);
+      margin-bottom: var(--sp-5);
+    }
+
+    .sub {
+      font-size: 0.95rem;
+      line-height: 1.78;
+      color: var(--dk-mut);
+      margin-bottom: var(--sp-7);
+    }
+
+    .actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--sp-3);
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sp-2);
+      font-family: var(--body);
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 13px var(--sp-5);
+      border-radius: 100px;
+      border: none;
+      cursor: pointer;
+      transition: 0.28s var(--ease-out);
+      white-space: nowrap;
+    }
+    .btn svg { width: 13px; height: 13px; flex-shrink: 0; transition: transform 0.28s var(--ease-out); }
+    .btn-p { background: var(--accent); color: oklch(97% 0.007 85); }
+    .btn-p:hover { background: var(--accent-mid); transform: translateY(-2px); box-shadow: 0 8px 28px oklch(38% 0.14 158 / 0.38); }
+    .btn-p:hover svg { transform: translate(2px, -2px); }
+    .btn-g { background: transparent; color: var(--dk-mut); border: 1px solid var(--dk-bdr); }
+    .btn-g:hover { border-color: oklch(45% 0.01 85); color: var(--dk-txt); transform: translateY(-1px); }
+
+    .divider {
+      width: 1px;
+      height: 16px;
+      background: var(--dk-bdr);
+    }
+
+    .direct {
+      margin-top: var(--sp-7);
+      font-size: 0.78rem;
+      color: oklch(35% 0.01 85);
+    }
+    .direct a { color: var(--dk-mut); transition: color 0.2s; }
+    .direct a:hover { color: var(--accent-mid); }
+
+    /* FOOTER */
+    footer {
+      padding: var(--sp-5) var(--sp-8);
+      border-top: 1px solid var(--dk-bdr);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--sp-4);
+    }
+    .ft-copy { font-size: 0.67rem; letter-spacing: 0.06em; color: oklch(35% 0.01 85); }
+    .ft-loc  { font-size: 0.67rem; letter-spacing: 0.06em; color: oklch(30% 0.01 85); }
+
+    @media (max-width: 600px) {
+      .nav, main, footer { padding-left: 20px; padding-right: 20px; }
+      .divider { display: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .card, .check-ring { animation: none !important; opacity: 1 !important; transform: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/" class="nav-brand" aria-label="Layered — home">
+    <svg width="116" height="22" viewBox="0 0 148 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <rect x="0" y="3"  width="22" height="5" rx="2.5" fill="oklch(50% 0.14 158)"/>
+      <rect x="0" y="12" width="15" height="5" rx="2.5" fill="oklch(50% 0.14 158)" opacity="0.72"/>
+      <rect x="0" y="21" width="9"  height="5" rx="2.5" fill="oklch(50% 0.14 158)" opacity="0.46"/>
+      <text x="31" y="24" font-family="'Bricolage Grotesque', system-ui, sans-serif" font-size="21" font-weight="700" fill="currentColor" letter-spacing="-0.84">Layered</text>
+    </svg>
+  </a>
+  <a href="/" class="nav-back">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    Back to site
+  </a>
+</nav>
+
+<main>
+  <div class="card">
+    <div class="check-wrap">
+      <div class="check-ring" aria-hidden="true">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+    </div>
+    <div class="eyebrow">Message received</div>
+    <h1>We'll be in touch<br>shortly.</h1>
+    <p class="sub">Thanks for reaching out. We read every enquiry personally and usually come back within 24 hours with a plain-English response — no automated replies, no sales scripts.</p>
+    <div class="actions">
+      <a href="/#portfolio" class="btn btn-p">
+        See Our Work
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <div class="divider" aria-hidden="true"></div>
+      <a href="/#services" class="btn btn-g">Our Services</a>
+    </div>
+    <p class="direct">Can't wait? Call us on <a href="tel:07425781485">07425 781485</a> or email <a href="mailto:hello@layeredstudios.com">hello@layeredstudios.com</a></p>
+  </div>
+</main>
+
+<footer>
+  <p class="ft-copy">&copy; 2026 Layered. All rights reserved.</p>
+  <p class="ft-loc">// Kendal, Cumbria</p>
+</footer>
+
+</body>
+</html>

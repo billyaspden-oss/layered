@@ -3,8 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Leck Construction Ltd — Layered</title>
-  <meta name="description" content="Case study: Complete website redesign for Leck Construction Ltd, one of Cumbria's largest and longest-established construction companies.">
+  <title>Leck Construction — Website Redesign | Layered Case Study</title>
+  <meta name="description" content="Case study: Full website redesign for Leck Construction Ltd, one of Cumbria's largest construction companies. NHBC Grade A rated, established 1946.">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://www.layeredstudios.com/leck-construction.html">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.layeredstudios.com/leck-construction.html">
+  <meta property="og:site_name" content="Layered">
+  <meta property="og:title" content="Leck Construction — Website Redesign | Layered Case Study">
+  <meta property="og:description" content="Full website redesign for one of Cumbria's largest and longest-established construction companies. Bespoke, mobile-first, and built to convert.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Leck Construction — Website Redesign | Layered">
+  <meta name="twitter:description" content="Full website redesign for one of Cumbria's largest construction companies.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Figtree:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
@@ -123,7 +133,8 @@
     .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; margin-top: var(--sp-7); }
     .feat { background: var(--surface); padding: var(--sp-6) var(--sp-5); transition: background 0.2s; }
     .feat:hover { background: var(--bg); }
-    .feat-ico { font-size: 1.4rem; margin-bottom: var(--sp-3); }
+    .feat-ico { width: 22px; height: 22px; margin-bottom: var(--sp-3); color: var(--text-3); }
+    .feat-ico svg { width: 100%; height: 100%; }
     .feat h4 { font-family: var(--display); font-size: 0.95rem; font-weight: 700; letter-spacing: -0.02em; color: var(--text); margin-bottom: var(--sp-2); }
     .feat p { font-size: 0.82rem; line-height: 1.68; color: var(--text-2); }
 
@@ -162,8 +173,13 @@
 <nav class="nav">
   <div class="wrap">
     <div class="nav-in">
-      <a href="index.html" class="nav-brand">
-        <span class="brand-mark"></span>Layered
+      <a href="index.html" class="nav-brand" aria-label="Layered — home">
+        <svg width="116" height="22" viewBox="0 0 148 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="0" y="3"  width="22" height="5" rx="2.5" fill="oklch(50% 0.14 158)"/>
+          <rect x="0" y="12" width="15" height="5" rx="2.5" fill="oklch(50% 0.14 158)" opacity="0.72"/>
+          <rect x="0" y="21" width="9"  height="5" rx="2.5" fill="oklch(50% 0.14 158)" opacity="0.46"/>
+          <text x="31" y="24" font-family="'Bricolage Grotesque', system-ui, sans-serif" font-size="21" font-weight="700" fill="currentColor" letter-spacing="-0.84">Layered</text>
+        </svg>
       </a>
       <a href="index.html#portfolio" class="nav-back">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
@@ -213,49 +229,49 @@
         <div class="preview-dots"><span></span><span></span><span></span></div>
         <div class="preview-url">leckconstruction.co.uk</div>
       </div>
-      <!-- Accurate mini-site preview -->
+      <!-- Leck Construction site preview — real photo, real logo -->
       <div style="background:#fff;font-family:system-ui,sans-serif">
-        <div style="background:#fff;border-top:3px solid #1B5FAD;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 1px 0 rgba(0,0,0,.06)">
-          <img src="https://raw.githubusercontent.com/billyaspden-oss/leck-construction-site/main/public/images/leck-logo.png" style="height:36px;object-fit:contain;display:block" alt="Leck Construction Ltd" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
-          <span style="display:none;font-size:13px;font-weight:800;color:#1B2A4A;letter-spacing:-.01em">LECK CONSTRUCTION</span>
-          <div style="display:flex;gap:18px;align-items:center">
-            <span style="font-size:9.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#6B7280">Sectors</span>
-            <span style="font-size:9.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#6B7280">Projects</span>
-            <span style="font-size:9.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#6B7280">Approach</span>
-            <span style="font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:#1B2A4A;color:#fff;padding:7px 16px">Contact</span>
+        <div style="background:#fff;border-top:3px solid #1B5FAD;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 1px 0 rgba(0,0,0,.06)">
+          <img src="images/leck-logo.png" alt="Leck Construction Ltd" style="height:36px;width:auto;display:block">
+          <div style="display:flex;gap:20px;align-items:center">
+            <span style="font-size:9px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#6B7280">About</span>
+            <span style="font-size:9px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#6B7280">Sectors</span>
+            <span style="font-size:9px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#6B7280">Our Work</span>
+            <span style="font-size:9px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#6B7280">Contact</span>
+            <span style="font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:#1B2A4A;color:#fff;padding:8px 16px">Leck Homes ↗</span>
           </div>
         </div>
-        <div style="position:relative;height:280px;background-image:url('https://raw.githubusercontent.com/billyaspden-oss/leck-construction-site/main/public/images/projects/lanthwaite-dusk-02.jpg');background-size:cover;background-position:center">
-          <div style="position:absolute;inset:0;background:linear-gradient(100deg,rgba(0,0,0,.8),rgba(0,0,0,.52) 45%,rgba(0,0,0,.18))"></div>
-          <div style="position:absolute;bottom:36px;left:40px;right:40px">
-            <div style="display:flex;align-items:center;gap:10px;font-size:9px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:10px">
-              <span style="display:block;width:20px;height:2px;background:#fff;flex-shrink:0"></span>South Cumbria's Construction Specialist · Est. 1946
+        <div style="position:relative;height:340px;background-image:url('images/leck-hero.jpg');background-size:cover;background-position:center">
+          <div style="position:absolute;inset:0;background:linear-gradient(100deg,rgba(0,0,0,.78) 0%,rgba(0,0,0,.55) 45%,rgba(0,0,0,.22) 100%)"></div>
+          <div style="position:absolute;bottom:44px;left:48px;right:48px">
+            <div style="display:flex;align-items:center;gap:10px;font-size:9px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:12px">
+              <span style="display:block;width:24px;height:2px;background:#fff;flex-shrink:0"></span>South Cumbria's Construction Specialist · Est. 1946
             </div>
-            <div style="font-size:40px;font-weight:900;color:#fff;line-height:1.05;letter-spacing:-.025em;margin-bottom:14px">South Cumbria's<br>Construction Specialist.</div>
-            <div style="font-size:13px;color:rgba(255,255,255,.7);max-width:420px;line-height:1.7;margin-bottom:18px">Eight decades of delivering commercial, industrial, housing and heritage projects across Cumbria and the North West — built on quality, safety and trust.</div>
-            <div style="display:inline-flex;align-items:center;gap:8px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:#fff;color:#1B2A4A;padding:12px 22px">Find Out More →</div>
+            <div style="font-family:'Inter',system-ui;font-size:42px;font-weight:800;color:#fff;line-height:1.04;letter-spacing:-.025em;margin-bottom:16px">South Cumbria's<br>Construction Specialist.</div>
+            <div style="font-size:13px;color:rgba(255,255,255,.7);max-width:460px;line-height:1.75;margin-bottom:24px">Eight decades of delivering commercial, industrial, housing and heritage projects across Cumbria and the North West — built on quality, safety and trust.</div>
+            <div style="display:inline-flex;align-items:center;gap:8px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:#fff;color:#1B2A4A;padding:14px 28px">Find Out More →</div>
           </div>
         </div>
         <div style="background:#fff;border-top:3px solid #1B5FAD;border-bottom:1px solid #E5E7EB;display:flex">
-          <div style="flex:1;padding:12px;border-right:1px solid #E5E7EB;text-align:center">
-            <div style="font-size:16px;font-weight:800;color:#1B2A4A">70+</div>
-            <div style="font-size:8px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9CA3AF;margin-top:3px">Years Est.</div>
+          <div style="flex:1;padding:14px;border-right:1px solid #E5E7EB;text-align:center">
+            <div style="font-size:18px;font-weight:800;color:#1B2A4A">70+</div>
+            <div style="font-size:8px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9CA3AF;margin-top:4px">Years Est.</div>
           </div>
-          <div style="flex:1;padding:12px;border-right:1px solid #E5E7EB;text-align:center">
-            <div style="font-size:16px;font-weight:800;color:#1B2A4A">NHBC</div>
-            <div style="font-size:8px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9CA3AF;margin-top:3px">Grade A Rated</div>
+          <div style="flex:1;padding:14px;border-right:1px solid #E5E7EB;text-align:center">
+            <div style="font-size:18px;font-weight:800;color:#1B2A4A">NHBC</div>
+            <div style="font-size:8px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9CA3AF;margin-top:4px">Grade A Rated</div>
           </div>
-          <div style="flex:1;padding:12px;border-right:1px solid #E5E7EB;text-align:center">
-            <div style="font-size:16px;font-weight:800;color:#1B2A4A">ISO</div>
-            <div style="font-size:8px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9CA3AF;margin-top:3px">9001 : 2015</div>
+          <div style="flex:1;padding:14px;border-right:1px solid #E5E7EB;text-align:center">
+            <div style="font-size:18px;font-weight:800;color:#1B2A4A">ISO</div>
+            <div style="font-size:8px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9CA3AF;margin-top:4px">9001 : 2015</div>
           </div>
-          <div style="flex:1;padding:12px;border-right:1px solid #E5E7EB;text-align:center">
-            <div style="font-size:16px;font-weight:800;color:#1B2A4A">CHAS</div>
-            <div style="font-size:8px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9CA3AF;margin-top:3px">Accredited</div>
+          <div style="flex:1;padding:14px;border-right:1px solid #E5E7EB;text-align:center">
+            <div style="font-size:18px;font-weight:800;color:#1B2A4A">CHAS</div>
+            <div style="font-size:8px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9CA3AF;margin-top:4px">Accredited</div>
           </div>
-          <div style="flex:1;padding:12px;text-align:center">
-            <div style="font-size:16px;font-weight:800;color:#1B2A4A">NFB</div>
-            <div style="font-size:8px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9CA3AF;margin-top:3px">Member</div>
+          <div style="flex:1;padding:14px;text-align:center">
+            <div style="font-size:18px;font-weight:800;color:#1B2A4A">NFB</div>
+            <div style="font-size:8px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9CA3AF;margin-top:4px">Member</div>
           </div>
         </div>
       </div>
@@ -284,35 +300,35 @@
 <section class="sec">
   <div class="wrap rv">
     <div class="eyebrow">What We Built</div>
-    <h2>Five sector pages. A project gallery. A site that earns trust before anyone picks up the phone.</h2>
+    <h2>Six sector pages. A project gallery. A site that earns trust before anyone picks up the phone.</h2>
     <div class="features-grid">
       <div class="feat rv d1">
-        <div class="feat-ico">🎠</div>
-        <h4>Ken Burns Hero Carousel</h4>
-        <p>A full-height, full-bleed hero carousel cycling through real project photography — each slide with its own headline, sector label, and call to action. Smooth Ken Burns effect animates each background.</p>
+        <div class="feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></div>
+        <h4>Six Sector Pages</h4>
+        <p>Dedicated pages for each specialism: Strategic Partnerships, Commercial &amp; Education &amp; Health, Industrial &amp; Civil Engineering, Heritage Conservation, Private &amp; Social Housing, and Leck Homes — each with its own photography and project examples.</p>
       </div>
       <div class="feat rv d2">
-        <div class="feat-ico">🏗️</div>
-        <h4>Five Sector Pages</h4>
-        <p>Dedicated pages for each specialism: Strategic Partnerships, Commercial &amp; Education, Industrial &amp; Civil Engineering, Heritage Conservation, and Leck Homes — each with its own photography and project examples.</p>
+        <div class="feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+        <h4>Leck Homes — Sub-Brand Page</h4>
+        <p>Leck Homes is a distinct sub-business within Leck Construction — residential development with its own identity and audience. It has a dedicated page and sits as a separate call-to-action in the navigation, positioned to speak directly to buyers rather than commercial clients.</p>
       </div>
       <div class="feat rv d3">
-        <div class="feat-ico">📸</div>
+        <div class="feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
         <h4>Project Gallery</h4>
         <p>A filterable gallery of completed projects — from the Emlyn Hughes Arena in Cleator Moor to bespoke homes, NHS facilities, and industrial piling contracts across the North West.</p>
       </div>
       <div class="feat rv d1">
-        <div class="feat-ico">🏅</div>
+        <div class="feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg></div>
         <h4>Credentials Strip</h4>
         <p>A prominent credentials bar immediately below the hero — displaying 70+ years established, NHBC Grade A, ISO 9001:2015, CHAS Accredited, and NFB Member status. Trust signals, front and centre.</p>
       </div>
       <div class="feat rv d2">
-        <div class="feat-ico">🤝</div>
+        <div class="feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg></div>
         <h4>Partnerships Showcase</h4>
         <p>A dedicated section highlighting long-term measured-term contracts with GlaxoSmithKline and BAE Systems — communicating the scale of work they're trusted to deliver.</p>
       </div>
       <div class="feat rv d3">
-        <div class="feat-ico">📋</div>
+        <div class="feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="15" y2="16"/></svg></div>
         <h4>Approach &amp; Values</h4>
         <p>A page outlining Leck's commitment to quality, safety culture, and community — backed by their certification history and the people who have kept the business growing across eight decades.</p>
       </div>
