@@ -1,42 +1,48 @@
-# Reddit lead finder
+# Lead finder
 
-Scrapes Reddit on a schedule for posts that look like someone shopping for a
-website, runs each candidate through Claude Haiku to filter out noise, and
-appends matches to `leads.csv`.
+Scrapes social media on a schedule for posts that look like someone shopping
+for a website, runs each candidate through Claude Haiku to filter out noise,
+and appends matches to `leads.csv`. Optional SMTP email digest on runs that
+produce new leads.
+
+**Sources:**
+- **Bluesky** — requires a free Bluesky account + app password (1-minute setup)
+- **Hacker News** — uses the public Algolia search API, no auth required
+
+Both sources are queried in every run; results are deduped and merged into a
+single ranked list.
 
 ## One-time setup
 
-### 1. Create a Reddit app (free, 2 minutes)
-
-1. Sign in to Reddit, go to https://www.reddit.com/prefs/apps
-2. Click **create app** (scroll to bottom)
-3. Pick **script** as the type
-4. Name: anything (e.g. `layered-leadfinder`)
-5. Redirect URI: `http://localhost:8080` (unused but required)
-6. Click **create app**
-7. Note the **client ID** (under the app name, looks like `abc123XYZ`) and
-   **secret**
-
-### 2. Get an Anthropic API key
+### 1. Get an Anthropic API key
 
 https://console.anthropic.com → Settings → API Keys → Create Key.
 Haiku 4.5 is cheap; expect well under $1/month at default volumes.
+
+### 2. Get a Bluesky app password
+
+1. Sign up at https://bsky.app (free, no captcha gates)
+2. Go to **Settings → App Passwords → Add App Password**
+3. Name it something like `lead-finder`
+4. Copy the password — it's only shown once. Format: `xxxx-xxxx-xxxx-xxxx`
 
 ### 3. Add GitHub secrets
 
 In your repo: **Settings → Secrets and variables → Actions → New repository secret**
 
-| Name                    | Value                                                                |
-| ----------------------- | -------------------------------------------------------------------- |
-| `REDDIT_CLIENT_ID`      | from step 1                                                          |
-| `REDDIT_CLIENT_SECRET`  | from step 1                                                          |
-| `REDDIT_USER_AGENT`     | `layered-leadfinder/0.1 (by u/your_reddit_username)`                 |
-| `ANTHROPIC_API_KEY`     | from step 2                                                          |
+| Name                   | Required | Value                                                 |
+| ---------------------- | -------- | ----------------------------------------------------- |
+| `ANTHROPIC_API_KEY`    | yes      | from step 1                                           |
+| `BLUESKY_HANDLE`       | optional | your Bluesky handle, e.g. `layered.bsky.social`       |
+| `BLUESKY_APP_PASSWORD` | optional | from step 2                                           |
+
+If `BLUESKY_*` aren't set, Bluesky is silently skipped and only Hacker News
+runs. So you can launch with HN-only and add Bluesky later if you want.
 
 ### 4. Add SMTP secrets for email digest (optional)
 
-If these aren't set, the run still works — it just won't email. Add the same
-way as above (Settings → Secrets and variables → Actions).
+If these aren't set the run still works — it just won't email. New leads are
+always saved to `leads.csv` regardless.
 
 | Name            | Value                                                                  |
 | --------------- | ---------------------------------------------------------------------- |
@@ -56,29 +62,47 @@ most 4/day, usually fewer. No empty digests.
 
 ### 5. (Optional) Trigger a first run manually
 
-**Actions → Scrape Reddit leads → Run workflow**.
+**Actions → Scrape leads → Run workflow**.
 After it finishes you should see a `chore(scraper): add new leads ...` commit
 if anything matched.
 
 ## Tuning
 
-Edit `scraper/config.yaml` to change subreddits, queries, lookback window, and
-the business-context description used by the classifier. No code changes
-needed.
+Edit `scraper/config.yaml` to change queries, lookback window, and the
+business-context description used by the classifier. No code changes needed.
+
+Expect to iterate on queries for a week or two — check `classifier_reason` in
+`leads.csv` to see why borderline posts were kept/dropped, and adjust the
+business-context blurb if too many false positives slip through.
 
 ## Running locally
 
 ```bash
 cd scraper
 pip install -r requirements.txt
-export REDDIT_CLIENT_ID=...
-export REDDIT_CLIENT_SECRET=...
-export REDDIT_USER_AGENT="layered-leadfinder/0.1 (by u/your_reddit_username)"
 export ANTHROPIC_API_KEY=...
+export BLUESKY_HANDLE=...        # optional
+export BLUESKY_APP_PASSWORD=...  # optional
 python scrape.py
 ```
 
 ## Output
 
-`scraper/leads.csv` — one row per matched post. The workflow commits this back
-to the branch on every run, so the file is your durable lead list.
+`scraper/leads.csv` — one row per matched post. The workflow commits this
+back to the branch on every run, so the file is your durable lead list.
+
+## A note on lead volume
+
+Both sources are smaller than Reddit:
+
+- **Bluesky** has a growing audience that skews tech-savvy and creative,
+  but is still ~10% the size of Reddit. Expect a handful of leads per
+  week, not per day.
+- **Hacker News** is technical and DIY-leaning, so direct "need a website"
+  posts are rare. Most value here comes from "Show HN" / "Ask HN" threads
+  where non-technical founders mention needing help. Low yield, but
+  occasionally high quality.
+
+If you want more volume later, the architecture is source-pluggable — adding
+a Mastodon or a paid Twitter/X source is a single function alongside
+`search_bluesky` and `search_hackernews`.

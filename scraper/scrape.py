@@ -1,7 +1,11 @@
-"""Find Reddit posts from people who appear to be shopping for a website.
+"""Find social media posts from people who appear to be shopping for a website.
 
 Runs on a schedule (see .github/workflows/scrape.yml), appends new matches to
 leads.csv, and skips posts already in the file.
+
+Sources:
+  - Bluesky (requires app password)
+  - Hacker News via Algolia API (no auth required)
 """
 
 from __future__ import annotations
@@ -13,12 +17,14 @@ import os
 import smtplib
 import sys
 import time
+import urllib.error
+import urllib.parse
+import urllib.request
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from email.message import EmailMessage
 from pathlib import Path
 
-import praw
 import yaml
 from anthropic import Anthropic
 
@@ -28,7 +34,7 @@ LEADS_PATH = ROOT / "leads.csv"
 
 LEADS_FIELDS = [
     "post_id",
-    "subreddit",
+    "source",
     "title",
     "author",
     "url",
@@ -40,11 +46,14 @@ LEADS_FIELDS = [
     "found_at",
 ]
 
+REQUEST_DELAY_SEC = 1.0
+DEFAULT_UA = "layered-leadfinder/0.1 (+https://github.com/billyaspden-oss/layered)"
+
 
 @dataclass
 class Candidate:
     post_id: str
-    subreddit: str
+    source: str
     title: str
     selftext: str
     author: str
@@ -74,61 +83,184 @@ def ensure_leads_file() -> None:
         csv.DictWriter(f, fieldnames=LEADS_FIELDS).writeheader()
 
 
-def reddit_client() -> praw.Reddit:
-    return praw.Reddit(
-        client_id=os.environ["REDDIT_CLIENT_ID"],
-        client_secret=os.environ["REDDIT_CLIENT_SECRET"],
-        user_agent=os.environ.get(
-            "REDDIT_USER_AGENT",
-            "layered-leadfinder/0.1 (by u/unknown)",
-        ),
-    )
+def _http_json(
+    url: str,
+    *,
+    method: str = "GET",
+    headers: dict | None = None,
+    body: bytes | None = None,
+) -> dict:
+    merged_headers = {"User-Agent": DEFAULT_UA}
+    if headers:
+        merged_headers.update(headers)
+    req = urllib.request.Request(url, method=method, headers=merged_headers, data=body)
+    backoff = 2
+    for attempt in range(4):
+        try:
+            with urllib.request.urlopen(req, timeout=30) as resp:
+                return json.loads(resp.read().decode("utf-8"))
+        except urllib.error.HTTPError as e:
+            if e.code in (429, 500, 502, 503, 504) and attempt < 3:
+                time.sleep(backoff)
+                backoff *= 2
+                continue
+            raise
+        except urllib.error.URLError:
+            if attempt < 3:
+                time.sleep(backoff)
+                backoff *= 2
+                continue
+            raise
+    return {}
 
 
-def search_reddit(reddit: praw.Reddit, config: dict, seen: set[str]) -> list[Candidate]:
+# ----------------------------------------------------------------------
+# Bluesky source
+# ----------------------------------------------------------------------
+
+def _bluesky_auth() -> str | None:
+    handle = os.environ.get("BLUESKY_HANDLE")
+    password = os.environ.get("BLUESKY_APP_PASSWORD")
+    if not handle or not password:
+        return None
+    try:
+        payload = _http_json(
+            "https://bsky.social/xrpc/com.atproto.server.createSession",
+            method="POST",
+            headers={"Content-Type": "application/json"},
+            body=json.dumps({"identifier": handle, "password": password}).encode(),
+        )
+        return payload.get("accessJwt")
+    except Exception as e:
+        print(f"  bluesky auth failed: {e}", file=sys.stderr)
+        return None
+
+
+def _bluesky_post_url(handle: str, uri: str) -> str:
+    rkey = uri.rsplit("/", 1)[-1]
+    return f"https://bsky.app/profile/{handle}/post/{rkey}"
+
+
+def search_bluesky(config: dict, seen: set[str]) -> list[Candidate]:
+    token = _bluesky_auth()
+    if not token:
+        print("Skipping Bluesky (missing BLUESKY_HANDLE/BLUESKY_APP_PASSWORD)")
+        return []
+
     cutoff = time.time() - config["lookback_hours"] * 3600
-    limit = config["limit_per_query"]
+    limit = min(int(config["limit_per_query"]), 100)
+    headers = {"Authorization": f"Bearer {token}", "Accept": "application/json"}
     candidates: dict[str, Candidate] = {}
 
-    for subreddit_name in config["subreddits"]:
-        subreddit = reddit.subreddit(subreddit_name)
-        for query in config["queries"]:
-            try:
-                submissions = subreddit.search(
-                    query, sort="new", time_filter="week", limit=limit
-                )
-                for s in submissions:
-                    if s.id in seen or s.id in candidates:
-                        continue
-                    if s.created_utc < cutoff:
-                        continue
-                    candidates[s.id] = Candidate(
-                        post_id=s.id,
-                        subreddit=subreddit_name,
-                        title=s.title or "",
-                        selftext=(s.selftext or "")[:4000],
-                        author=str(s.author) if s.author else "[deleted]",
-                        url=f"https://reddit.com{s.permalink}",
-                        created_utc=s.created_utc,
-                        score=s.score,
-                        matched_query=query,
-                    )
-            except Exception as e:
-                print(f"  search failed in r/{subreddit_name} for {query!r}: {e}", file=sys.stderr)
+    for query in config["queries"]:
+        url = "https://api.bsky.app/xrpc/app.bsky.feed.searchPosts?" + urllib.parse.urlencode({
+            "q": query,
+            "limit": str(limit),
+            "sort": "latest",
+            "lang": "en",
+        })
+        try:
+            payload = _http_json(url, headers=headers)
+        except Exception as e:
+            print(f"  bluesky search failed for {query!r}: {e}", file=sys.stderr)
+            time.sleep(REQUEST_DELAY_SEC)
+            continue
+
+        for post in payload.get("posts", []):
+            uri = post.get("uri", "")
+            if not uri or uri in seen or uri in candidates:
                 continue
+            record = post.get("record", {}) or {}
+            created_str = record.get("createdAt") or post.get("indexedAt", "")
+            try:
+                created = datetime.fromisoformat(created_str.replace("Z", "+00:00")).timestamp()
+            except (ValueError, AttributeError):
+                continue
+            if created < cutoff:
+                continue
+            author = post.get("author", {}) or {}
+            handle = author.get("handle", "")
+            text = (record.get("text") or "")[:4000]
+            candidates[uri] = Candidate(
+                post_id=uri,
+                source="bluesky",
+                title=text.split("\n", 1)[0][:200],
+                selftext=text,
+                author=handle or "[unknown]",
+                url=_bluesky_post_url(handle, uri),
+                created_utc=created,
+                score=int(post.get("likeCount", 0)),
+                matched_query=query,
+            )
+
+        time.sleep(REQUEST_DELAY_SEC)
 
     return list(candidates.values())
 
 
-CLASSIFIER_SYSTEM = """You judge whether a Reddit post is a genuine lead for a web design agency.
+# ----------------------------------------------------------------------
+# Hacker News (Algolia) source
+# ----------------------------------------------------------------------
+
+def search_hackernews(config: dict, seen: set[str]) -> list[Candidate]:
+    cutoff = int(time.time() - config["lookback_hours"] * 3600)
+    limit = int(config["limit_per_query"])
+    candidates: dict[str, Candidate] = {}
+
+    for query in config["queries"]:
+        url = "https://hn.algolia.com/api/v1/search_by_date?" + urllib.parse.urlencode({
+            "query": query,
+            "tags": "story",
+            "numericFilters": f"created_at_i>{cutoff}",
+            "hitsPerPage": str(limit),
+        })
+        try:
+            payload = _http_json(url)
+        except Exception as e:
+            print(f"  hn search failed for {query!r}: {e}", file=sys.stderr)
+            time.sleep(REQUEST_DELAY_SEC)
+            continue
+
+        for hit in payload.get("hits", []):
+            object_id = hit.get("objectID")
+            if not object_id:
+                continue
+            post_id = f"hn:{object_id}"
+            if post_id in seen or post_id in candidates:
+                continue
+            created = float(hit.get("created_at_i", 0))
+            if created < cutoff:
+                continue
+            candidates[post_id] = Candidate(
+                post_id=post_id,
+                source="hackernews",
+                title=hit.get("title") or "",
+                selftext=(hit.get("story_text") or "")[:4000],
+                author=hit.get("author") or "[unknown]",
+                url=f"https://news.ycombinator.com/item?id={object_id}",
+                created_utc=created,
+                score=int(hit.get("points") or 0),
+                matched_query=query,
+            )
+
+        time.sleep(REQUEST_DELAY_SEC)
+
+    return list(candidates.values())
+
+
+# ----------------------------------------------------------------------
+# Classifier
+# ----------------------------------------------------------------------
+
+CLASSIFIER_SYSTEM = """You judge whether a social media post is a genuine lead for a web design agency.
 
 A post is a LEAD only if the author is personally looking to hire someone to
 design, build, or rebuild a website. NOT leads:
 - People offering their own web design services
 - People asking how to DIY a site
-- People asking about hosting, domains, or technical specifics with no intent to hire
+- Hosting/domain/technical questions with no intent to hire
 - People complaining about an existing site with no intent to redo it
-- Posts older than a few days where the author may have already found someone
+- News, opinions, jokes, ironic posts, or commentary about web design generally
 
 Respond with a single JSON object, no prose, no code fences:
 {"is_lead": true|false, "confidence": 0.0-1.0, "reason": "one short sentence"}"""
@@ -137,8 +269,8 @@ Respond with a single JSON object, no prose, no code fences:
 def classify(anthropic: Anthropic, business_context: str, candidate: Candidate) -> dict:
     user_msg = (
         f"Business context:\n{business_context}\n\n"
-        f"--- Reddit post ---\n"
-        f"Subreddit: r/{candidate.subreddit}\n"
+        f"--- Post ({candidate.source}) ---\n"
+        f"Author: {candidate.author}\n"
         f"Title: {candidate.title}\n\n"
         f"Body:\n{candidate.selftext or '(no body)'}\n"
     )
@@ -158,6 +290,10 @@ def classify(anthropic: Anthropic, business_context: str, candidate: Candidate) 
             return json.loads(text[start : end + 1])
         raise
 
+
+# ----------------------------------------------------------------------
+# Output
+# ----------------------------------------------------------------------
 
 def append_leads(rows: list[dict]) -> None:
     with LEADS_PATH.open("a", newline="") as f:
@@ -205,6 +341,9 @@ def send_digest(leads: list[dict]) -> None:
         print(f"  email send failed: {e}", file=sys.stderr)
 
 
+SOURCE_LABEL = {"bluesky": "bsky", "hackernews": "HN"}
+
+
 def _render_digest(leads: list[dict]) -> tuple[str, str]:
     ranked = sorted(
         leads,
@@ -212,7 +351,7 @@ def _render_digest(leads: list[dict]) -> tuple[str, str]:
         reverse=True,
     )
 
-    text_lines = [f"{len(leads)} new Reddit lead(s):\n"]
+    text_lines = [f"{len(leads)} new lead(s):\n"]
     rows_html = []
     for r in ranked:
         conf = r.get("classifier_confidence", "")
@@ -221,15 +360,17 @@ def _render_digest(leads: list[dict]) -> tuple[str, str]:
         except (TypeError, ValueError):
             conf_str = str(conf)
 
+        source = SOURCE_LABEL.get(r.get("source", ""), r.get("source", ""))
+
         text_lines.append(
-            f"- [{conf_str}] r/{r['subreddit']}: {r['title']}\n"
+            f"- [{conf_str}] {source}: {r['title']}\n"
             f"    {r['url']}\n"
             f"    why: {r.get('classifier_reason', '')}\n"
         )
         rows_html.append(
             "<tr>"
             f"<td style='padding:8px;border-bottom:1px solid #eee;white-space:nowrap'>{html.escape(conf_str)}</td>"
-            f"<td style='padding:8px;border-bottom:1px solid #eee;white-space:nowrap'>r/{html.escape(r['subreddit'])}</td>"
+            f"<td style='padding:8px;border-bottom:1px solid #eee;white-space:nowrap'>{html.escape(source)}</td>"
             f"<td style='padding:8px;border-bottom:1px solid #eee'>"
             f"<a href='{html.escape(r['url'])}' style='color:#0366d6;text-decoration:none'>"
             f"{html.escape(r['title'])}</a>"
@@ -241,11 +382,11 @@ def _render_digest(leads: list[dict]) -> tuple[str, str]:
 
     html_body = (
         "<html><body style='font-family:-apple-system,sans-serif;color:#24292e'>"
-        f"<h2 style='margin-bottom:16px'>{len(leads)} new Reddit lead(s)</h2>"
+        f"<h2 style='margin-bottom:16px'>{len(leads)} new lead(s)</h2>"
         "<table style='border-collapse:collapse;width:100%;max-width:780px'>"
         "<thead><tr style='background:#f6f8fa;text-align:left'>"
         "<th style='padding:8px'>Conf.</th>"
-        "<th style='padding:8px'>Sub</th>"
+        "<th style='padding:8px'>Source</th>"
         "<th style='padding:8px'>Post</th>"
         "</tr></thead>"
         f"<tbody>{''.join(rows_html)}</tbody>"
@@ -258,6 +399,10 @@ def _render_digest(leads: list[dict]) -> tuple[str, str]:
     return "\n".join(text_lines), html_body
 
 
+# ----------------------------------------------------------------------
+# Main
+# ----------------------------------------------------------------------
+
 def main() -> int:
     config = load_config()
     ensure_leads_file()
@@ -265,8 +410,10 @@ def main() -> int:
 
     print(f"Loaded {len(seen)} previously-seen post ids")
 
-    reddit = reddit_client()
-    candidates = search_reddit(reddit, config, seen)
+    candidates: list[Candidate] = []
+    candidates.extend(search_bluesky(config, seen))
+    candidates.extend(search_hackernews(config, seen))
+
     print(f"Found {len(candidates)} new candidate posts")
 
     if not candidates:
@@ -287,7 +434,7 @@ def main() -> int:
 
         new_leads.append({
             "post_id": c.post_id,
-            "subreddit": c.subreddit,
+            "source": c.source,
             "title": c.title,
             "author": c.author,
             "url": c.url,

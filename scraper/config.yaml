@@ -1,44 +1,28 @@
-# Where and what to search on Reddit.
-# Edit this file to tune the agent — no code changes needed.
+# Search tuning. Edit freely — no code changes needed.
 
-# Subreddits to search. Add or remove freely.
-subreddits:
-  - smallbusiness
-  - Entrepreneur
-  - startups
-  - forhire
-  - slavelabour
-  - DoneDirtCheap
-  - webdev
-  - web_design
-  - freelance
-  - Business_Ideas
-
-# Reddit search queries. Each is run against each subreddit above.
-# Reddit supports basic boolean syntax.
+# Queries are run against every enabled source (Bluesky, Hacker News).
+# Both support quoted phrases. Bluesky has full-text search.
 queries:
   - "need a website"
-  - "looking for web designer"
-  - "looking for web developer"
-  - "hire web designer"
+  - "looking for a web designer"
+  - "looking for a web developer"
+  - "hire a web designer"
   - "build me a website"
   - "redesign my website"
   - "new website for my business"
-  - "website built"
 
 # Only consider posts from the last N hours (avoid re-scoring old posts).
 lookback_hours: 48
 
-# Max posts to pull per (subreddit, query) pair per run.
+# Max posts to pull per query per source per run.
 limit_per_query: 25
 
 # Description of who you are — used by the classifier to judge fit.
-# Keep this tight; it's prepended to the prompt.
 business_context: |
   We're a small web design agency that builds modern marketing sites
   for small businesses, tradespeople, and local service companies.
   Typical engagement: a 3-10 page site, £500-£3000, delivered in 1-3 weeks.
   We're looking for posts where the author appears to be actively shopping
   for someone to design or rebuild their website (not advertising their
-  own services, not asking technical DIY questions, not complaining about
-  an existing site).
+  own services, not asking technical DIY questions, not commenting on
+  someone else's situation).

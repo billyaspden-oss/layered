@@ -1,1 +1,1 @@
-post_id,subreddit,title,author,url,created_utc,score,matched_query,classifier_confidence,classifier_reason,found_at
+post_id,source,title,author,url,created_utc,score,matched_query,classifier_confidence,classifier_reason,found_at
