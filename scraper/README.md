@@ -33,7 +33,28 @@ In your repo: **Settings → Secrets and variables → Actions → New repositor
 | `REDDIT_USER_AGENT`     | `layered-leadfinder/0.1 (by u/your_reddit_username)`                 |
 | `ANTHROPIC_API_KEY`     | from step 2                                                          |
 
-### 4. (Optional) Trigger a first run manually
+### 4. Add SMTP secrets for email digest (optional)
+
+If these aren't set, the run still works — it just won't email. Add the same
+way as above (Settings → Secrets and variables → Actions).
+
+| Name            | Value                                                                  |
+| --------------- | ---------------------------------------------------------------------- |
+| `SMTP_HOST`     | e.g. `smtp.gmail.com`, `smtp.fastmail.com`                             |
+| `SMTP_PORT`     | `587` for STARTTLS (default), `465` for SSL                            |
+| `SMTP_USER`     | the SMTP login (usually your email address)                            |
+| `SMTP_PASSWORD` | **app password**, not your real password (see below)                   |
+| `EMAIL_FROM`    | sender address (defaults to `SMTP_USER` if unset)                      |
+| `EMAIL_TO`      | where the digest goes                                                  |
+
+**Gmail:** turn on 2FA, then create an **app password** at
+https://myaccount.google.com/apppasswords. Use that as `SMTP_PASSWORD`.
+**Fastmail:** Settings → Privacy & Security → Integrations → New app password.
+
+You get one email per scraper run *only when there are new leads* — so at
+most 4/day, usually fewer. No empty digests.
+
+### 5. (Optional) Trigger a first run manually
 
 **Actions → Scrape Reddit leads → Run workflow**.
 After it finishes you should see a `chore(scraper): add new leads ...` commit

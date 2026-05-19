@@ -7,12 +7,15 @@ leads.csv, and skips posts already in the file.
 from __future__ import annotations
 
 import csv
+import html
 import json
 import os
+import smtplib
 import sys
 import time
 from dataclasses import dataclass
 from datetime import datetime, timezone
+from email.message import EmailMessage
 from pathlib import Path
 
 import praw
@@ -163,6 +166,98 @@ def append_leads(rows: list[dict]) -> None:
             writer.writerow(row)
 
 
+def send_digest(leads: list[dict]) -> None:
+    """Email a digest of new leads via SMTP. Silently skipped if not configured."""
+    required = ["SMTP_HOST", "SMTP_USER", "SMTP_PASSWORD", "EMAIL_TO"]
+    missing = [k for k in required if not os.environ.get(k)]
+    if missing:
+        print(f"Skipping email digest (missing env: {', '.join(missing)})")
+        return
+
+    host = os.environ["SMTP_HOST"]
+    port = int(os.environ.get("SMTP_PORT", "587"))
+    user = os.environ["SMTP_USER"]
+    password = os.environ["SMTP_PASSWORD"]
+    sender = os.environ.get("EMAIL_FROM", user)
+    recipient = os.environ["EMAIL_TO"]
+
+    text_body, html_body = _render_digest(leads)
+
+    msg = EmailMessage()
+    msg["Subject"] = f"[Layered] {len(leads)} new website lead{'s' if len(leads) != 1 else ''}"
+    msg["From"] = sender
+    msg["To"] = recipient
+    msg.set_content(text_body)
+    msg.add_alternative(html_body, subtype="html")
+
+    try:
+        if port == 465:
+            with smtplib.SMTP_SSL(host, port, timeout=30) as s:
+                s.login(user, password)
+                s.send_message(msg)
+        else:
+            with smtplib.SMTP(host, port, timeout=30) as s:
+                s.starttls()
+                s.login(user, password)
+                s.send_message(msg)
+        print(f"Sent digest to {recipient}")
+    except Exception as e:
+        print(f"  email send failed: {e}", file=sys.stderr)
+
+
+def _render_digest(leads: list[dict]) -> tuple[str, str]:
+    ranked = sorted(
+        leads,
+        key=lambda r: float(r.get("classifier_confidence") or 0),
+        reverse=True,
+    )
+
+    text_lines = [f"{len(leads)} new Reddit lead(s):\n"]
+    rows_html = []
+    for r in ranked:
+        conf = r.get("classifier_confidence", "")
+        try:
+            conf_str = f"{float(conf):.0%}"
+        except (TypeError, ValueError):
+            conf_str = str(conf)
+
+        text_lines.append(
+            f"- [{conf_str}] r/{r['subreddit']}: {r['title']}\n"
+            f"    {r['url']}\n"
+            f"    why: {r.get('classifier_reason', '')}\n"
+        )
+        rows_html.append(
+            "<tr>"
+            f"<td style='padding:8px;border-bottom:1px solid #eee;white-space:nowrap'>{html.escape(conf_str)}</td>"
+            f"<td style='padding:8px;border-bottom:1px solid #eee;white-space:nowrap'>r/{html.escape(r['subreddit'])}</td>"
+            f"<td style='padding:8px;border-bottom:1px solid #eee'>"
+            f"<a href='{html.escape(r['url'])}' style='color:#0366d6;text-decoration:none'>"
+            f"{html.escape(r['title'])}</a>"
+            f"<div style='color:#586069;font-size:13px;margin-top:4px'>"
+            f"{html.escape(r.get('classifier_reason', ''))}</div>"
+            f"</td>"
+            "</tr>"
+        )
+
+    html_body = (
+        "<html><body style='font-family:-apple-system,sans-serif;color:#24292e'>"
+        f"<h2 style='margin-bottom:16px'>{len(leads)} new Reddit lead(s)</h2>"
+        "<table style='border-collapse:collapse;width:100%;max-width:780px'>"
+        "<thead><tr style='background:#f6f8fa;text-align:left'>"
+        "<th style='padding:8px'>Conf.</th>"
+        "<th style='padding:8px'>Sub</th>"
+        "<th style='padding:8px'>Post</th>"
+        "</tr></thead>"
+        f"<tbody>{''.join(rows_html)}</tbody>"
+        "</table>"
+        "<p style='color:#586069;font-size:13px;margin-top:24px'>"
+        "Full history in <code>scraper/leads.csv</code>. "
+        "Tune queries in <code>scraper/config.yaml</code>."
+        "</p></body></html>"
+    )
+    return "\n".join(text_lines), html_body
+
+
 def main() -> int:
     config = load_config()
     ensure_leads_file()
@@ -206,6 +301,7 @@ def main() -> int:
 
     if new_leads:
         append_leads(new_leads)
+        send_digest(new_leads)
 
     print(f"Added {len(new_leads)} new leads")
     return 0
