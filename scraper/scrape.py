@@ -411,8 +411,10 @@ def main() -> int:
     print(f"Loaded {len(seen)} previously-seen post ids")
 
     candidates: list[Candidate] = []
-    candidates.extend(search_bluesky(config, seen))
-    candidates.extend(search_hackernews(config, seen))
+    if config.get("bluesky_enabled", True):
+        candidates.extend(search_bluesky(config, seen))
+    if config.get("hackernews_enabled", True):
+        candidates.extend(search_hackernews(config, seen))
 
     print(f"Found {len(candidates)} new candidate posts")
 
