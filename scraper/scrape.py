@@ -154,7 +154,7 @@ def search_bluesky(config: dict, seen: set[str]) -> list[Candidate]:
 
     for query in config["queries"]:
         url = "https://api.bsky.app/xrpc/app.bsky.feed.searchPosts?" + urllib.parse.urlencode({
-            "q": query,
+            "q": f'"{query}"',
             "limit": str(limit),
             "sort": "latest",
             "lang": "en",
@@ -209,7 +209,7 @@ def search_hackernews(config: dict, seen: set[str]) -> list[Candidate]:
 
     for query in config["queries"]:
         url = "https://hn.algolia.com/api/v1/search_by_date?" + urllib.parse.urlencode({
-            "query": query,
+            "query": f'"{query}"',
             "tags": "story",
             "numericFilters": f"created_at_i>{cutoff}",
             "hitsPerPage": str(limit),
