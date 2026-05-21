@@ -311,7 +311,7 @@ def send_digest(leads: list[dict]) -> None:
         return
 
     host = os.environ["SMTP_HOST"]
-    port = int(os.environ.get("SMTP_PORT", "587"))
+    port = int(os.environ.get("SMTP_PORT") or "587")
     user = os.environ["SMTP_USER"]
     password = os.environ["SMTP_PASSWORD"]
     sender = os.environ.get("EMAIL_FROM", user)
@@ -428,6 +428,10 @@ def main() -> int:
         except Exception as e:
             print(f"  classifier failed for {c.post_id}: {e}", file=sys.stderr)
             continue
+
+        conf = verdict.get("confidence") or 0
+        keep_str = "KEEP" if verdict.get("is_lead") else "drop"
+        print(f"  [{c.source}] {keep_str} ({float(conf):.0%}) — {c.title[:80]!r}  | {verdict.get('reason', '')}")
 
         if not verdict.get("is_lead"):
             continue
