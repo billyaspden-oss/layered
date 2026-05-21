@@ -1,32 +1,30 @@
 # Search tuning. Edit freely — no code changes needed.
+#
+# Queries are sent as exact phrases (Lucene quoted-string syntax).
+# Keep them SHORT (2-5 words) and conversational — they need to match
+# what someone would actually type in a social post, not a formal sentence.
 
-# Queries are sent as exact phrases to both APIs (Lucene quoted-string syntax).
-# Keep them conversational — these need to match what someone would actually type.
 queries:
-  # Explicit hire intent
-  - "need a website built"
-  - "need someone to build my website"
-  - "need someone to build a website"
-  - "looking to hire a web designer"
-  - "looking for a web designer to build"
+  # Direct hire intent
+  - "looking for a web designer"
+  - "need a web designer"
+  - "hire a web designer"
+  - "recommend a web designer"
   - "anyone recommend a web designer"
-  - "can anyone recommend a web designer"
-  - "recommend a web developer"
-  - "anyone know a good web designer"
-  # Price-shopping (strong purchase signal)
-  - "web design quote"
-  - "website quote"
-  - "how much for a website"
-  - "how much does a website cost"
-  - "how much to build a website"
-  # Business owner needs
-  - "need a website for my business"
-  - "website for my small business"
+  - "web designer wanted"
+  # Website need — business owner framing
+  - "need a website for my"
+  - "website for my business"
+  - "website for my shop"
+  - "build me a website"
   - "getting a website made"
   - "need to get a website"
-  - "need a new website for"
-  - "website for my shop"
-  - "website for my company"
+  - "new website for my business"
+  - "redesign my website"
+  # Price-shopping
+  - "how much does a website"
+  - "how much for a website"
+  - "web design quote"
 
 # Only consider posts from the last N hours.
 lookback_hours: 48
@@ -37,8 +35,8 @@ limit_per_query: 25
 # Minimum classifier confidence to keep a lead (0.0-1.0).
 min_confidence: 0.70
 
-# Toggle sources. HN disabled — its audience (tech developers) never hires
-# small web agencies and every result is a "Show HN" product announcement.
+# Toggle sources on/off without touching code.
+# HN disabled — audience is tech developers who DIY; all results are "Show HN" posts.
 bluesky_enabled: true
 hackernews_enabled: false
 
