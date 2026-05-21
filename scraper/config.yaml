@@ -1,28 +1,50 @@
 # Search tuning. Edit freely — no code changes needed.
 
-# Queries are run against every enabled source (Bluesky, Hacker News).
-# Both support quoted phrases. Bluesky has full-text search.
+# Queries run against Bluesky and Hacker News.
+# Tighter phrases = less noise. Aim for posts where someone is actively
+# shopping to hire — not DIYing, not commenting, not selling their own services.
 queries:
-  - "need a website"
-  - "looking for a web designer"
-  - "looking for a web developer"
-  - "hire a web designer"
-  - "build me a website"
-  - "redesign my website"
-  - "new website for my business"
+  # Explicit hire intent
+  - "need a website built"
+  - "need someone to build my website"
+  - "need someone to build a website"
+  - "looking to hire a web designer"
+  - "looking for a web designer to build"
+  - "anyone recommend a web designer"
+  - "can anyone recommend a web designer"
+  - "recommend a web developer"
+  - "anyone know a good web designer"
+  # Price-shopping (strong purchase signal)
+  - "web design quote"
+  - "website quote"
+  - "how much for a website"
+  - "how much does a website cost"
+  - "how much to build a website"
+  # Business owner needs
+  - "need a website for my business"
+  - "website for my small business"
+  - "getting a website made"
+  - "need to get a website"
+  - "need a new website for"
+  - "website for my shop"
+  - "website for my company"
 
-# Only consider posts from the last N hours (avoid re-scoring old posts).
+# Only consider posts from the last N hours.
 lookback_hours: 48
 
 # Max posts to pull per query per source per run.
 limit_per_query: 25
 
+# Minimum classifier confidence to keep a lead (0.0-1.0).
+# Raise this if you're getting too many weak matches.
+min_confidence: 0.70
+
 # Description of who you are — used by the classifier to judge fit.
 business_context: |
   We're a small web design agency that builds modern marketing sites
-  for small businesses, tradespeople, and local service companies.
+  for small businesses, tradespeople, and local service companies in the UK.
   Typical engagement: a 3-10 page site, £500-£3000, delivered in 1-3 weeks.
-  We're looking for posts where the author appears to be actively shopping
-  for someone to design or rebuild their website (not advertising their
-  own services, not asking technical DIY questions, not commenting on
-  someone else's situation).
+  We're looking for posts where the author is actively shopping for
+  someone to design or rebuild their website — not advertising their own
+  services, not asking technical DIY questions, not commenting on
+  someone else's situation.
