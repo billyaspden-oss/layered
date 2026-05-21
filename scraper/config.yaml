@@ -1,8 +1,7 @@
 # Search tuning. Edit freely — no code changes needed.
 
-# Queries run against Bluesky and Hacker News.
-# Tighter phrases = less noise. Aim for posts where someone is actively
-# shopping to hire — not DIYing, not commenting, not selling their own services.
+# Queries are sent as exact phrases to both APIs (Lucene quoted-string syntax).
+# Keep them conversational — these need to match what someone would actually type.
 queries:
   # Explicit hire intent
   - "need a website built"
@@ -36,8 +35,12 @@ lookback_hours: 48
 limit_per_query: 25
 
 # Minimum classifier confidence to keep a lead (0.0-1.0).
-# Raise this if you're getting too many weak matches.
 min_confidence: 0.70
+
+# Toggle sources. HN disabled — its audience (tech developers) never hires
+# small web agencies and every result is a "Show HN" product announcement.
+bluesky_enabled: true
+hackernews_enabled: false
 
 # Description of who you are — used by the classifier to judge fit.
 business_context: |
