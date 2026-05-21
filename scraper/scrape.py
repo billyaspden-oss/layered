@@ -420,6 +420,7 @@ def main() -> int:
         return 0
 
     anthropic = Anthropic()
+    min_conf = float(config.get("min_confidence", 0.0))
     new_leads: list[dict] = []
 
     for c in candidates:
@@ -433,7 +434,7 @@ def main() -> int:
         keep_str = "KEEP" if verdict.get("is_lead") else "drop"
         print(f"  [{c.source}] {keep_str} ({float(conf):.0%}) — {c.title[:80]!r}  | {verdict.get('reason', '')}")
 
-        if not verdict.get("is_lead"):
+        if not verdict.get("is_lead") or float(conf) < min_conf:
             continue
 
         new_leads.append({
