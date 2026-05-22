@@ -1,6 +1,6 @@
 # Search tuning. Edit freely — no code changes needed.
 #
-# Queries are sent as exact phrases (Lucene quoted-string syntax).
+# Bluesky queries are sent as exact phrases (Lucene quoted-string syntax).
 # Keep them SHORT (2-5 words) and conversational — they need to match
 # what someone would actually type in a social post, not a formal sentence.
 
@@ -25,6 +25,20 @@ queries:
   - "how much for a website"
   - "web design quote"
 
+# Freelancer.com uses keyword search (not exact phrase).
+# These are used instead of the Bluesky queries above when searching Freelancer.
+# Broader terms work better here since every result is already an active RFP.
+freelancer_queries:
+  - "website design"
+  - "web design"
+  - "wordpress website"
+  - "small business website"
+  - "company website"
+  - "business website"
+  - "landing page"
+  - "website build"
+  - "website redesign"
+
 # Only consider posts from the last N hours.
 lookback_hours: 72
 
@@ -35,16 +49,15 @@ limit_per_query: 25
 min_confidence: 0.70
 
 # Toggle sources on/off without touching code.
-# HN disabled — audience is tech developers who DIY; all results are "Show HN" posts.
 bluesky_enabled: true
 hackernews_enabled: false
+freelancer_enabled: true
 
 # Description of who you are — used by the classifier to judge fit.
 business_context: |
   We're a small web design agency that builds modern marketing sites
   for small businesses, tradespeople, and local service companies in the UK.
   Typical engagement: a 3-10 page site, £500-£3000, delivered in 1-3 weeks.
-  We're looking for posts where the author is actively shopping for
-  someone to design or rebuild their website — not advertising their own
-  services, not asking technical DIY questions, not commenting on
-  someone else's situation.
+  We're looking for clients who want someone to design or build their website —
+  not enterprise/complex platforms, not pure dev tasks (no web scraping, no
+  apps), not people offering their own services.
