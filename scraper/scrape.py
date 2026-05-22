@@ -221,6 +221,67 @@ def search_bluesky(config: dict, seen: set[str]) -> list[Candidate]:
 # Hacker News (Algolia) source
 # ----------------------------------------------------------------------
 
+
+def search_freelancer(config: dict, seen: set[str]) -> list[Candidate]:
+    """Search Freelancer.com for GBP-denominated web design projects.
+
+    Uses the public projects API (no auth required). currency_ids[]=4 restricts
+    to GBP projects, meaning the client is almost certainly UK-based.
+    Every result is a person who has actively posted an RFP — much higher
+    intent than social media posts.
+    """
+    cutoff = int(time.time() - config["lookback_hours"] * 3600)
+    limit = int(config["limit_per_query"])
+    candidates: dict[str, Candidate] = {}
+
+    freelancer_queries = config.get("freelancer_queries") or config["queries"]
+    for query in freelancer_queries:
+        url = "https://www.freelancer.com/api/projects/0.1/projects/active/?" + urllib.parse.urlencode({
+            "query": query,
+            "currency_ids[]": "4",   # GBP only
+            "limit": str(limit),
+            "full_description": "false",
+        })
+        try:
+            payload = _http_json(url)
+        except Exception as e:
+            print(f"  freelancer search failed for {query!r}: {e}", file=sys.stderr)
+            time.sleep(REQUEST_DELAY_SEC)
+            continue
+
+        for proj in payload.get("result", {}).get("projects", []):
+            proj_id = proj.get("id")
+            if not proj_id:
+                continue
+            post_id = f"freelancer:{proj_id}"
+            if post_id in seen or post_id in candidates:
+                continue
+            submitted = float(proj.get("time_submitted") or proj.get("submitdate") or 0)
+            if submitted < cutoff:
+                continue
+            seo = proj.get("seo_url") or ""
+            url_link = f"https://www.freelancer.com/projects/{seo}" if seo else f"https://www.freelancer.com/projects/{proj_id}"
+            budget_min = proj.get("budget", {}).get("minimum") or 0
+            budget_max = proj.get("budget", {}).get("maximum") or 0
+            title = proj.get("title") or ""
+            desc = (proj.get("description") or proj.get("preview_description") or "")[:4000]
+            candidates[post_id] = Candidate(
+                post_id=post_id,
+                source="freelancer",
+                title=f"£{budget_min:.0f}-{budget_max:.0f}: {title}",
+                selftext=desc,
+                author="[freelancer client]",
+                url=url_link,
+                created_utc=submitted,
+                score=0,
+                matched_query=query,
+            )
+
+        time.sleep(REQUEST_DELAY_SEC)
+
+    return list(candidates.values())
+
+
 def search_hackernews(config: dict, seen: set[str]) -> list[Candidate]:
     cutoff = int(time.time() - config["lookback_hours"] * 3600)
     limit = int(config["limit_per_query"])
@@ -434,6 +495,8 @@ def main() -> int:
         candidates.extend(search_bluesky(config, seen))
     if config.get("hackernews_enabled", True):
         candidates.extend(search_hackernews(config, seen))
+    if config.get("freelancer_enabled", True):
+        candidates.extend(search_freelancer(config, seen))
 
     print(f"Found {len(candidates)} new candidate posts")
 
