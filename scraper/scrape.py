@@ -141,6 +141,25 @@ def _bluesky_post_url(handle: str, uri: str) -> str:
     return f"https://bsky.app/profile/{handle}/post/{rkey}"
 
 
+
+
+# Keywords that reliably indicate someone is using AI/DIY to build their own site —
+# not shopping to hire a designer. Checked before the LLM classifier to save tokens.
+_AI_DIY_SIGNALS = [
+    "claude built", "chatgpt built", "ai built", "built with ai", "built using ai",
+    "built by ai", "ai designed", "ai generated", "vibe cod", "cursor built",
+    "built my own", "built it myself", "built myself", "coded it myself",
+    "i built my", "i made my own", "i designed my", "made it myself",
+    "no way i could afford", "why would i pay", "never pay a web",
+    "stop paying for web", "pay for a web designer",
+]
+
+
+def _is_ai_diy_noise(candidate) -> bool:
+    """Return True if the post is almost certainly AI/DIY noise, not a hire signal."""
+    combined = (candidate.title + " " + candidate.selftext).lower()
+    return any(sig in combined for sig in _AI_DIY_SIGNALS)
+
 def search_bluesky(config: dict, seen: set[str]) -> list[Candidate]:
     token = _bluesky_auth()
     if not token:
@@ -417,6 +436,17 @@ def main() -> int:
         candidates.extend(search_hackernews(config, seen))
 
     print(f"Found {len(candidates)} new candidate posts")
+
+    # Pre-filter: cheap string check before spending classifier tokens
+    prefiltered = []
+    for c in candidates:
+        if _is_ai_diy_noise(c):
+            print(f"  [{c.source}] pre-filter — {c.title[:80]!r}")
+        else:
+            prefiltered.append(c)
+    if len(prefiltered) < len(candidates):
+        print(f"  Pre-filter removed {len(candidates) - len(prefiltered)} AI/DIY noise posts")
+    candidates = prefiltered
 
     if not candidates:
         return 0
