@@ -20,14 +20,13 @@ queries:
   - "getting a website made"
   - "need to get a website"
   - "new website for my business"
-  - "redesign my website"
   # Price-shopping
   - "how much does a website"
   - "how much for a website"
   - "web design quote"
 
 # Only consider posts from the last N hours.
-lookback_hours: 48
+lookback_hours: 72
 
 # Max posts to pull per query per source per run.
 limit_per_query: 25
