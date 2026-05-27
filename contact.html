@@ -51,8 +51,8 @@
       --border:       oklch(89%   0.009 85);
       --border-str:   oklch(80%   0.011 85);
       --text:         oklch(16%   0.012 85);
-      --text-2:       oklch(40%   0.009 85);
-      --text-3:       oklch(60%   0.007 85);
+      --text-2:       oklch(33%   0.011 85);
+      --text-3:       oklch(46%   0.011 85);
       --accent:       oklch(38%   0.14  158);
       --accent-mid:   oklch(50%   0.14  158);
       --accent-lit:   oklch(96%   0.03  158);
@@ -61,13 +61,12 @@
       --dk-alt:       oklch(17%   0.014 85);
       --dk-bdr:       oklch(25%   0.013 85);
       --dk-txt:       oklch(93%   0.007 85);
-      --dk-mut:       oklch(58%   0.009 85);
+      --dk-mut:       oklch(72%   0.011 85);
       --display: 'Bricolage Grotesque', sans-serif;
       --body:    'Figtree', sans-serif;
       --sp-1:  4px;  --sp-2:  8px;  --sp-3:  12px; --sp-4:  16px;
       --sp-5:  24px; --sp-6:  32px; --sp-7:  48px; --sp-8:  64px; --sp-9:  96px;
       --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-      --ease-io:  cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     html { scroll-behavior: smooth; }
@@ -102,10 +101,9 @@
       position: fixed;
       inset: 0 0 auto;
       z-index: 100;
-      padding: var(--sp-5) 0;
-      transition: padding 0.35s var(--ease-io);
+      padding: var(--sp-4) 0;
     }
-    .nav.sc { padding: var(--sp-3) 0; }
+    .nav.sc { padding: var(--sp-4) 0; }
     .nav-in {
       display: flex;
       align-items: center;
@@ -231,19 +229,6 @@
       z-index: 2;
     }
 
-    .eyebrow-inv {
-      font-size: 0.67rem;
-      font-weight: 600;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--accent-mid);
-      display: inline-flex;
-      align-items: center;
-      gap: var(--sp-2);
-      margin-bottom: var(--sp-4);
-    }
-    .eyebrow-inv::before { content: ''; width: 16px; height: 1px; background: var(--accent-mid); flex-shrink: 0; }
-
     .ct-hero h1 {
       font-family: var(--display);
       font-size: clamp(2.4rem, 5vw, 4rem);
@@ -352,22 +337,6 @@
     .f-sub:hover svg { transform: translate(2px, -2px); }
     .f-note { font-size: 0.75rem; color: var(--text-3); margin-top: var(--sp-3); text-align: center; }
 
-    /* FORM SECTION LABEL */
-    .f-section-label {
-      font-size: 0.62rem;
-      font-weight: 600;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--accent);
-      display: flex;
-      align-items: center;
-      gap: var(--sp-2);
-      margin-bottom: var(--sp-5);
-      padding-bottom: var(--sp-4);
-      border-bottom: 1px solid var(--border);
-    }
-    .f-section-label::before { content: ''; width: 14px; height: 1px; background: var(--accent); flex-shrink: 0; }
-
     .f-head { margin-bottom: var(--sp-6); }
     .f-head h2 {
       font-family: var(--display);
@@ -458,7 +427,7 @@
       border-radius: 16px;
       padding: var(--sp-6) var(--sp-6);
     }
-    .ca-promise h4 {
+    .ca-promise h3 {
       font-family: var(--display);
       font-size: 1rem;
       font-weight: 700;
@@ -516,8 +485,8 @@
     .ft-nav a { font-size: 0.8rem; color: var(--dk-mut); transition: color 0.2s; }
     .ft-nav a:hover { color: var(--accent-mid); }
     .ft-bot { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-4); }
-    .ft-copy { font-size: 0.67rem; letter-spacing: 0.06em; color: oklch(38% 0.01 85); }
-    .ft-loc  { font-size: 0.67rem; letter-spacing: 0.06em; color: oklch(32% 0.01 85); }
+    .ft-copy { font-size: 0.75rem; letter-spacing: 0.02em; color: var(--dk-mut); }
+    .ft-loc  { font-size: 0.75rem; letter-spacing: 0.02em; color: var(--dk-mut); opacity: 0.78; }
 
     @keyframes breathe { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }
 
@@ -588,7 +557,6 @@
 <!-- HERO -->
 <section class="ct-hero" aria-label="Contact Layered">
   <div class="wrap ct-hero-in">
-    <div class="eyebrow-inv li li1">Free Consultation &nbsp;·&nbsp; No Obligation</div>
     <h1 class="li li2">Let's build something great.</h1>
     <p class="li li3">Tell us what you're working on. We'll come back with a plain-English proposal and a clear price — usually within 24 hours.</p>
     <div class="ct-trust li li3">
@@ -616,7 +584,6 @@
       <!-- FORM SIDE -->
       <div class="rv">
         <div class="f-head">
-          <div class="f-section-label">Your Project</div>
           <h2>Tell us what you need.</h2>
           <p>Fill in as much or as little as you like. We'll read everything and come back to you personally — no automated responses, no sales scripts.</p>
         </div>
@@ -711,7 +678,7 @@
         </div>
 
         <div class="ca-promise">
-          <h4>What happens next</h4>
+          <h3>What happens next</h3>
           <ul>
             <li>We read every enquiry personally — no bots, no auto-replies.</li>
             <li>You'll hear back within 24 hours with a clear, plain-English response.</li>

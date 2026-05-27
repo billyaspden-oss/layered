@@ -19,15 +19,15 @@
       --border:     oklch(89%   0.009 85);
       --border-str: oklch(80%   0.011 85);
       --text:       oklch(16%   0.012 85);
-      --text-2:     oklch(40%   0.009 85);
-      --text-3:     oklch(60%   0.007 85);
+      --text-2:     oklch(33%   0.011 85);
+      --text-3:     oklch(46%   0.011 85);
       --accent:     oklch(38%   0.14  158);
       --accent-mid: oklch(50%   0.14  158);
       --accent-sub: oklch(94%   0.045 158);
       --dk:         oklch(13%   0.014 85);
       --dk-bdr:     oklch(25%   0.013 85);
       --dk-txt:     oklch(93%   0.007 85);
-      --dk-mut:     oklch(58%   0.009 85);
+      --dk-mut:     oklch(72%   0.011 85);
       --display: 'Bricolage Grotesque', sans-serif;
       --body:    'Figtree', sans-serif;
       --sp-2: 8px; --sp-3: 12px; --sp-4: 16px; --sp-5: 24px;
@@ -139,20 +139,6 @@
     }
     @keyframes pop { from { transform: scale(0.7); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
-    .eyebrow {
-      font-size: 0.67rem;
-      font-weight: 600;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--accent-mid);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: var(--sp-2);
-      margin-bottom: var(--sp-5);
-    }
-    .eyebrow::before, .eyebrow::after { content: ''; flex: 1; max-width: 32px; height: 1px; background: var(--accent-mid); opacity: 0.5; }
-
     h1 {
       font-family: var(--display);
       font-size: clamp(2rem, 5vw, 3.2rem);
@@ -206,8 +192,8 @@
 
     .direct {
       margin-top: var(--sp-7);
-      font-size: 0.78rem;
-      color: oklch(35% 0.01 85);
+      font-size: 0.85rem;
+      color: var(--dk-mut);
     }
     .direct a { color: var(--dk-mut); transition: color 0.2s; }
     .direct a:hover { color: var(--accent-mid); }
@@ -221,8 +207,8 @@
       justify-content: space-between;
       gap: var(--sp-4);
     }
-    .ft-copy { font-size: 0.67rem; letter-spacing: 0.06em; color: oklch(35% 0.01 85); }
-    .ft-loc  { font-size: 0.67rem; letter-spacing: 0.06em; color: oklch(30% 0.01 85); }
+    .ft-copy { font-size: 0.75rem; letter-spacing: 0.02em; color: var(--dk-mut); }
+    .ft-loc  { font-size: 0.75rem; letter-spacing: 0.02em; color: var(--dk-mut); opacity: 0.78; }
 
     @media (max-width: 600px) {
       .nav, main, footer { padding-left: 20px; padding-right: 20px; }
@@ -257,7 +243,6 @@
         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
       </div>
     </div>
-    <div class="eyebrow">Message received</div>
     <h1>We'll be in touch<br>shortly.</h1>
     <p class="sub">Thanks for reaching out. We read every enquiry personally and usually come back within 24 hours with a plain-English response — no automated replies, no sales scripts.</p>
     <div class="actions">

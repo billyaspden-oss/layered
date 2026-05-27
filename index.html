@@ -58,8 +58,8 @@
       --border-str:   oklch(80%   0.011 85);
 
       --text:         oklch(16%   0.012 85);
-      --text-2:       oklch(40%   0.009 85);
-      --text-3:       oklch(60%   0.007 85);
+      --text-2:       oklch(33%   0.011 85);
+      --text-3:       oklch(46%   0.011 85);
 
       --accent:       oklch(38%   0.14  158);
       --accent-mid:   oklch(50%   0.14  158);
@@ -71,7 +71,7 @@
       --dk-alt:       oklch(17%   0.014 85);
       --dk-bdr:       oklch(25%   0.013 85);
       --dk-txt:       oklch(93%   0.007 85);
-      --dk-mut:       oklch(58%   0.009 85);
+      --dk-mut:       oklch(72%   0.011 85);
 
       --display: 'Bricolage Grotesque', sans-serif;
       --body:    'Figtree', sans-serif;
@@ -88,7 +88,6 @@
       --sp-9:  96px;
 
       --ease-out:   cubic-bezier(0.16, 1, 0.3, 1);
-      --ease-io:    cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     html { scroll-behavior: smooth; }
@@ -133,10 +132,9 @@
       position: fixed;
       inset: 0 0 auto;
       z-index: 100;
-      padding: var(--sp-5) 0;
-      transition: padding 0.35s var(--ease-io);
+      padding: var(--sp-4) 0;
     }
-    .nav.sc { padding: var(--sp-3) 0; }
+    .nav.sc { padding: var(--sp-4) 0; }
     .nav-in {
       display: flex;
       align-items: center;
@@ -423,22 +421,6 @@
     }
     .btn-gl:hover { border-color: var(--border-str); color: var(--text); transform: translateY(-1px); }
 
-    /* ─── SECTION LABELS ──────────────────────────────── */
-    .eyebrow {
-      font-size: 0.67rem;
-      font-weight: 600;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--accent);
-      display: inline-flex;
-      align-items: center;
-      gap: var(--sp-2);
-      margin-bottom: var(--sp-4);
-    }
-    .eyebrow::before { content: ''; width: 16px; height: 1px; background: var(--accent); flex-shrink: 0; }
-    .eyebrow-inv { color: var(--accent-mid); }
-    .eyebrow-inv::before { background: var(--accent-mid); }
-
     .sec-hdr { margin-bottom: var(--sp-8); }
     .sec-hdr h2 {
       font-family: var(--display);
@@ -706,11 +688,11 @@
       gap: var(--sp-5);
       padding: var(--sp-7) 0;
       border-bottom: 1px solid var(--border);
-      transition: padding-left 0.28s var(--ease-out);
+      transition: transform 0.28s var(--ease-out);
     }
     .wc:first-child { padding-top: 0; }
     .wc:last-child { border-bottom: none; padding-bottom: 0; }
-    .wc:hover { padding-left: var(--sp-3); }
+    .wc:hover { transform: translateX(var(--sp-3)); }
     .w-num {
       font-family: var(--display);
       font-size: 0.67rem;
@@ -721,7 +703,7 @@
       flex-shrink: 0;
       min-width: 22px;
     }
-    .wc h4 {
+    .wc h3 {
       font-family: var(--display);
       font-size: 1.02rem;
       font-weight: 700;
@@ -914,8 +896,8 @@
     .ft-nav a { font-size: 0.8rem; color: var(--dk-mut); transition: color 0.2s; }
     .ft-nav a:hover { color: var(--accent-mid); }
     .ft-bot { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-4); }
-    .ft-copy { font-size: 0.67rem; letter-spacing: 0.06em; color: oklch(38% 0.01 85); }
-    .ft-loc  { font-size: 0.67rem; letter-spacing: 0.06em; color: oklch(32% 0.01 85); }
+    .ft-copy { font-size: 0.75rem; letter-spacing: 0.02em; color: var(--dk-mut); }
+    .ft-loc  { font-size: 0.75rem; letter-spacing: 0.02em; color: var(--dk-mut); opacity: 0.78; }
 
     /* ─── RESPONSIVE ──────────────────────────────────── */
     @media (max-width: 1024px) {
@@ -1029,7 +1011,6 @@
 <section class="sec services-wrap" id="services">
   <div class="wrap">
     <div class="sec-hdr rv">
-      <div class="eyebrow">Services</div>
       <h2>Everything your digital presence requires.</h2>
       <p>From concept to launch to ongoing care — and intelligent systems built on top. We handle the full stack so you can focus on running your business.</p>
     </div>
@@ -1102,7 +1083,6 @@
   <div class="wrap">
     <div class="sec-hdr-row rv">
       <div>
-        <div class="eyebrow">Our Work</div>
         <h2 style="font-family:var(--display);font-size:clamp(2rem,4vw,3rem);font-weight:700;letter-spacing:-.035em;line-height:1.04;color:var(--text)">Built for businesses that mean it.</h2>
       </div>
       <a href="#contact" class="btn btn-gl" style="flex-shrink:0">Start Your Project <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="13" height="13"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
@@ -1130,10 +1110,10 @@
             <div style="position:relative;height:158px;background-image:url('images/leck-hero.jpg');background-size:cover;background-position:center">
               <div style="position:absolute;inset:0;background:linear-gradient(100deg,rgba(0,0,0,.78) 0%,rgba(0,0,0,.55) 45%,rgba(0,0,0,.22) 100%)"></div>
               <div style="position:absolute;bottom:14px;left:14px;right:14px">
-                <div style="display:flex;align-items:center;gap:8px;font-size:4.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:5px">
-                  <span style="display:block;width:14px;height:2px;background:#fff;flex-shrink:0"></span>South Cumbria's Construction Specialist · Est. 1946
+                <div style="display:flex;align-items:center;gap:8px;font-size:5.5px;font-weight:500;letter-spacing:0.01em;color:rgba(255,255,255,.75);margin-bottom:5px">
+                  <span style="display:block;width:14px;height:2px;background:#fff;flex-shrink:0"></span>South Cumbria's specialist since 1946.
                 </div>
-                <div style="font-family:'Inter',system-ui;font-size:14px;font-weight:800;color:#fff;line-height:1.04;letter-spacing:-.025em;margin-bottom:6px">South Cumbria's<br>Construction Specialist.</div>
+                <div style="font-family:system-ui,sans-serif;font-size:14px;font-weight:800;color:#fff;line-height:1.04;letter-spacing:-.025em;margin-bottom:6px">South Cumbria's<br>Construction Specialist.</div>
                 <div style="font-size:5.5px;color:rgba(255,255,255,.7);line-height:1.6;max-width:180px;margin-bottom:9px">Eight decades of delivering commercial, industrial, housing and heritage projects across Cumbria and the North West.</div>
                 <div style="display:inline-flex;align-items:center;gap:5px;font-size:5.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:#fff;color:#1B2A4A;padding:5px 10px">Find Out More →</div>
               </div>
@@ -1142,23 +1122,23 @@
             <div style="background:#fff;border-top:3px solid #1B5FAD;border-bottom:1px solid #E5E7EB;display:flex">
               <div style="flex:1;padding:6px 6px;border-right:1px solid #E5E7EB;text-align:center">
                 <div style="font-size:10px;font-weight:800;color:#1B2A4A">70+</div>
-                <div style="font-size:4.5px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9CA3AF;margin-top:2px">Years Est.</div>
+                <div style="font-size:4.5px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#4B5563;margin-top:2px">Years Est.</div>
               </div>
               <div style="flex:1;padding:6px 6px;border-right:1px solid #E5E7EB;text-align:center">
                 <div style="font-size:10px;font-weight:800;color:#1B2A4A">NHBC</div>
-                <div style="font-size:4.5px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9CA3AF;margin-top:2px">Grade A</div>
+                <div style="font-size:4.5px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#4B5563;margin-top:2px">Grade A</div>
               </div>
               <div style="flex:1;padding:6px 6px;border-right:1px solid #E5E7EB;text-align:center">
                 <div style="font-size:10px;font-weight:800;color:#1B2A4A">ISO</div>
-                <div style="font-size:4.5px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9CA3AF;margin-top:2px">9001:2015</div>
+                <div style="font-size:4.5px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#4B5563;margin-top:2px">9001:2015</div>
               </div>
               <div style="flex:1;padding:6px 6px;border-right:1px solid #E5E7EB;text-align:center">
                 <div style="font-size:10px;font-weight:800;color:#1B2A4A">CHAS</div>
-                <div style="font-size:4.5px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9CA3AF;margin-top:2px">Accredited</div>
+                <div style="font-size:4.5px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#4B5563;margin-top:2px">Accredited</div>
               </div>
               <div style="flex:1;padding:6px 6px;text-align:center">
                 <div style="font-size:10px;font-weight:800;color:#1B2A4A">NFB</div>
-                <div style="font-size:4.5px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9CA3AF;margin-top:2px">Member</div>
+                <div style="font-size:4.5px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#4B5563;margin-top:2px">Member</div>
               </div>
             </div>
           </div>
@@ -1241,7 +1221,6 @@
   <div class="wrap">
     <div class="why-layout">
       <div class="why-sticky rv">
-        <div class="eyebrow">Why Layered</div>
         <h2>Craft over convenience. Depth over decoration.</h2>
         <p>We're not a faceless agency sending automated emails. We're based in Cumbria, we know our clients personally, and we treat every project as if our own business depends on it.</p>
         <a href="#contact" class="btn btn-p" style="margin-top:var(--sp-5)">Work With Us <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="13" height="13"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
@@ -1250,28 +1229,28 @@
         <div class="wc rv d1">
           <div class="w-num">01</div>
           <div>
-            <h4>Rooted in Cumbria</h4>
+            <h3>Rooted in Cumbria</h3>
             <p>We live and work here. We know the Lake District, the Furness Peninsula, and South Lakeland — and we understand what local businesses actually need from their digital presence.</p>
           </div>
         </div>
         <div class="wc rv d2">
           <div class="w-num">02</div>
           <div>
-            <h4>Built from scratch, every time</h4>
+            <h3>Built from scratch, every time</h3>
             <p>Your site is designed specifically for your business — not adapted from a theme or assembled from a template. Every element is intentional, built to reflect exactly who you are.</p>
           </div>
         </div>
         <div class="wc rv d3">
           <div class="w-num">03</div>
           <div>
-            <h4>We stay after launch</h4>
+            <h3>We stay after launch</h3>
             <p>Updates, questions, improvements — we're here for the long run. Think of us as your on-call web and AI team, without the full-time overhead or the agency price tag.</p>
           </div>
         </div>
         <div class="wc rv d4">
           <div class="w-num">04</div>
           <div>
-            <h4>AI that earns its place</h4>
+            <h3>AI that earns its place</h3>
             <p>We only build AI systems that genuinely improve how your business runs — automating real tasks, answering real questions, and giving you back the time you'd otherwise spend on both.</p>
           </div>
         </div>
@@ -1285,7 +1264,6 @@
   <div class="wrap">
     <div class="proc-layout">
       <div class="proc-sticky rv">
-        <div class="eyebrow">How It Works</div>
         <h2>Simple from first message to launch.</h2>
         <p>Four clear steps, complete transparency throughout. No surprises, no disappearing acts, no jargon.</p>
       </div>
@@ -1328,7 +1306,6 @@
   <div class="wrap">
     <div class="ct-layout">
       <div class="rv">
-        <div class="eyebrow eyebrow-inv">Get In Touch</div>
         <div class="ct-head">
           <h2>Let's talk about your project.</h2>
           <p>Tell us what you're building or what you need. We'll get back to you with a free, no-obligation quote — usually within 24 hours.</p>
