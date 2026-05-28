@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SEO Package · Local Search that Compounds | Layered</title>
+  <meta name="description" content="Four-layer SEO package built for Cumbria businesses — technical foundations, local search, on-page content, and long-term authority. Designed to compound month after month.">
+  <meta name="keywords" content="SEO Cumbria, local SEO Kendal, Google Business Profile, technical SEO, SEO packages Lake District">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://layeredstudios.com/seo.html">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://layeredstudios.com/seo.html">
+  <meta property="og:site_name" content="Layered">
+  <meta property="og:title" content="SEO Package · Local Search that Compounds | Layered">
+  <meta property="og:description" content="Four layers of SEO work, each one building on the last. Designed for local businesses in Cumbria and the Lake District.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Figtree:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:           oklch(97.5% 0.007 85);
+      --bg-alt:       oklch(95.5% 0.009 85);
+      --bg-deep:      oklch(93%   0.011 85);
+      --surface:      oklch(99.5% 0.003 85);
+      --border:       oklch(89%   0.009 85);
+      --border-str:   oklch(80%   0.011 85);
+
+      --text:         oklch(16%   0.012 85);
+      --text-2:       oklch(33%   0.011 85);
+      --text-3:       oklch(46%   0.011 85);
+
+      --accent:       oklch(38%   0.14  158);
+      --accent-mid:   oklch(50%   0.14  158);
+      --accent-lit:   oklch(96%   0.03  158);
+      --accent-sub:   oklch(94%   0.045 158);
+
+      --dk:           oklch(13%   0.014 85);
+      --dk-alt:       oklch(17%   0.014 85);
+      --dk-bdr:       oklch(25%   0.013 85);
+      --dk-txt:       oklch(93%   0.007 85);
+      --dk-mut:       oklch(72%   0.011 85);
+
+      --display: 'Bricolage Grotesque', sans-serif;
+      --body:    'Figtree', sans-serif;
+
+      --sp-1:  4px;  --sp-2:  8px;  --sp-3: 12px;  --sp-4: 16px;
+      --sp-5: 24px;  --sp-6: 32px;  --sp-7: 48px;  --sp-8: 64px; --sp-9: 96px;
+
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--body);
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.55;
+    }
+    a { color: inherit; text-decoration: none; }
+    .wrap { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 var(--sp-8); }
+
+    /* ─── Nav ───────────────────────────────────────────── */
+    .nav {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 100;
+      padding: var(--sp-4) 0;
+    }
+    .nav-in {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--sp-5);
+      background: oklch(97.5% 0.007 85 / 0.93);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: var(--sp-3) var(--sp-4);
+      box-shadow: 0 2px 20px oklch(16% 0.012 85 / 0.07);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .nav-brand {
+      font-family: var(--display);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.02em;
+      padding: 0 var(--sp-2);
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .brand-mark {
+      width: 8px; height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+    .nav-links { display: flex; align-items: center; gap: var(--sp-1); list-style: none; }
+    .nav-links a {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-2);
+      padding: var(--sp-2) var(--sp-3);
+      border-radius: 100px;
+      transition: color 0.2s, background 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); background: var(--bg-alt); }
+    .nav-cta {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--surface);
+      background: var(--dk);
+      padding: var(--sp-2) var(--sp-5);
+      border-radius: 100px;
+      transition: background 0.25s, transform 0.25s;
+    }
+    .nav-cta:hover { background: var(--accent); transform: scale(1.02); }
+
+    /* ─── Hero ──────────────────────────────────────────── */
+    .hero {
+      padding: 160px 0 var(--sp-8);
+      background:
+        radial-gradient(ellipse 70% 50% at 50% 0%, var(--accent-sub) 0%, transparent 60%),
+        var(--bg);
+      text-align: center;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sp-2);
+      font-family: var(--body);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-lit);
+      padding: var(--sp-2) var(--sp-4);
+      border-radius: 100px;
+      margin-bottom: var(--sp-6);
+    }
+    .eyebrow::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+    .hero h1 {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      line-height: 1.02;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      max-width: 900px;
+      margin: 0 auto var(--sp-5);
+    }
+    .hero h1 em {
+      font-style: italic;
+      font-weight: 300;
+      color: var(--accent);
+    }
+    .hero .lede {
+      font-size: 1.15rem;
+      color: var(--text-2);
+      max-width: 620px;
+      margin: 0 auto;
+      line-height: 1.55;
+    }
+
+    /* ─── Stack diagram ─────────────────────────────────── */
+    .stack-section {
+      padding: var(--sp-8) 0 var(--sp-9);
+      background: var(--bg);
+    }
+    .stack-meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--sp-7);
+      max-width: 920px;
+      margin: 0 auto var(--sp-8);
+      padding: 0 var(--sp-5);
+    }
+    .stack-meta p {
+      font-size: 1rem;
+      color: var(--text-2);
+      line-height: 1.65;
+    }
+    .stack-meta strong { color: var(--text); font-weight: 600; }
+
+    .stack {
+      max-width: 920px;
+      margin: 0 auto;
+      position: relative;
+      padding: 0 var(--sp-5);
+    }
+
+    .layer {
+      display: grid;
+      grid-template-columns: 80px 1fr 1.3fr;
+      align-items: stretch;
+      gap: var(--sp-6);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: var(--sp-7);
+      margin-top: -16px;
+      position: relative;
+      box-shadow:
+        0 -1px 0 var(--surface) inset,
+        0 12px 40px -20px oklch(16% 0.012 85 / 0.18),
+        0 4px 12px -6px oklch(16% 0.012 85 / 0.08);
+      transition: transform 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out);
+    }
+
+    .layer:first-child { margin-top: 0; }
+
+    .layer:hover {
+      transform: translateY(-4px);
+      box-shadow:
+        0 -1px 0 var(--surface) inset,
+        0 24px 56px -24px oklch(16% 0.012 85 / 0.25),
+        0 8px 20px -8px oklch(16% 0.012 85 / 0.12);
+    }
+
+    /* Stack offset: bottom layer is widest, top layer is narrowest */
+    .layer-1 { transform: scale(1); z-index: 1; }
+    .layer-2 { transform: scale(0.985); z-index: 2; }
+    .layer-3 { transform: scale(0.97); z-index: 3; }
+    .layer-4 { transform: scale(0.955); z-index: 4; }
+    .layer-1:hover { transform: scale(1) translateY(-4px); }
+    .layer-2:hover { transform: scale(0.985) translateY(-4px); }
+    .layer-3:hover { transform: scale(0.97) translateY(-4px); }
+    .layer-4:hover { transform: scale(0.955) translateY(-4px); }
+
+    .layer-num {
+      font-family: var(--display);
+      font-weight: 400;
+      font-size: 3.2rem;
+      line-height: 1;
+      color: var(--accent);
+      letter-spacing: -0.04em;
+      align-self: start;
+    }
+
+    .layer-title {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .layer-title .tag {
+      font-family: var(--body);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-3);
+      margin-bottom: var(--sp-3);
+    }
+    .layer-title h3 {
+      font-family: var(--display);
+      font-size: 1.85rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      line-height: 1.1;
+      margin-bottom: var(--sp-3);
+    }
+    .layer-title p {
+      font-size: 0.95rem;
+      color: var(--text-2);
+      line-height: 1.55;
+      max-width: 280px;
+    }
+
+    .layer-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-3);
+      padding-left: var(--sp-5);
+      border-left: 1px solid var(--border);
+    }
+    .layer-list li {
+      display: grid;
+      grid-template-columns: 18px 1fr;
+      gap: var(--sp-3);
+      font-size: 0.92rem;
+      color: var(--text-2);
+      line-height: 1.5;
+    }
+    .layer-list li::before {
+      content: '';
+      width: 8px; height: 8px;
+      margin-top: 7px;
+      background: var(--accent);
+      border-radius: 2px;
+      transform: rotate(45deg);
+      align-self: start;
+      justify-self: center;
+    }
+    .layer-list li strong { color: var(--text); font-weight: 600; }
+
+    /* ─── Outcomes strip ────────────────────────────────── */
+    .outcomes {
+      background: var(--dk);
+      color: var(--dk-txt);
+      padding: var(--sp-9) 0;
+    }
+    .outcomes-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--sp-7);
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .outcome {
+      text-align: center;
+      padding: 0 var(--sp-4);
+    }
+    .outcome .stat {
+      font-family: var(--display);
+      font-weight: 500;
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      line-height: 1;
+      letter-spacing: -0.03em;
+      color: var(--dk-txt);
+      margin-bottom: var(--sp-3);
+    }
+    .outcome .stat em {
+      font-style: normal;
+      font-size: 0.55em;
+      font-weight: 400;
+      color: var(--dk-mut);
+      letter-spacing: 0;
+      margin-left: 4px;
+    }
+    .outcome .stat-label {
+      font-family: var(--body);
+      font-size: 0.95rem;
+      font-weight: 400;
+      color: var(--dk-mut);
+      line-height: 1.5;
+    }
+    .outcomes-head {
+      text-align: center;
+      margin-bottom: var(--sp-8);
+    }
+    .outcomes-head .eyebrow {
+      color: var(--accent-mid);
+      background: oklch(38% 0.14 158 / 0.12);
+    }
+    .outcomes-head h2 {
+      font-family: var(--display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 500;
+      color: var(--dk-txt);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .outcomes-foot {
+      text-align: center;
+      margin-top: var(--sp-8);
+      font-size: 0.85rem;
+      color: var(--dk-mut);
+      font-style: italic;
+    }
+
+    /* ─── CTA ───────────────────────────────────────────── */
+    .cta {
+      padding: var(--sp-9) 0;
+      text-align: center;
+      background: var(--bg-alt);
+      border-top: 1px solid var(--border);
+    }
+    .cta h2 {
+      font-family: var(--display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 500;
+      color: var(--text);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      max-width: 700px;
+      margin: 0 auto var(--sp-5);
+    }
+    .cta h2 em {
+      font-style: italic;
+      font-weight: 300;
+      color: var(--accent);
+    }
+    .cta p {
+      font-size: 1.05rem;
+      color: var(--text-2);
+      max-width: 540px;
+      margin: 0 auto var(--sp-7);
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sp-3);
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--surface);
+      background: var(--dk);
+      padding: var(--sp-4) var(--sp-7);
+      border-radius: 100px;
+      transition: background 0.25s, transform 0.25s;
+    }
+    .btn-primary:hover { background: var(--accent); transform: translateY(-2px); }
+
+    /* ─── Footer ────────────────────────────────────────── */
+    .footer {
+      padding: var(--sp-7) 0;
+      text-align: center;
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      font-size: 0.85rem;
+      color: var(--text-3);
+    }
+    .footer a { color: var(--accent); }
+
+    /* ─── Responsive ────────────────────────────────────── */
+    @media (max-width: 800px) {
+      .wrap { padding: 0 var(--sp-5); }
+      .nav-links { display: none; }
+      .stack-meta { grid-template-columns: 1fr; gap: var(--sp-4); }
+      .layer {
+        grid-template-columns: 1fr;
+        gap: var(--sp-4);
+        padding: var(--sp-6);
+        transform: scale(1) !important;
+      }
+      .layer:hover { transform: translateY(-2px) !important; }
+      .layer-list { padding-left: 0; border-left: none; padding-top: var(--sp-3); border-top: 1px solid var(--border); }
+      .outcomes-grid { grid-template-columns: 1fr; gap: var(--sp-6); }
+      .layer-num { font-size: 2.4rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <div class="nav-in">
+      <a href="/" class="nav-brand" aria-label="Layered — home">
+        <svg width="116" height="22" viewBox="0 0 148 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="0" y="3"  width="22" height="5" rx="2.5" fill="oklch(50% 0.14 158)"/>
+          <rect x="0" y="12" width="15" height="5" rx="2.5" fill="oklch(50% 0.14 158)" opacity="0.72"/>
+          <rect x="0" y="21" width="9"  height="5" rx="2.5" fill="oklch(50% 0.14 158)" opacity="0.46"/>
+          <text x="31" y="24" font-family="'Bricolage Grotesque', system-ui, sans-serif" font-size="21" font-weight="700" fill="currentColor" letter-spacing="-0.84">Layered</text>
+        </svg>
+      </a>
+      <ul class="nav-links">
+        <li><a href="/#services">Services</a></li>
+        <li><a href="seo.html" aria-current="page">SEO</a></li>
+        <li><a href="/#portfolio">Work</a></li>
+        <li><a href="/#about">About</a></li>
+        <li><a href="/#process">Process</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <a href="contact.html" class="nav-cta">Start a Project</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ─── Hero ──────────────────────────────────────────── -->
+<section class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Layered SEO · Built to compound</span>
+    <h1>Four layers of SEO,<br>each one <em>building on the last</em>.</h1>
+    <p class="lede">A complete SEO package designed for local businesses in Cumbria and the Lake District. We don't sell bolt-ons or tricks — we build the stack from the foundation up, so every month's work compounds the one before.</p>
+  </div>
+</section>
+
+<!-- ─── The diagram ───────────────────────────────────── -->
+<section class="stack-section">
+  <div class="wrap">
+    <div class="stack-meta">
+      <p><strong>Why layered?</strong> Most SEO agencies sell you one tactic at a time — a fresh batch of blog posts, a directory submission package, a tweak to your titles. None of it sticks because the layer underneath isn't there. We build the whole stack.</p>
+      <p><strong>How it works:</strong> Each layer takes 4–6 weeks to land and continues paying off afterwards. You don't pay for layer 02 until layer 01 is doing its job — and you can stop after any layer if you've reached the visibility you need.</p>
+    </div>
+
+    <div class="stack">
+
+      <!-- Layer 01 (Foundation — top, most prominent) -->
+      <article class="layer layer-1">
+        <div class="layer-num">01</div>
+        <div class="layer-title">
+          <span class="tag">— Foundation</span>
+          <h3>Technical SEO</h3>
+          <p>If Google can't crawl, index, and trust the site, nothing above this layer matters. We start here every time.</p>
+        </div>
+        <ul class="layer-list">
+          <li><span><strong>Crawlability audit</strong> — robots, sitemaps, indexation issues, bot-blocking misconfigurations</span></li>
+          <li><span><strong>Core Web Vitals</strong> — page speed, mobile usability, layout stability</span></li>
+          <li><span><strong>Structured data</strong> — schema markup for local business, services, reviews, FAQ</span></li>
+          <li><span><strong>Site architecture</strong> — clean URLs, internal linking, canonical &amp; redirect hygiene</span></li>
+        </ul>
+      </article>
+
+      <!-- Layer 02 (Local) -->
+      <article class="layer layer-2">
+        <div class="layer-num">02</div>
+        <div class="layer-title">
+          <span class="tag">— Local</span>
+          <h3>Google Business Profile &amp; map</h3>
+          <p>For local trade, this is the highest-leverage layer in the stack. We treat it as a full mini-website.</p>
+        </div>
+        <ul class="layer-list">
+          <li><span><strong>GBP optimisation</strong> — categories, services, attributes, photos, opening hours, products</span></li>
+          <li><span><strong>Map-pack targeting</strong> — local search visibility for "near me" and town-specific queries</span></li>
+          <li><span><strong>Citations &amp; NAP consistency</strong> — claim &amp; standardise listings across Yell, Bing, Apple Maps, sector directories</span></li>
+          <li><span><strong>Local schema</strong> — structured data so Google understands service area, hours, certifications</span></li>
+        </ul>
+      </article>
+
+      <!-- Layer 03 (Pages) -->
+      <article class="layer layer-3">
+        <div class="layer-num">03</div>
+        <div class="layer-title">
+          <span class="tag">— On-page</span>
+          <h3>Service &amp; location pages</h3>
+          <p>The pages that turn searches into enquiries — written for humans, structured for Google.</p>
+        </div>
+        <ul class="layer-list">
+          <li><span><strong>Keyword-targeted service pages</strong> — one page per high-intent search ("fencing contractor Kendal")</span></li>
+          <li><span><strong>Location pages</strong> — for every town you serve, written with local context, not boilerplate</span></li>
+          <li><span><strong>FAQ &amp; how-to content</strong> — long-tail questions that catch buyers earlier in the funnel</span></li>
+          <li><span><strong>Titles, meta &amp; headings</strong> — rewritten across the site to align with search intent</span></li>
+        </ul>
+      </article>
+
+      <!-- Layer 04 (Authority — bottom, slow-burn payoff) -->
+      <article class="layer layer-4">
+        <div class="layer-num">04</div>
+        <div class="layer-title">
+          <span class="tag">— Authority</span>
+          <h3>Reputation &amp; reach</h3>
+          <p>The slow-burn layer. Reviews, content, and links that compound over months and years.</p>
+        </div>
+        <ul class="layer-list">
+          <li><span><strong>Review automation</strong> — every completed job triggers a Google review request</span></li>
+          <li><span><strong>Content cadence</strong> — one anchor article per month around buyer-intent keywords</span></li>
+          <li><span><strong>Local backlinks</strong> — partnerships with non-competing local businesses and trade bodies</span></li>
+          <li><span><strong>Press &amp; directories</strong> — pitches to local press, association listings, sector directories</span></li>
+        </ul>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── Outcomes ──────────────────────────────────────── -->
+<section class="outcomes">
+  <div class="wrap">
+    <div class="outcomes-head">
+      <span class="eyebrow">— What the stack delivers</span>
+      <h2>Visibility that earns its keep, month after month.</h2>
+    </div>
+    <div class="outcomes-grid">
+      <div class="outcome">
+        <div class="stat">3×<em>traffic</em></div>
+        <div class="stat-label">Typical organic traffic lift for a local trade business within 6 months of completing layers 01–02.</div>
+      </div>
+      <div class="outcome">
+        <div class="stat">Top 3<em>map pack</em></div>
+        <div class="stat-label">Target ranking for your primary service in your home town within 90 days of layer 02 landing.</div>
+      </div>
+      <div class="outcome">
+        <div class="stat">∞<em>compounding</em></div>
+        <div class="stat-label">Unlike paid ads, the stack keeps working after you stop paying — content and links don't disappear.</div>
+      </div>
+    </div>
+    <p class="outcomes-foot">Outcomes vary by competition, starting position, and category. We share honest projections before any work begins.</p>
+  </div>
+</section>
+
+<!-- ─── CTA ───────────────────────────────────────────── -->
+<section class="cta">
+  <div class="wrap">
+    <h2>Want to see <em>your</em> stack?</h2>
+    <p>Free 20-minute audit. We'll show you exactly which layers are missing for your business, and the realistic order to build them in.</p>
+    <a href="/contact.html" class="btn-primary">Get a free SEO audit →</a>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    &copy; 2026 Layered &middot; Kendal, Cumbria &middot;
+    <a href="/">Home</a> &middot;
+    <a href="seo.html">SEO</a> &middot;
+    <a href="contact.html">Contact</a> &middot;
+    <a href="tel:07425781485">07425 781485</a> &middot;
+    <a href="mailto:hello@layeredstudios.com">hello@layeredstudios.com</a>
+  </div>
+</footer>
+
+</body>
+</html>
