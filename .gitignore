@@ -2,3 +2,10 @@ __pycache__/
 *.pyc
 .venv/
 .env
+
+# macOS
+.DS_Store
+
+# Tool caches
+.claude-flow/
+.wrangler/

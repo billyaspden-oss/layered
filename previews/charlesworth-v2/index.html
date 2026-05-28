@@ -1,0 +1,632 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<meta name="googlebot" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<title>Charlesworth Tree Care &amp; Fencing — Preview</title>
+<meta name="description" content="Private preview — for Charlesworth Tree Care only.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --c-primary: #1f3d2a;
+    --c-cream:   #f5f0e6;
+    --c-ink:     #1a1814;
+    --c-line:    rgba(26,24,20,.12);
+    --c-soft:    rgba(26,24,20,.55);
+    --c-faint:   rgba(26,24,20,.04);
+    --c-gold:    #c9a96a;
+    --serif:  'Newsreader', Georgia, serif;
+    --sans:   'DM Sans', system-ui, sans-serif;
+    --mono:   'JetBrains Mono', ui-monospace, monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans);
+    color: var(--c-ink);
+    background: var(--c-cream);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  .wrap { max-width: 1280px; margin: 0 auto; padding: 0 36px; }
+  .mono { font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; }
+  .eyebrow { color: var(--c-soft); }
+
+  /* ─── Topbar ─────────────────────────────────────────────── */
+  .topbar {
+    background: var(--c-ink);
+    color: rgba(245,240,230,.78);
+    padding: 9px 0;
+    font-size: 11px;
+  }
+  .topbar-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .topbar .dot::before {
+    content: '·';
+    margin-right: 14px;
+    color: rgba(245,240,230,.4);
+  }
+  .topbar .link:hover { color: #fff; }
+
+  /* ─── Nav ────────────────────────────────────────────────── */
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    background: color-mix(in oklab, var(--c-cream) 92%, transparent);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--c-line);
+  }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 0;
+    gap: 24px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--c-primary);
+  }
+  .brand-text { display: flex; flex-direction: column; }
+  .brand-name {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 19px;
+    letter-spacing: -0.01em;
+    color: var(--c-ink);
+    line-height: 1;
+  }
+  .brand-sub {
+    font-size: 10px;
+    margin-top: 4px;
+    color: var(--c-soft);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-family: var(--mono);
+  }
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    align-items: center;
+  }
+  .nav-links a {
+    font-size: 14px;
+    color: var(--c-ink);
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--c-primary); }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 500;
+    padding: 12px 22px;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+  .btn-primary {
+    background: var(--c-primary);
+    color: var(--c-cream);
+  }
+  .btn-primary:hover {
+    background: #163024;
+  }
+  .btn-ghost {
+    color: var(--c-cream);
+    border-color: rgba(245,240,230,.4);
+    background: transparent;
+  }
+  .btn-ghost:hover { background: rgba(245,240,230,.1); }
+  .btn-lg { padding: 16px 28px; font-size: 15px; }
+  .btn-dot {
+    width: 6px; height: 6px;
+    background: var(--c-gold);
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  /* ─── Hero ───────────────────────────────────────────────── */
+  .hero-full {
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-photo {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/7;
+    min-height: 540px;
+    background: var(--c-primary);
+    overflow: hidden;
+  }
+  .hero-photo img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: 50% 65%;
+    display: block;
+  }
+  .photo-tag {
+    position: absolute;
+    top: 20px; left: 20px;
+    display: flex; align-items: center; gap: 8px;
+    background: rgba(26,24,20,.78);
+    color: rgba(245,240,230,.92);
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .photo-tag i {
+    width: 6px; height: 6px;
+    background: var(--c-gold);
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(26,24,20,.35) 0%,
+      rgba(26,24,20,.15) 35%,
+      rgba(26,24,20,.7) 100%
+    );
+    display: flex;
+    align-items: flex-end;
+    padding: 80px 0;
+  }
+  .hero-content {
+    color: var(--c-cream);
+    max-width: 920px;
+  }
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.86);
+    margin-bottom: 28px;
+  }
+  .hero-eyebrow span:first-child {
+    color: rgba(255,255,255,.7);
+    font-size: 14px;
+  }
+  .display {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(40px, 6.5vw, 78px);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    margin-bottom: 28px;
+  }
+  .display em {
+    font-style: italic;
+    color: #ffffff;
+    font-weight: 300;
+  }
+  .hero-lede {
+    font-size: 17px;
+    line-height: 1.55;
+    max-width: 620px;
+    color: rgba(255,255,255,.86);
+    margin-bottom: 36px;
+  }
+  .hero-cta {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  /* ─── Hero meta strip ────────────────────────────────────── */
+  .hero-meta {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-bottom: 1px solid var(--c-line);
+    background: var(--c-cream);
+  }
+  .meta-col {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 22px 28px;
+    border-right: 1px solid var(--c-line);
+    font-size: 13px;
+    color: var(--c-ink);
+  }
+  .meta-col:last-child { border-right: none; }
+  .meta-col .mono {
+    color: var(--c-primary);
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+  }
+
+  /* ─── Trust ──────────────────────────────────────────────── */
+  .trust {
+    background: var(--c-cream);
+    padding: 80px 0;
+    border-bottom: 1px solid var(--c-line);
+  }
+  .trust-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 36px;
+  }
+  .trust-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--c-soft);
+  }
+  .trust-clients {
+    list-style: none;
+    display: flex;
+    gap: 56px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .trust-clients li {
+    font-family: var(--serif);
+    font-size: clamp(22px, 2.6vw, 32px);
+    font-weight: 400;
+    color: var(--c-primary);
+    letter-spacing: -0.01em;
+    position: relative;
+  }
+  .trust-clients li + li::before {
+    content: '';
+    position: absolute;
+    left: -28px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: var(--c-gold);
+  }
+  .trust-certs {
+    font-size: 14px;
+    color: var(--c-soft);
+    line-height: 1.6;
+    max-width: 760px;
+  }
+  .trust-certs strong {
+    color: var(--c-ink);
+    font-weight: 500;
+  }
+
+  /* ─── Story section ──────────────────────────────────────── */
+  .story {
+    padding: 100px 0;
+    background: var(--c-cream);
+  }
+  .story-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .story-photos {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .photo {
+    position: relative;
+    overflow: hidden;
+    border-radius: 6px;
+  }
+  .photo img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .story-photos .photo:first-child {
+    aspect-ratio: 4/5;
+    transform: translateY(-20px);
+  }
+  .story-photos .photo:last-child {
+    aspect-ratio: 4/5;
+    transform: translateY(20px);
+  }
+  .h-display {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(32px, 4vw, 48px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+  }
+  .h-display em {
+    font-style: italic;
+    color: var(--c-primary);
+    font-weight: 300;
+  }
+  .story-text .eyebrow {
+    display: block;
+    margin-bottom: 18px;
+  }
+  .story-text p {
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--c-soft);
+    margin-bottom: 28px;
+    max-width: 520px;
+  }
+  .cta-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--c-primary);
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 4px;
+    transition: gap 0.2s;
+  }
+  .cta-link:hover { gap: 16px; }
+
+  /* ─── Reviews ────────────────────────────────────────────── */
+  .reviews {
+    padding: 90px 0;
+    background: #ede6d6;
+    border-top: 1px solid var(--c-line);
+    border-bottom: 1px solid var(--c-line);
+  }
+  .section-head {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+  .section-head .eyebrow {
+    display: inline-block;
+    margin-bottom: 16px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .rev-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+  .rev {
+    background: var(--c-cream);
+    padding: 32px;
+    border-radius: 6px;
+    border: 1px solid var(--c-line);
+  }
+  .rev-stars {
+    color: var(--c-gold);
+    font-size: 16px;
+    letter-spacing: 0.15em;
+    margin-bottom: 18px;
+  }
+  .rev-text {
+    font-family: var(--serif);
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--c-ink);
+    margin-bottom: 22px;
+    letter-spacing: -0.005em;
+  }
+  .rev-cap {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .rev-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--c-ink);
+  }
+  .rev-place {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--c-soft);
+  }
+
+  /* ─── Footer ─────────────────────────────────────────────── */
+  .preview-note {
+    background: var(--c-ink);
+    color: rgba(245,240,230,.78);
+    padding: 28px 0;
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .preview-note a {
+    color: var(--c-gold);
+    border-bottom: 1px solid rgba(201,169,106,.4);
+    padding-bottom: 2px;
+  }
+
+  /* ─── Responsive ─────────────────────────────────────────── */
+  @media (max-width: 900px) {
+    .nav-links { display: none; }
+    .topbar-inner { font-size: 10px; gap: 12px; }
+    .topbar-inner .dot { display: none; }
+    .hero-photo { min-height: 460px; aspect-ratio: 4/5; }
+    .hero-meta { grid-template-columns: repeat(2, 1fr); }
+    .meta-col:nth-child(2) { border-right: none; }
+    .meta-col:nth-child(-n+2) { border-bottom: 1px solid var(--c-line); }
+    .trust-clients { gap: 40px; flex-direction: column; }
+    .trust-clients li + li::before { display: none; }
+    .story-grid { grid-template-columns: 1fr; gap: 48px; }
+    .rev-grid { grid-template-columns: 1fr; }
+    .wrap { padding: 0 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap topbar-inner">
+    <span class="mono">Est. 1991 · The South Lakes</span>
+    <span class="mono dot">Mon–Fri · 8am–4pm</span>
+    <a class="mono link" href="tel:07721773135">↳ 07721 773135</a>
+  </div>
+</div>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href="#" class="brand">
+      <svg width="34" height="34" viewBox="0 0 40 40" aria-hidden="true">
+        <g fill="none" stroke="currentColor" stroke-width="1.4">
+          <circle cx="20" cy="20" r="17"/><circle cx="20" cy="20" r="13"/>
+          <circle cx="20" cy="20" r="9" opacity=".8"/><circle cx="20" cy="20" r="5" opacity=".6"/>
+        </g>
+        <circle cx="20" cy="20" r="1.6" fill="currentColor"/>
+      </svg>
+      <span class="brand-text">
+        <span class="brand-name">Charlesworth</span>
+        <span class="brand-sub">Tree Care · Fencing · Timber</span>
+      </span>
+    </a>
+    <nav class="nav-links">
+      <a href="#">About</a>
+      <a href="#">Services</a>
+      <a href="#">Timber</a>
+      <a href="#">Gallery</a>
+      <a href="#">Visit</a>
+    </nav>
+    <a href="#" class="btn btn-primary"><span class="btn-dot"></span>Request a quote</a>
+  </div>
+</header>
+
+<!-- ── HERO ─────────────────────────────────────────────────────────── -->
+<section class="hero-full">
+  <div class="hero-photo">
+    <img src="images/wp-yard.jpg" alt="Charlesworth woodyard at Middleton">
+    <span class="photo-tag"><i></i><span>The yard · Middleton</span></span>
+  </div>
+  <div class="hero-overlay">
+    <div class="wrap hero-content">
+      <div class="hero-eyebrow"><span>○</span><span>A working woodyard, since 1991</span></div>
+      <h1 class="display">Tree care, fencing<br><em>&amp; timber</em>, milled on&nbsp;site.</h1>
+      <p class="hero-lede">Family-run from the Old Railway Goods Yard at Middleton, near Kirkby Lonsdale. We fell, mill and finish timber for fencing, sleepers, posts and made-to-order joinery, plus full tree surgery across the South Lakes.</p>
+      <div class="hero-cta">
+        <a href="tel:07721773135" class="btn btn-primary btn-lg"><span class="btn-dot"></span>Call 07721 773135</a>
+        <a href="#" class="btn btn-ghost btn-lg">See our services →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Hero meta strip ─────────────────────────────────────────────── -->
+<div class="hero-meta">
+  <div class="meta-col"><span class="mono">01 /</span><span>NPTC qualified arborists</span></div>
+  <div class="meta-col"><span class="mono">02 /</span><span>£10m public liability</span></div>
+  <div class="meta-col"><span class="mono">03 /</span><span>Free site visits within 25 miles</span></div>
+  <div class="meta-col"><span class="mono">04 /</span><span>Pressure-treated to BS 8417</span></div>
+</div>
+
+<!-- ── TRUST ────────────────────────────────────────────────────────── -->
+<section class="trust" aria-label="Trusted by">
+  <div class="wrap trust-inner">
+    <span class="trust-label">Trusted by</span>
+    <ul class="trust-clients">
+      <li>Lake District National Park</li>
+      <li>Yorkshire Dales National Park</li>
+      <li>Lancaster University</li>
+    </ul>
+    <p class="trust-certs">
+      <strong>NPTC</strong> qualified arborists &nbsp;·&nbsp;
+      <strong>Arboricultural Association</strong> &nbsp;·&nbsp;
+      <strong>£10m</strong> public liability &nbsp;·&nbsp;
+      Pressure-treated to <strong>BS&nbsp;8417</strong>
+    </p>
+  </div>
+</section>
+
+<!-- ── STORY ────────────────────────────────────────────────────────── -->
+<section class="story">
+  <div class="wrap story-grid">
+    <div class="story-photos">
+      <div class="photo"><img src="images/wp-timber-feature.jpg" alt="Sawyer at the band-mill" style="object-position:55% 50%"></div>
+      <div class="photo"><img src="images/wp-tree-care.jpg" alt="Arborist climbing" style="object-position:50% 40%"></div>
+    </div>
+    <div class="story-text">
+      <span class="eyebrow mono">— About us</span>
+      <h2 class="h-display">A working yard in the heart of the <em>South Lakes</em>.</h2>
+      <p>Established in 1991 and based at The Middleton Woodyard since 2000. Fencing, timber treatment, made-to-order timber and full woodland operations, trusted by the Yorkshire Dales and Lake District National Parks, Lancaster University and many others.</p>
+      <a href="#" class="cta-link">Read our story →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── REVIEWS ──────────────────────────────────────────────────────── -->
+<section class="reviews">
+  <div class="wrap">
+    <header class="section-head">
+      <span class="eyebrow mono">— What people say</span>
+      <h2 class="h-display">4.9 ★ · on Google</h2>
+    </header>
+    <div class="rev-grid">
+      <figure class="rev">
+        <div class="rev-stars" aria-label="5 stars">★★★★★</div>
+        <blockquote class="rev-text">&ldquo;It's like an Aladdin's cave. All the treasure is wood. This time I just wanted bits for crafting — no job too small, it seems.&rdquo;</blockquote>
+        <figcaption class="rev-cap">
+          <span class="rev-name">Carole Calderbank</span>
+          <span class="mono rev-place">Local Guide · Google review</span>
+        </figcaption>
+      </figure>
+      <figure class="rev">
+        <div class="rev-stars" aria-label="5 stars">★★★★★</div>
+        <blockquote class="rev-text">&ldquo;Incredibly helpful, knowledgeable and genuinely friendly — they took the time to make sure I got exactly what I needed. Well-cut, well-stored and clearly handled with care.&rdquo;</blockquote>
+        <figcaption class="rev-cap">
+          <span class="rev-name">Laura Wadsworth</span>
+          <span class="mono rev-place">Local Guide · 2026</span>
+        </figcaption>
+      </figure>
+      <figure class="rev">
+        <div class="rev-stars" aria-label="5 stars">★★★★★</div>
+        <blockquote class="rev-text">&ldquo;An awesome place. After a brief chat with one of the most enthusiastic, knowledgeable people I've met, she was presented with the perfect piece for her craft. 5-star care from this little gem.&rdquo;</blockquote>
+        <figcaption class="rev-cap">
+          <span class="rev-name">Alan Wesley</span>
+          <span class="mono rev-place">Local Guide · Google review</span>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<footer class="preview-note">
+  <div class="wrap">
+    Preview · hero + story + reviews · Built for Charlesworth Tree Care by <a href="https://layeredstudios.com">Layered Studios</a>
+  </div>
+</footer>
+
+</body>
+</html>

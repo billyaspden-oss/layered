@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /previews/
+
+Sitemap: https://layeredstudios.com/sitemap.xml
