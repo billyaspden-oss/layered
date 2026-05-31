@@ -12,9 +12,43 @@
   <meta property="og:site_name" content="Layered">
   <meta property="og:title" content="Leck Construction — Website Redesign | Layered Case Study">
   <meta property="og:description" content="Full website redesign for one of Cumbria's largest and longest-established construction companies. Bespoke, mobile-first, and built to convert.">
+  <meta property="og:image" content="https://layeredstudios.com/images/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:image" content="https://layeredstudios.com/images/og.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Leck Construction — Website Redesign | Layered">
   <meta name="twitter:description" content="Full website redesign for one of Cumbria's largest construction companies.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    "name": "Leck Construction — Website Redesign — Layered case study",
+    "url": "https://layeredstudios.com/leck-construction.html",
+    "about": "A full website redesign for Leck Construction Ltd, one of Cumbria's largest construction companies. NHBC Grade A rated, established 1946.",
+    "author": {
+      "@type": "Organization",
+      "name": "Layered",
+      "url": "https://layeredstudios.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Layered",
+      "url": "https://layeredstudios.com"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://layeredstudios.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Work", "item": "https://layeredstudios.com/#portfolio" },
+      { "@type": "ListItem", "position": 3, "name": "Leck Construction", "item": "https://layeredstudios.com/leck-construction.html" }
+    ]
+  }
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Figtree:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
@@ -46,6 +80,10 @@
     body { font-family: var(--body); background: var(--bg); color: var(--text); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
     img { display: block; max-width: 100%; }
     a { color: inherit; text-decoration: none; }
+
+    .skip-link{position:absolute;left:-9999px;top:0;z-index:1000;background:var(--accent);color:#fff;padding:10px 16px;border-radius:0 0 8px 0;font-weight:600;text-decoration:none}
+    .skip-link:focus{left:0}
+    a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
 
     .rv { opacity: 0; transform: translateY(20px); transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out); }
     .rv.in { opacity: 1; transform: none; }
@@ -163,10 +201,15 @@
 
     @media (max-width: 900px) { .two-col, .two-col-narrow { grid-template-columns: 1fr; gap: var(--sp-7); } .features-grid { grid-template-columns: 1fr 1fr; } .stat-strip { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 600px) { .features-grid { grid-template-columns: 1fr; } .stat-strip { grid-template-columns: 1fr 1fr; } .wrap, .wrap-narrow { padding: 0 var(--sp-4); } .cta-inner { flex-direction: column; align-items: flex-start; } }
-    @media (prefers-reduced-motion: reduce) { .rv { opacity: 1 !important; transform: none !important; } }
+    @media (prefers-reduced-motion: reduce) {
+      .rv { opacity: 1 !important; transform: none !important; }
+      html{scroll-behavior:auto}
+      *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+    }
   </style>
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 
 <nav class="nav">
   <div class="wrap">
@@ -187,6 +230,7 @@
   </div>
 </nav>
 
+<main id="main">
 <!-- HERO -->
 <section class="hero">
   <div class="wrap">
@@ -223,7 +267,7 @@
 <section class="sec" style="padding-top: var(--sp-8); padding-bottom: var(--sp-9);">
   <div class="wrap">
     <div class="preview-frame rv">
-      <div class="preview-bar">
+      <div class="preview-bar" aria-hidden="true">
         <div class="preview-dots"><span></span><span></span><span></span></div>
         <div class="preview-url">leckconstruction.co.uk</div>
       </div>
@@ -231,7 +275,7 @@
       <div style="background:#fff;font-family:system-ui,sans-serif">
         <div style="background:#fff;border-top:3px solid #1B5FAD;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 1px 0 rgba(0,0,0,.06)">
           <img src="images/leck-logo.png" alt="Leck Construction Ltd" style="height:36px;width:auto;display:block">
-          <div style="display:flex;gap:20px;align-items:center">
+          <div aria-hidden="true" style="display:flex;gap:20px;align-items:center">
             <span style="font-size:9px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#6B7280">About</span>
             <span style="font-size:9px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#6B7280">Sectors</span>
             <span style="font-size:9px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#6B7280">Our Work</span>
@@ -239,7 +283,7 @@
             <span style="font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:#1B2A4A;color:#fff;padding:8px 16px">Leck Homes ↗</span>
           </div>
         </div>
-        <div style="position:relative;height:340px;background-image:url('images/leck-hero.jpg');background-size:cover;background-position:center">
+        <div aria-hidden="true" style="position:relative;height:340px;background-image:url('images/leck-hero.jpg');background-size:cover;background-position:center">
           <div style="position:absolute;inset:0;background:linear-gradient(100deg,rgba(0,0,0,.78) 0%,rgba(0,0,0,.55) 45%,rgba(0,0,0,.22) 100%)"></div>
           <div style="position:absolute;bottom:44px;left:48px;right:48px">
             <div style="display:flex;align-items:center;gap:10px;font-size:11px;font-weight:500;letter-spacing:0.01em;color:rgba(255,255,255,.75);margin-bottom:12px">
@@ -250,7 +294,7 @@
             <div style="display:inline-flex;align-items:center;gap:8px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:#fff;color:#1B2A4A;padding:14px 28px">Find Out More →</div>
           </div>
         </div>
-        <div style="background:#fff;border-top:3px solid #1B5FAD;border-bottom:1px solid #E5E7EB;display:flex">
+        <div aria-hidden="true" style="background:#fff;border-top:3px solid #1B5FAD;border-bottom:1px solid #E5E7EB;display:flex">
           <div style="flex:1;padding:14px;border-right:1px solid #E5E7EB;text-align:center">
             <div style="font-size:18px;font-weight:800;color:#1B2A4A">70+</div>
             <div style="font-size:8px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#4B5563;margin-top:4px">Years Est.</div>
@@ -407,6 +451,7 @@
     </div>
   </div>
 </div>
+</main>
 
 <script>
   const io = new IntersectionObserver(entries => {

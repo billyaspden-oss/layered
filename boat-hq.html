@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boat HQ — Yacht Operations Platform | Layered Case Study</title>
+  <meta name="description" content="Case study: a full-stack operations platform for live-aboard yacht owners — maintenance, voyage logs, manuals, inventory, crew, and an AI assistant. Built by Layered.">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://layeredstudios.com/boat-hq.html">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://layeredstudios.com/boat-hq.html">
+  <meta property="og:site_name" content="Layered">
+  <meta property="og:title" content="Boat HQ — Yacht Operations Platform | Layered Case Study">
+  <meta property="og:description" content="A complete operations platform for live-aboard yacht owners — built on Next.js 15, React 19, SQLite, and Anthropic Claude.">
+  <meta property="og:image" content="https://layeredstudios.com/images/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://layeredstudios.com/images/og.png">
+  <meta name="twitter:title" content="Boat HQ — Yacht Operations Platform | Layered">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    "name": "Boat HQ — Yacht Operations Platform — Layered case study",
+    "url": "https://layeredstudios.com/boat-hq.html",
+    "about": "A full-stack operations platform for live-aboard yacht owners — maintenance, voyage logs, manuals, inventory, crew, and an AI assistant.",
+    "author": {
+      "@type": "Organization",
+      "name": "Layered",
+      "url": "https://layeredstudios.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Layered",
+      "url": "https://layeredstudios.com"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://layeredstudios.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Work", "item": "https://layeredstudios.com/#portfolio" },
+      { "@type": "ListItem", "position": 3, "name": "Boat HQ", "item": "https://layeredstudios.com/boat-hq.html" }
+    ]
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Figtree:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:         oklch(97.5% 0.007 85);
+      --bg-alt:     oklch(95.5% 0.009 85);
+      --surface:    oklch(99.5% 0.003 85);
+      --border:     oklch(89%   0.009 85);
+      --border-str: oklch(80%   0.011 85);
+      --text:       oklch(16%   0.012 85);
+      --text-2:     oklch(33%   0.011 85);
+      --text-3:     oklch(46%   0.011 85);
+      --accent:     oklch(38%   0.14  158);
+      --accent-mid: oklch(50%   0.14  158);
+
+      /* Boat HQ palette */
+      --navy:       #1A2438;
+      --navy-deep:  #0F1729;
+      --ocean:      #0369A1;
+      --ocean-mid:  #0EA5E9;
+      --ocean-lit:  #7DD3FC;
+      --brass:      #B45309;
+      --brass-lit:  #F59E0B;
+      --gold:       #FCD34D;
+      --seafoam:    #2DD4BF;
+
+      --dk:         #070C16;
+      --dk-bdr:     rgba(125, 211, 252, 0.16);
+      --dk-txt:     #F0F9FF;
+      --dk-mut:     #94A3B8;
+
+      --display: 'Bricolage Grotesque', sans-serif;
+      --body:    'Figtree', sans-serif;
+      --sp-2: 8px; --sp-3: 12px; --sp-4: 16px; --sp-5: 24px;
+      --sp-6: 32px; --sp-7: 48px; --sp-8: 64px; --sp-9: 96px;
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--body); background: var(--bg); color: var(--text); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    .skip-link{position:absolute;left:-9999px;top:0;z-index:1000;background:#0369A1;color:#fff;padding:10px 16px;border-radius:0 0 8px 0;font-weight:600;text-decoration:none}
+    .skip-link:focus{left:0}
+    a:focus-visible,button:focus-visible{outline:2px solid #0369A1;outline-offset:3px;border-radius:2px}
+
+    .rv { opacity: 0; transform: translateY(20px); transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out); }
+    .rv.in { opacity: 1; transform: none; }
+    .d1 { transition-delay: 0.06s; } .d2 { transition-delay: 0.13s; } .d3 { transition-delay: 0.2s; }
+
+    .wrap { width: 100%; max-width: 1100px; margin: 0 auto; padding: 0 var(--sp-8); }
+    .wrap-narrow { width: 100%; max-width: 760px; margin: 0 auto; padding: 0 var(--sp-8); }
+
+    /* NAV */
+    .nav { position: fixed; inset: 0 0 auto; z-index: 100; padding: var(--sp-5) 0; }
+    .nav-in {
+      display: flex; align-items: center; justify-content: space-between; gap: var(--sp-5);
+      background: oklch(97.5% 0.007 85 / 0.93); border: 1px solid var(--border);
+      border-radius: 100px; padding: var(--sp-3) var(--sp-4);
+      box-shadow: 0 2px 20px oklch(16% 0.012 85 / 0.07);
+      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+    }
+    .nav-brand { font-family: var(--display); font-size: 1.05rem; font-weight: 700; color: var(--text); letter-spacing: -0.02em; padding: 0 var(--sp-2); display: flex; align-items: center; gap: 7px; }
+    .nav-back { font-size: 0.78rem; font-weight: 600; color: var(--text-2); border: 1px solid var(--border); padding: var(--sp-2) var(--sp-5); border-radius: 100px; transition: border-color 0.2s, color 0.2s; display: flex; align-items: center; gap: 6px; }
+    .nav-back:hover { border-color: var(--border-str); color: var(--text); }
+    .nav-back svg { width: 12px; height: 12px; }
+
+    /* HERO — deep navy, ocean glow */
+    .hero {
+      background: var(--dk);
+      background-image:
+        radial-gradient(ellipse 80% 50% at 80% 0%, rgba(3,105,161,0.28), transparent 60%),
+        radial-gradient(ellipse 60% 40% at 10% 90%, rgba(180,83,9,0.16), transparent 60%);
+      padding: 140px 0 var(--sp-9);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(125,211,252,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(125,211,252,0.05) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+    .hero-inner { position: relative; z-index: 2; }
+
+    .status-pill { display: inline-flex; align-items: center; gap: var(--sp-2); font-size: 0.62rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; border: 1px solid rgba(125,211,252,0.3); color: var(--ocean-lit); padding: 4px 12px; border-radius: 100px; margin-bottom: var(--sp-5); background: rgba(3,105,161,0.1); }
+    .status-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--ocean-lit); animation: pulse 2.5s ease-in-out infinite; flex-shrink: 0; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+    .hero h1 { font-family: var(--display); font-size: clamp(2.4rem, 5vw, 4.2rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1; color: var(--dk-txt); margin-bottom: var(--sp-4); }
+    .hero h1 em { font-style: italic; font-weight: 300; color: var(--ocean-lit); }
+    .hero-sub { font-size: 1rem; font-weight: 400; line-height: 1.75; color: var(--dk-mut); max-width: 60ch; margin-bottom: var(--sp-7); }
+    .hero-meta { display: flex; align-items: center; gap: var(--sp-5); flex-wrap: wrap; }
+    .meta-item { display: flex; flex-direction: column; gap: 3px; }
+    .meta-label { font-size: 0.6rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dk-mut); }
+    .meta-value { font-size: 0.88rem; font-weight: 500; color: var(--dk-txt); }
+    .meta-sep { width: 1px; height: 32px; background: var(--dk-bdr); }
+
+    /* SECTIONS */
+    .sec { padding: var(--sp-9) 0; }
+    .sec-alt { background: var(--bg-alt); }
+    .sec-dk {
+      background: var(--dk);
+      background-image:
+        linear-gradient(rgba(125,211,252,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(125,211,252,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .sec-num { display: block; font-family: var(--display); font-size: 0.78rem; font-weight: 600; color: var(--ocean); margin-bottom: var(--sp-3); font-feature-settings: "tnum"; }
+    .sec-num span { color: var(--text-3); margin: 0 8px; font-weight: 400; }
+    .sec-num-inv { color: var(--ocean-lit); }
+    .sec-num-inv span { color: rgba(255,255,255,0.35); }
+
+    h2 { font-family: var(--display); font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 700; letter-spacing: -0.035em; line-height: 1.05; color: var(--text); margin-bottom: var(--sp-5); }
+    h2 em { font-style: italic; font-weight: 300; color: var(--ocean); }
+    h2.inv { color: var(--dk-txt); }
+    h2.inv em { color: var(--ocean-lit); }
+    .lead { font-size: 1.02rem; font-weight: 400; line-height: 1.8; color: var(--text-2); max-width: 65ch; margin-bottom: var(--sp-5); }
+    .lead.inv { color: var(--dk-mut); }
+    p.body { font-size: 0.93rem; font-weight: 400; line-height: 1.82; color: var(--text-2); max-width: 68ch; margin-bottom: var(--sp-4); }
+    p.body.inv { color: var(--dk-mut); }
+
+    /* MODULES grid */
+    .modules-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; margin-top: var(--sp-7); }
+    .module { background: var(--surface); padding: var(--sp-6) var(--sp-5); transition: background 0.25s; }
+    .module:hover { background: var(--bg); }
+    .module-ico {
+      width: 38px; height: 38px;
+      background: rgba(3,105,161,0.08);
+      border-radius: 10px;
+      display: inline-flex; align-items: center; justify-content: center;
+      color: var(--ocean);
+      margin-bottom: var(--sp-3);
+    }
+    .module-ico svg { width: 20px; height: 20px; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+    .module h3 { font-family: var(--display); font-size: 0.95rem; font-weight: 700; letter-spacing: -0.02em; color: var(--text); margin-bottom: var(--sp-2); }
+    .module p { font-size: 0.82rem; line-height: 1.68; color: var(--text-2); }
+
+    /* AI block */
+    .ai-block {
+      background: var(--navy);
+      background-image:
+        radial-gradient(ellipse 60% 40% at 100% 0%, rgba(3,105,161,0.4), transparent 60%);
+      border: 1px solid rgba(125,211,252,0.2);
+      border-radius: 20px;
+      padding: var(--sp-8);
+      margin-top: var(--sp-7);
+      position: relative;
+      overflow: hidden;
+    }
+    .ai-label { font-size: 0.67rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); display: inline-flex; align-items: center; gap: var(--sp-2); margin-bottom: var(--sp-4); }
+    .ai-label::before { content: ''; width: 16px; height: 1px; background: var(--gold); flex-shrink: 0; }
+    .ai-block h2 { font-family: var(--display); font-size: clamp(1.4rem, 2.5vw, 1.9rem); font-weight: 700; letter-spacing: -0.03em; color: var(--dk-txt); margin-bottom: var(--sp-4); }
+    .ai-block h3 { font-family: var(--display); font-size: clamp(1.4rem, 2.5vw, 1.9rem); font-weight: 700; letter-spacing: -0.03em; color: var(--dk-txt); margin-bottom: var(--sp-4); }
+    .ai-block p { font-size: 0.93rem; line-height: 1.8; color: var(--dk-mut); max-width: 66ch; }
+    .ai-capabilities { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--sp-3); margin-top: var(--sp-6); }
+    .ai-cap { display: flex; align-items: flex-start; gap: var(--sp-3); }
+    .ai-cap::before { content: ''; width: 5px; height: 5px; background: var(--gold); border-radius: 50%; flex-shrink: 0; margin-top: 6px; }
+    .ai-cap span { font-size: 0.85rem; color: var(--dk-mut); line-height: 1.5; }
+
+    /* Stack chips */
+    .stack { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-top: var(--sp-5); max-width: 720px; }
+    .stack .pill {
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--text-2);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: var(--sp-2) var(--sp-4);
+      border-radius: 100px;
+    }
+    .stack .pill em { font-style: normal; font-weight: 600; color: var(--ocean); }
+    .stack.inv .pill {
+      color: var(--dk-mut);
+      background: rgba(3,105,161,0.08);
+      border-color: rgba(125,211,252,0.2);
+    }
+    .stack.inv .pill em { color: var(--ocean-lit); }
+
+    /* The big dashboard preview */
+    .preview-frame { border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: 0 24px 64px oklch(16% 0.012 85 / 0.16); margin-top: var(--sp-7); }
+    .preview-bar { background: var(--bg-alt); padding: var(--sp-2) var(--sp-4); display: flex; align-items: center; gap: var(--sp-3); border-bottom: 1px solid var(--border); }
+    .preview-dots { display: flex; gap: 5px; }
+    .preview-dots span { width: 9px; height: 9px; border-radius: 50%; background: var(--border-str); }
+    .preview-url { font-size: 0.68rem; color: var(--text-3); background: var(--bg); border: 1px solid var(--border); padding: 3px 10px; border-radius: 100px; }
+
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-9); align-items: start; }
+    .two-col-narrow { display: grid; grid-template-columns: 1fr 1.4fr; gap: var(--sp-9); align-items: start; }
+
+    .stat-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; margin-top: var(--sp-7); }
+    .stat-block { background: var(--surface); padding: var(--sp-6) var(--sp-5); text-align: center; }
+    .stat-n { font-family: var(--display); font-size: 2rem; font-weight: 800; letter-spacing: -0.04em; color: var(--ocean); line-height: 1; margin-bottom: var(--sp-2); }
+    .stat-l { font-size: 0.72rem; font-weight: 500; color: var(--text-3); letter-spacing: 0.04em; }
+
+    .cta-band { background: var(--navy); padding: var(--sp-9) 0; }
+    .cta-inner { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-6); flex-wrap: wrap; }
+    .cta-inner h2 { font-family: var(--display); font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700; letter-spacing: -0.035em; color: var(--dk-txt); margin-bottom: 0; }
+    .cta-inner p { font-size: 0.9rem; color: var(--dk-mut); margin-top: var(--sp-2); max-width: 44ch; }
+    .btn { display: inline-flex; align-items: center; gap: var(--sp-2); font-family: var(--body); font-size: 0.82rem; font-weight: 600; padding: 13px var(--sp-5); border-radius: 100px; border: none; transition: 0.28s var(--ease-out); cursor: pointer; white-space: nowrap; }
+    .btn svg { width: 13px; height: 13px; flex-shrink: 0; transition: transform 0.28s var(--ease-out); }
+    .btn:hover svg { transform: translate(2px, -2px); }
+    .btn-p { background: var(--ocean); color: var(--dk-txt); }
+    .btn-p:hover { background: var(--ocean-mid); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(3,105,161,0.45); }
+
+    @media (max-width: 900px) {
+      .two-col, .two-col-narrow { grid-template-columns: 1fr; gap: var(--sp-7); }
+      .modules-grid { grid-template-columns: 1fr 1fr; }
+      .stat-strip { grid-template-columns: repeat(2, 1fr); }
+      .ai-capabilities { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .modules-grid { grid-template-columns: 1fr; }
+      .stat-strip { grid-template-columns: 1fr 1fr; }
+      .wrap, .wrap-narrow { padding: 0 var(--sp-4); }
+      .cta-inner { flex-direction: column; align-items: flex-start; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .rv { opacity: 1 !important; transform: none !important; }
+      html{scroll-behavior:auto}
+      *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+    }
+  </style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<nav class="nav">
+  <div class="wrap">
+    <div class="nav-in">
+      <a href="index.html" class="nav-brand" aria-label="Layered — home">
+        <svg width="116" height="22" viewBox="0 0 148 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="0" y="3"  width="22" height="5" rx="2.5" fill="oklch(50% 0.14 158)"/>
+          <rect x="0" y="12" width="15" height="5" rx="2.5" fill="oklch(50% 0.14 158)" opacity="0.72"/>
+          <rect x="0" y="21" width="9"  height="5" rx="2.5" fill="oklch(50% 0.14 158)" opacity="0.46"/>
+          <text x="31" y="24" font-family="'Bricolage Grotesque', system-ui, sans-serif" font-size="21" font-weight="700" fill="currentColor" letter-spacing="-0.84">Layered</text>
+        </svg>
+      </a>
+      <a href="index.html#portfolio" class="nav-back">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+        All Work
+      </a>
+    </div>
+  </div>
+</nav>
+
+<main id="main">
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-inner">
+      <div class="status-pill rv"><span class="status-dot"></span>In Development</div>
+      <h1 class="rv d1">Boat HQ — <em>a yacht that runs itself.</em></h1>
+      <p class="hero-sub rv d2">A full-stack operations platform for live-aboard yacht owners. Maintenance schedules, voyage logs, system-by-system manuals, crew, inventory, expenditure, and an AI assistant grounded in the boat's own documentation. One place for everything that keeps the boat moving.</p>
+      <div class="hero-meta rv d3">
+        <div class="meta-item"><span class="meta-label">Sector</span><span class="meta-value">Marine · SaaS</span></div>
+        <div class="meta-sep"></div>
+        <div class="meta-item"><span class="meta-label">Stack</span><span class="meta-value">Next.js 15 / React 19 / SQLite</span></div>
+        <div class="meta-sep"></div>
+        <div class="meta-item"><span class="meta-label">AI</span><span class="meta-value">Anthropic Claude</span></div>
+        <div class="meta-sep"></div>
+        <div class="meta-item"><span class="meta-label">Status</span><span class="meta-value">In active development</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BRIEF -->
+<section class="sec sec-alt">
+  <div class="wrap">
+    <div class="two-col">
+      <div class="rv">
+        <span class="sec-num">01<span>/</span>The problem</span>
+        <h2>Yacht ownership is a paper chase.</h2>
+      </div>
+      <div class="rv d1">
+        <p class="lead">Live-aboard yacht owners juggle binders of manuals, scattered receipts, half-remembered service intervals, a spreadsheet of crew details, and a constant fear of forgetting the one task that ruins a passage. Everything that matters lives in the wrong place.</p>
+        <p class="body">The off-the-shelf tools are either too generic (notes apps, calendars) or too narrow (anchor watches, chartplotters). Nothing covers the full operational picture — the maintenance, the parts inventory, the voyage history, the crew, the manuals, the spend — in one coherent place. So owners build their own ad-hoc systems and lose hours every season stitching them together.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section class="sec">
+  <div class="wrap">
+    <div class="two-col">
+      <div class="rv">
+        <span class="sec-num">02<span>/</span>The solution</span>
+        <h2>One platform for <em>everything that floats.</em></h2>
+      </div>
+      <div class="rv d1">
+        <p class="lead">Boat HQ is a complete operations cockpit for a sailing yacht. It models the boat as a real system — 15 categorised subsystems, each with its own maintenance schedule, parts list, manuals, and history. It tracks voyages, crew, inventory, expenditure, seasonal prep, and chandlery. And it has an AI assistant trained on the boat's own documents, so the answer to "when did we last service the saildrive?" is one sentence away — with the receipt.</p>
+        <div class="stack">
+          <span class="pill">15 marine systems</span>
+          <span class="pill">Voyage log + weather</span>
+          <span class="pill">Manuals library</span>
+          <span class="pill">Crew + permissions</span>
+          <span class="pill">Inventory + chandlery</span>
+          <span class="pill">Seasonal prep</span>
+          <span class="pill">AI assistant</span>
+          <span class="pill">Drive sync</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MODULES -->
+<section class="sec sec-alt">
+  <div class="wrap">
+    <div class="rv">
+      <span class="sec-num">03<span>/</span>What's inside</span>
+      <h2>A real model of the boat — module by module.</h2>
+      <p class="lead">Not a generic CRM rebranded for boats. Boat HQ understands what a yacht actually has on board, and what it needs to keep running.</p>
+    </div>
+    <div class="modules-grid">
+      <div class="module rv d1">
+        <div class="module-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v6m0 10v6M4.22 4.22l4.24 4.24m7.07 7.07l4.24 4.24M1 12h6m10 0h6"/></svg></div>
+        <h3>Systems</h3>
+        <p>15 categorised subsystems — engine, steering, rigging, hull, electrical, navigation, plumbing, accommodation, tender, refrigeration, galley. Each carries its own maintenance schedule, parts, and manuals.</p>
+      </div>
+      <div class="module rv d2">
+        <div class="module-ico"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+        <h3>Maintenance</h3>
+        <p>Calendar-driven and hours-driven schedules per system. Priority weighting, due-date alerts, completion history, photo evidence, drag-and-drop reordering of the immediate queue.</p>
+      </div>
+      <div class="module rv d3">
+        <div class="module-ico"><svg viewBox="0 0 24 24"><path d="M3 12l4-4 5 5 9-9"/><path d="M14 4h7v7"/><path d="M3 12v8h18v-4"/></svg></div>
+        <h3>Voyage log</h3>
+        <p>Route, date, weather, sea-state, engine hours, crew on board, notes. Auto-aggregates total engine hours; surfaces patterns over the season.</p>
+      </div>
+      <div class="module rv d1">
+        <div class="module-ico"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+        <h3>Manuals library</h3>
+        <p>Bulk-import PDFs from Google Drive, tag by system, full-text search. Every manual links to the systems that use it, with the AI able to cite specific pages.</p>
+      </div>
+      <div class="module rv d2">
+        <div class="module-ico"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <h3>Crew</h3>
+        <p>Crew profiles, qualifications, watch rotations, contact details. Per-voyage manifest with sign-on/sign-off, ready for marina paperwork.</p>
+      </div>
+      <div class="module rv d3">
+        <div class="module-ico"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg></div>
+        <h3>Inventory + chandlery</h3>
+        <p>Track spares, consumables, ropes, tools. Tag by system, location on board, supplier. Re-order alerts when stock dips below threshold.</p>
+      </div>
+      <div class="module rv d1">
+        <div class="module-ico"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+        <h3>Expenditure</h3>
+        <p>Log spend against system or voyage. CSV import for bank exports. Annual rollups, supplier rankings, "what did we spend on the engine this year" at a glance.</p>
+      </div>
+      <div class="module rv d2">
+        <div class="module-ico"><svg viewBox="0 0 24 24"><path d="M12 2l3 6 6 .9-4.5 4.3 1 6.3L12 16.5l-5.5 3 1-6.3L3 8.9 9 8z"/></svg></div>
+        <h3>Seasonal prep</h3>
+        <p>Lay-up and recommissioning checklists, repeatable year over year. Drag-and-drop ordering, photo evidence, sign-off when each item is complete.</p>
+      </div>
+      <div class="module rv d3">
+        <div class="module-ico"><svg viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1v-7h3z"/><path d="M3 19a2 2 0 0 0 2 2h1v-7H3z"/></svg></div>
+        <h3>Knowledge + AI</h3>
+        <p>Boat-specific knowledge base — your manuals, your service history, your notes — searchable via natural language with citations back to the source documents.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AI BLOCK -->
+<section class="sec sec-dk">
+  <div class="wrap">
+    <div class="ai-block">
+      <span class="ai-label">The AI layer</span>
+      <h2>Ask Bilbilis. Get answers grounded in <em style="font-style:italic;font-weight:300;color:var(--gold)">your</em> boat's own knowledge.</h2>
+      <p>Boat HQ ships with a custom AI assistant powered by Anthropic's Claude. It's trained on every manual, every voyage log, every maintenance record, and every receipt you've ever logged for the boat. Natural-language in, citations out — never a hallucinated answer.</p>
+      <div class="ai-capabilities">
+        <div class="ai-cap"><span><strong style="color:var(--dk-txt)">Service intervals</strong> — "When did we last replace the impeller, and what part number is in the bilge locker?"</span></div>
+        <div class="ai-cap"><span><strong style="color:var(--dk-txt)">Manual lookups</strong> — "What does the Volvo Penta manual say about prolonged storage in salt water?"</span></div>
+        <div class="ai-cap"><span><strong style="color:var(--dk-txt)">Voyage memory</strong> — "What was the engine behaviour last time we beat into a 25-knot SW headwind?"</span></div>
+        <div class="ai-cap"><span><strong style="color:var(--dk-txt)">Provisioning</strong> — "How many days of galley supplies for four crew on a passage to Brittany?"</span></div>
+        <div class="ai-cap"><span><strong style="color:var(--dk-txt)">Compliance</strong> — "What safety equipment expires before September, and what's the cost to renew?"</span></div>
+        <div class="ai-cap"><span><strong style="color:var(--dk-txt)">Troubleshooting</strong> — "Why is the bilge pump cycling every 12 minutes? Walk me through it."</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ARCHITECTURE / STACK -->
+<section class="sec">
+  <div class="wrap">
+    <div class="two-col">
+      <div class="rv">
+        <span class="sec-num">04<span>/</span>How it's built</span>
+        <h2>Modern stack, marine logic.</h2>
+      </div>
+      <div class="rv d1">
+        <p class="lead">Boat HQ is a fully-typed Next.js 15 application running on the React 19 server component model, with a SQLite data layer for fast embedded queries and an Anthropic Claude backbone for the AI features.</p>
+        <p class="body">The frontend uses Radix UI primitives for accessible components, Tailwind for layout, and dnd-kit for the drag-and-drop boards across tasks and seasonal-prep. The data model is hand-built around marine systems — not adapted from a generic SaaS schema — so the application behaves like it understands a boat, because it does.</p>
+        <div class="stack">
+          <span class="pill"><em>Frontend</em> · Next.js 15 + React 19</span>
+          <span class="pill"><em>UI</em> · Radix + Tailwind + dnd-kit</span>
+          <span class="pill"><em>Data</em> · SQLite via better-sqlite3</span>
+          <span class="pill"><em>AI</em> · Anthropic Claude SDK</span>
+          <span class="pill"><em>Types</em> · TypeScript + Zod schemas</span>
+          <span class="pill"><em>Auth</em> · bcryptjs + sessions</span>
+          <span class="pill"><em>Sync</em> · Google Drive import</span>
+          <span class="pill"><em>Hosting</em> · Railway, Docker-packaged</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="sec sec-alt">
+  <div class="wrap">
+    <div class="rv">
+      <span class="sec-num">05<span>/</span>By the numbers</span>
+      <h2>Built for a real boat, with real depth.</h2>
+    </div>
+    <div class="stat-strip">
+      <div class="stat-block">
+        <div class="stat-n">15</div>
+        <div class="stat-l">Marine systems modelled</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-n">17</div>
+        <div class="stat-l">Functional modules</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-n">42+</div>
+        <div class="stat-l">Manuals indexed in dev</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-n">100%</div>
+        <div class="stat-l">Typed end-to-end</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROADMAP -->
+<section class="sec">
+  <div class="wrap-narrow">
+    <div class="rv">
+      <span class="sec-num">06<span>/</span>Where it's going</span>
+      <h2>From a single boat to <em>any boat.</em></h2>
+      <p class="lead">Boat HQ is being built and tested against a real sailing yacht — SY Bilbilis, currently moored in Falmouth. The depth of the data model and the AI integration came from solving the actual operational problem first, not from a generic SaaS template.</p>
+      <p class="body">The next phase is opening it up: multi-boat support, marina integrations, parts-supplier APIs, and a marketplace where qualified surveyors and engineers can plug into the same operational record. The goal is the same as every Layered build — an honest tool that earns its place by being genuinely useful, every day.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-band">
+  <div class="wrap">
+    <div class="cta-inner">
+      <div>
+        <h2 class="inv">Got a tool inside your business <em>nobody else has built?</em></h2>
+        <p>We'd love to hear about it. Whether it's a marine platform, an internal app, or something nobody's tried yet — we'll tell you honestly if we can help.</p>
+      </div>
+      <a href="contact.html" class="btn btn-p">Start a Conversation <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+  </div>
+</section>
+</main>
+
+<script>
+  // Reveal on scroll
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+  document.querySelectorAll('.rv').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>

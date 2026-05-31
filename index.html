@@ -16,6 +16,10 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Web Design &amp; AI Systems · Kendal, Cumbria | Layered">
   <meta name="twitter:description" content="Bespoke web design and AI systems for Cumbria businesses. Free consultation, quote within 24 hours.">
+  <meta property="og:image" content="https://layeredstudios.com/images/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:image" content="https://layeredstudios.com/images/og.png">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -102,6 +106,14 @@
     img { display: block; max-width: 100%; }
     a { color: inherit; text-decoration: none; }
     button { cursor: pointer; font-family: var(--body); }
+
+    /* Skip link */
+    .skip-link{position:absolute;left:-9999px;top:0;z-index:1000;background:var(--accent);color:#fff;padding:10px 16px;border-radius:0 0 8px 0;font-weight:600;text-decoration:none}
+    .skip-link:focus{left:0}
+
+    /* Visible keyboard focus */
+    a:focus-visible,button:focus-visible,[role="tab"]:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+    .fg input:focus-visible,.fg textarea:focus-visible,.fg select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
     /* Reveal system */
     .rv {
@@ -578,10 +590,159 @@
     }
     .svc-dark ul li::before { background: var(--accent-mid); }
 
+    /* ─── DEEPER (AI + SEO reflections) ───────────────── */
+    .deeper-wrap { background: var(--bg); }
+    .deeper-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--sp-4);
+    }
+    .deeper-card {
+      position: relative;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: var(--sp-7);
+      background: var(--surface);
+      transition: border-color 0.3s, transform 0.4s var(--ease-out), box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-4);
+      overflow: hidden;
+      min-height: 360px;
+    }
+    .deeper-card:hover {
+      border-color: var(--border-str);
+      transform: translateY(-3px);
+      box-shadow: 0 18px 44px oklch(16% 0.012 85 / 0.08);
+    }
+    .deeper-card.dk {
+      background: var(--dk);
+      border-color: var(--dk-bdr);
+    }
+    .deeper-card.dk:hover {
+      border-color: oklch(38% 0.01 85);
+      box-shadow: 0 18px 44px oklch(0% 0 0 / 0.35);
+    }
+    .deeper-link {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+    }
+    .deeper-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sp-3);
+      font-size: 0.66rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-3);
+    }
+    .deeper-card.dk .deeper-eyebrow { color: var(--dk-mut); }
+    .deeper-eyebrow::before {
+      content: '';
+      width: 18px;
+      height: 1px;
+      background: var(--text-3);
+    }
+    .deeper-card.dk .deeper-eyebrow::before { background: var(--accent-mid); }
+    .deeper-card h3 {
+      font-family: var(--display);
+      font-size: clamp(1.35rem, 2.1vw, 1.7rem);
+      font-weight: 700;
+      letter-spacing: -0.028em;
+      line-height: 1.08;
+      color: var(--text);
+    }
+    .deeper-card.dk h3 { color: var(--dk-txt); }
+    .deeper-card h3 em {
+      font-style: italic;
+      font-weight: 300;
+      color: var(--accent);
+    }
+    .deeper-card.dk h3 em { color: var(--accent-mid); }
+    .deeper-card > p {
+      font-size: 0.9rem;
+      line-height: 1.65;
+      color: var(--text-2);
+      max-width: 46ch;
+    }
+    .deeper-card.dk > p { color: var(--dk-mut); }
+    .deeper-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-2);
+    }
+    .deeper-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--sp-3);
+      font-size: 0.82rem;
+      line-height: 1.5;
+      color: var(--text-2);
+    }
+    .deeper-card.dk .deeper-list li { color: var(--dk-mut); }
+    .deeper-list li::before {
+      content: '';
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+      margin-top: 8px;
+    }
+    .deeper-card.dk .deeper-list li::before { background: var(--accent-mid); }
+    .deeper-cta {
+      margin-top: auto;
+      padding-top: var(--sp-3);
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sp-2);
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: var(--accent);
+      transition: gap 0.28s var(--ease-out);
+      align-self: flex-start;
+    }
+    .deeper-card.dk .deeper-cta { color: var(--accent-mid); }
+    .deeper-cta svg {
+      width: 14px;
+      height: 14px;
+      transition: transform 0.28s var(--ease-out);
+    }
+    .deeper-card:hover .deeper-cta { gap: 14px; }
+    .deeper-card:hover .deeper-cta svg { transform: translate(2px, -2px); }
+
     /* ─── PORTFOLIO ───────────────────────────────────── */
     .portfolio-wrap { background: var(--bg-alt); }
 
     .port-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-4); }
+    .pc.feat { grid-column: 1 / -1; }
+    .pc.feat .pg { min-height: 380px; }
+    .pc.feat .pb { padding: var(--sp-7); display: grid; grid-template-columns: 1.4fr 1fr; gap: var(--sp-6) var(--sp-8); align-items: start; }
+    .pc.feat .pb-head { display: flex; flex-direction: column; gap: var(--sp-3); min-width: 0; }
+    .pc.feat .pb-head h3 { font-size: 1.85rem; line-height: 1.1; letter-spacing: -0.03em; }
+    .pc.feat .pb-head p { font-size: 0.98rem; line-height: 1.62; color: var(--text-2); }
+    .pc.feat .feat-side { display: flex; flex-direction: column; gap: var(--sp-3); padding-left: var(--sp-6); border-left: 1px solid var(--border); min-width: 0; }
+    .pc.feat .feat-side-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-3); }
+    .pc.feat .feat-meta { display: flex; gap: var(--sp-2); flex-wrap: wrap; }
+    .pc.feat .feat-meta .chip {
+      font-size: 0.74rem;
+      font-weight: 500;
+      color: var(--text-2);
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      padding: 4px var(--sp-3);
+      border-radius: 100px;
+    }
+    @media (max-width: 900px) {
+      .pc.feat { grid-column: auto; }
+      .pc.feat .pb { grid-template-columns: 1fr; gap: var(--sp-5); padding: var(--sp-6); }
+      .pc.feat .feat-side { padding-left: 0; border-left: none; padding-top: var(--sp-4); border-top: 1px solid var(--border); }
+      .pc.feat .pb-head h3 { font-size: 1.4rem; }
+      .pc.feat .pg { min-height: 280px; }
+    }
     .pc {
       display: block;
       position: relative;
@@ -815,6 +976,8 @@
       background: oklch(38% 0.14 158 / 0.07);
     }
     .fg textarea { resize: vertical; min-height: 110px; }
+    .f-note { font-size: 0.74rem; color: var(--dk-mut); margin: calc(-1 * var(--sp-1)) 0 var(--sp-3); }
+    .fg input[aria-invalid="true"], .fg textarea[aria-invalid="true"] { border-color: oklch(55% 0.14 25); }
     .f-sub {
       width: 100%;
       justify-content: center;
@@ -912,6 +1075,8 @@
       .hero-stage { padding: 140px var(--sp-6) var(--sp-9); }
       .svc-grid { grid-template-columns: 1fr; }
       .svc-full { grid-template-columns: 1fr; gap: var(--sp-5); }
+      .deeper-grid { grid-template-columns: 1fr; }
+      .deeper-card { min-height: 0; padding: var(--sp-6); }
       .why-layout, .proc-layout { grid-template-columns: 1fr; }
       .why-sticky, .proc-sticky { position: static; }
       .ct-layout { grid-template-columns: 1fr; gap: var(--sp-8); }
@@ -937,11 +1102,13 @@
     @media (prefers-reduced-motion: reduce) {
       .rv, .li { opacity: 1 !important; transform: none !important; }
       .hero-card { transform: none !important; }
-      * { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
     }
   </style>
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 
 <!-- NAV -->
 <nav class="nav" id="nav">
@@ -958,13 +1125,14 @@
       <ul class="nav-links">
         <li><a href="#services">Services</a></li>
         <li><a href="seo.html">SEO</a></li>
+        <li><a href="ai.html">AI</a></li>
         <li><a href="#portfolio">Work</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#process">Process</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
       <a href="contact.html" class="nav-cta">Start a Project</a>
-      <button class="hbg" id="hbg" aria-label="Open menu" aria-expanded="false">
+      <button class="hbg" id="hbg" aria-label="Open menu" aria-expanded="false" aria-controls="mm" aria-haspopup="dialog">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -972,15 +1140,18 @@
 </nav>
 
 <!-- MOBILE MENU -->
-<div class="mm" id="mm" role="dialog" aria-label="Navigation">
+<div class="mm" id="mm" role="dialog" aria-modal="true" aria-label="Navigation">
   <div class="mm-link"><a href="#services">Services</a></div>
   <div class="mm-link"><a href="seo.html">SEO</a></div>
+  <div class="mm-link"><a href="ai.html">AI</a></div>
   <div class="mm-link"><a href="#portfolio">Work</a></div>
   <div class="mm-link"><a href="#about">About</a></div>
   <div class="mm-link"><a href="#process">Process</a></div>
   <div class="mm-link"><a href="contact.html">Contact</a></div>
   <div class="mm-link"><a href="contact.html" class="mm-cta">Start a Project</a></div>
 </div>
+
+<main id="main">
 
 <!-- HERO -->
 <section class="hero" id="top" aria-label="Introduction">
@@ -1006,7 +1177,7 @@
         <div class="hero-card-dots"><span></span><span></span><span></span></div>
         <div class="hero-card-url">yourbrand.co.uk</div>
       </div>
-      <div class="hero-card-screen" style="position:relative;background:var(--dk);font-family:var(--body)">
+      <div class="hero-card-screen" aria-hidden="true" style="position:relative;background:var(--dk);font-family:var(--body)">
         <!-- Layered-built site: dark, layered-rule motif, green accent -->
         <div style="position:absolute;inset:0;background-image:linear-gradient(oklch(100% 0 0 / 0.03) 1px,transparent 1px);background-size:100% 40px;pointer-events:none"></div>
         <!-- nav -->
@@ -1115,6 +1286,54 @@
   </div>
 </section>
 
+<!-- DEEPER (AI + SEO reflections) -->
+<section class="sec deeper-wrap" id="deeper">
+  <div class="wrap">
+    <div class="sec-hdr rv">
+      <h2>Two services with their own playbook.</h2>
+      <p>Some work benefits from a deeper read. Here's the full picture on the two areas we go especially deep — what gets built, how it ships, and why each one earns its keep over time.</p>
+    </div>
+
+    <div class="deeper-grid">
+
+      <!-- AI -->
+      <div class="deeper-card dk rv d1">
+        <a href="ai.html" class="deeper-link" aria-label="Read the full AI breakdown"></a>
+        <span class="deeper-eyebrow">Layered AI · Custom, grounded</span>
+        <h3>AI built <em>for</em> your business, not bolted on.</h3>
+        <p>Conversational assistants, knowledge platforms, and workflow automations — grounded in your own documents and wired into the tools you already use. No off-the-shelf widgets, no hallucinated answers.</p>
+        <ul class="deeper-list">
+          <li>Retrieval-augmented answers with citations — the model says "I don't know" when your sources don't</li>
+          <li>Three patterns: conversational chat, full knowledge platforms, and background workflow automations</li>
+          <li>Five-phase build with product and intelligence advancing in lockstep, then kept fresh</li>
+        </ul>
+        <span class="deeper-cta">
+          Read the full AI breakdown
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </span>
+      </div>
+
+      <!-- SEO -->
+      <div class="deeper-card rv d2">
+        <a href="seo.html" class="deeper-link" aria-label="See the full SEO stack"></a>
+        <span class="deeper-eyebrow">Layered SEO · Built to compound</span>
+        <h3>Four layers of SEO, each one <em>building on the last</em>.</h3>
+        <p>A complete package for Cumbria businesses — technical foundations, local search, on-page content, and long-term authority. Each layer takes 4–6 weeks to land and keeps paying off afterwards.</p>
+        <ul class="deeper-list">
+          <li>Foundation: technical SEO, Core Web Vitals, schema, crawlability</li>
+          <li>Local: Google Business Profile, map-pack targeting, citations and NAP consistency</li>
+          <li>Pages &amp; authority: keyword-targeted service pages, review automation, content cadence</li>
+        </ul>
+        <span class="deeper-cta">
+          See the full SEO stack
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- PORTFOLIO -->
 <section class="sec portfolio-wrap" id="portfolio">
   <div class="wrap">
@@ -1131,7 +1350,7 @@
       <div class="pc rv d1">
         <a href="leck-construction.html" class="pc-link" aria-label="View Leck Construction project"></a>
         <div class="pt">
-          <div class="pg" style="background:#fff;display:block;padding:0;overflow:hidden;font-family:system-ui,sans-serif">
+          <div class="pg" aria-hidden="true" style="background:#fff;display:block;padding:0;overflow:hidden;font-family:system-ui,sans-serif">
             <!-- Nav — matches real site: white bg, 3px blue top border, logo image -->
             <div style="background:#fff;border-top:3px solid #1B5FAD;padding:8px 14px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 1px 0 rgba(0,0,0,.06)">
               <img src="images/leck-logo.png" alt="Leck Construction" style="height:18px;width:auto;display:block">
@@ -1193,7 +1412,7 @@
       <div class="pc rv d2">
         <a href="gilpin.html" class="pc-link" aria-label="View Gilpin Hotel project"></a>
         <div class="pt">
-          <div class="pg" style="background:#070707;display:block;padding:0;overflow:hidden;font-family:system-ui,sans-serif">
+          <div class="pg" aria-hidden="true" style="background:#070707;display:block;padding:0;overflow:hidden;font-family:system-ui,sans-serif">
             <!-- Nav -->
             <div style="background:rgba(7,7,7,0.9);border-bottom:1px solid rgba(196,106,58,0.4);padding:0 12px;height:28px;display:flex;align-items:center;justify-content:space-between">
               <img src="images/gilpin-logo.png" style="height:16px;opacity:0.92;display:block" alt="Gilpin Hotel &amp; Lake House">
@@ -1247,7 +1466,156 @@
           <h3>The Gilpin Hotel &amp; Lake House</h3>
           <p>AI-powered staff training portal and knowledge base for a five-star Lake District hotel — built on the Plato AI system.</p>
         </div>
-      </a>
+      </div>
+
+      <!-- Boat HQ (featured row) -->
+      <div class="pc feat rv d3">
+        <a href="boat-hq.html" class="pc-link" aria-label="Boat HQ — yacht management platform case study"></a>
+        <div class="pt">
+            <div class="pg" aria-hidden="true" style="background:#F5F8FB;display:block;padding:0;overflow:hidden;font-family:system-ui,sans-serif;color:#1A2438">
+              <!-- Top bar -->
+              <div style="background:#1A2438;padding:6px 10px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.06)">
+                <div style="display:flex;align-items:center;gap:6px">
+                  <span style="display:inline-flex;width:14px;height:14px;border-radius:3px;background:linear-gradient(135deg,#1A2438,#0369A1);align-items:center;justify-content:center;box-shadow:0 0 0 1px rgba(252,211,77,0.2)">
+                    <svg viewBox="0 0 32 32" fill="none" style="width:8px;height:8px">
+                      <path d="M16 4 L16 22" stroke="#FCD34D" stroke-width="2" stroke-linecap="round"/>
+                      <path d="M16 8 C 12 8, 8 11, 8 16 L 24 16 C 24 11, 20 8, 16 8 Z" fill="#F0F9FF" opacity="0.95"/>
+                      <path d="M4 26 Q 8 23, 12 26 T 20 26 T 28 26" stroke="#7DD3FC" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.8"/>
+                    </svg>
+                  </span>
+                  <span style="color:#F0F9FF;font-size:9px;font-weight:700;letter-spacing:-0.01em">Boat HQ</span>
+                </div>
+                <div style="display:flex;gap:7px">
+                  <span style="font-size:5.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#FCD34D">Today</span>
+                  <span style="font-size:5.5px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:rgba(240,249,255,0.6)">Tasks</span>
+                  <span style="font-size:5.5px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:rgba(240,249,255,0.6)">Maintenance</span>
+                  <span style="font-size:5.5px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:rgba(240,249,255,0.6)">Voyages</span>
+                  <span style="font-size:5.5px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:rgba(240,249,255,0.6)">Systems</span>
+                  <span style="font-size:5.5px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:rgba(240,249,255,0.6)">Inventory</span>
+                  <span style="font-size:5.5px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:rgba(240,249,255,0.6)">Knowledge</span>
+                </div>
+              </div>
+              <!-- Body: sidebar + main -->
+              <div style="display:grid;grid-template-columns:54px 1fr;min-height:330px">
+                <!-- Sidebar -->
+                <div style="background:#0F1729;padding:8px 0;display:flex;flex-direction:column;gap:6px;border-right:1px solid rgba(255,255,255,0.05)">
+                  <div style="padding:4px 0;display:flex;flex-direction:column;align-items:center;gap:1px;background:rgba(3,105,161,0.16);border-left:2px solid #0369A1">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#7DD3FC" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:10px;height:10px"><circle cx="12" cy="12" r="3"/><path d="M12 1v6m0 10v6M4.22 4.22l4.24 4.24m7.07 7.07l4.24 4.24M1 12h6m10 0h6"/></svg>
+                    <span style="font-size:5px;font-weight:600;color:#7DD3FC;letter-spacing:.02em">Engine</span>
+                  </div>
+                  <div style="padding:4px 0;display:flex;flex-direction:column;align-items:center;gap:1px">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="rgba(240,249,255,0.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:10px;height:10px"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2"/><path d="M12 4v4m0 8v4M4 12h4m8 0h4"/></svg>
+                    <span style="font-size:5px;color:rgba(240,249,255,0.45);letter-spacing:.02em">Steering</span>
+                  </div>
+                  <div style="padding:4px 0;display:flex;flex-direction:column;align-items:center;gap:1px">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="rgba(240,249,255,0.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:10px;height:10px"><path d="M12 2v20M5 8l7-6 7 6M5 14l7 6 7-6"/></svg>
+                    <span style="font-size:5px;color:rgba(240,249,255,0.45);letter-spacing:.02em">Rigging</span>
+                  </div>
+                  <div style="padding:4px 0;display:flex;flex-direction:column;align-items:center;gap:1px">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="rgba(240,249,255,0.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:10px;height:10px"><circle cx="12" cy="6" r="3"/><path d="M12 9v13M5 22a7 7 0 0 1 14 0"/></svg>
+                    <span style="font-size:5px;color:rgba(240,249,255,0.45);letter-spacing:.02em">Hull</span>
+                  </div>
+                  <div style="padding:4px 0;display:flex;flex-direction:column;align-items:center;gap:1px">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="rgba(240,249,255,0.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:10px;height:10px"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg>
+                    <span style="font-size:5px;color:rgba(240,249,255,0.45);letter-spacing:.02em">Electric</span>
+                  </div>
+                  <div style="padding:4px 0;display:flex;flex-direction:column;align-items:center;gap:1px">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="rgba(240,249,255,0.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:10px;height:10px"><path d="M12 2l8 4v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></svg>
+                    <span style="font-size:5px;color:rgba(240,249,255,0.45);letter-spacing:.02em">Safety</span>
+                  </div>
+                  <div style="padding:4px 0;display:flex;flex-direction:column;align-items:center;gap:1px">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="rgba(240,249,255,0.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:10px;height:10px"><path d="M7 3v18M17 3v18M3 8h18M3 16h18"/></svg>
+                    <span style="font-size:5px;color:rgba(240,249,255,0.45);letter-spacing:.02em">Galley</span>
+                  </div>
+                </div>
+                <!-- Main -->
+                <div style="padding:10px 14px 14px 14px;background:linear-gradient(180deg,#F5F8FB 0%,#EAF1F8 100%)">
+                  <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:8px">
+                    <div>
+                      <div style="font-size:6px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#0369A1;margin-bottom:1px">Today · Tue 28 May</div>
+                      <div style="font-size:13px;font-weight:700;color:#1A2438;letter-spacing:-.02em">Aboard SY Bilbilis</div>
+                    </div>
+                    <div style="display:flex;gap:4px;align-items:center;background:#fff;border:1px solid #DCE5EE;border-radius:4px;padding:3px 6px">
+                      <span style="width:5px;height:5px;background:#10b981;border-radius:50%;display:inline-block"></span>
+                      <span style="font-size:5.5px;color:#1A2438;font-weight:600">Moored · Falmouth</span>
+                    </div>
+                  </div>
+                  <!-- Dashboard cards -->
+                  <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:6px">
+                    <!-- Urgent tasks -->
+                    <div style="background:#fff;border:1px solid #DCE5EE;border-radius:5px;padding:6px 7px;box-shadow:0 1px 2px rgba(15,23,42,.04)">
+                      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+                        <span style="font-size:5.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#dc2626">⚠ Urgent</span>
+                        <span style="font-size:6px;font-weight:700;color:#dc2626;background:#fef2f2;padding:1px 5px;border-radius:8px;border:1px solid #fecaca">3</span>
+                      </div>
+                      <div style="font-size:5.5px;color:#1A2438;line-height:1.7;border-top:1px solid #F0F4F8;padding-top:3px">• Bilge pump float switch replace<br>• Cooling raw water impeller<br>• Liferaft 12-month service</div>
+                    </div>
+                    <!-- Upcoming maintenance -->
+                    <div style="background:#fff;border:1px solid #DCE5EE;border-radius:5px;padding:6px 7px;box-shadow:0 1px 2px rgba(15,23,42,.04)">
+                      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+                        <span style="font-size:5.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#B45309">⚒ Maintenance</span>
+                        <span style="font-size:6px;font-weight:700;color:#B45309;background:#fef7eb;padding:1px 5px;border-radius:8px;border:1px solid #fed7aa">5</span>
+                      </div>
+                      <div style="font-size:5.5px;color:#1A2438;line-height:1.7;border-top:1px solid #F0F4F8;padding-top:3px">• Engine oil + filter (218 hrs)<br>• Anodes inspection<br>• Standing rigging tension</div>
+                    </div>
+                  </div>
+                  <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:6px;margin-bottom:6px">
+                    <!-- Recent voyages -->
+                    <div style="background:#fff;border:1px solid #DCE5EE;border-radius:5px;padding:6px 7px;box-shadow:0 1px 2px rgba(15,23,42,.04)">
+                      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+                        <span style="font-size:5.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#0369A1">⚓ Recent voyages</span>
+                        <span style="font-size:5px;color:#0369A1;font-weight:600">218.4 hrs</span>
+                      </div>
+                      <div style="font-size:5px;color:#1A2438;line-height:1.7;border-top:1px solid #F0F4F8;padding-top:3px">
+                        <div style="display:flex;justify-content:space-between"><span><strong>Falmouth → Helford</strong> · F4 SW · slight</span><span style="color:#6B7280">3.2h</span></div>
+                        <div style="display:flex;justify-content:space-between"><span><strong>Helford → Fowey</strong> · F3 W · slight</span><span style="color:#6B7280">5.1h</span></div>
+                        <div style="display:flex;justify-content:space-between"><span><strong>Salcombe → Falmouth</strong> · F5 SW · mod</span><span style="color:#6B7280">7.8h</span></div>
+                      </div>
+                    </div>
+                    <!-- AI Assistant -->
+                    <div style="background:linear-gradient(135deg,#0369A1,#1A2438);border:1px solid #0369A1;border-radius:5px;padding:6px 7px;color:#F0F9FF;box-shadow:0 1px 2px rgba(15,23,42,.06)">
+                      <div style="display:flex;align-items:center;gap:3px;margin-bottom:3px">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#FCD34D" stroke-width="2" style="width:7px;height:7px"><path d="M12 2l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/></svg>
+                        <span style="font-size:5.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#FCD34D">Ask Bilbilis</span>
+                      </div>
+                      <div style="font-size:5px;color:rgba(240,249,255,0.85);line-height:1.55;font-style:italic;border-top:1px solid rgba(252,211,77,0.2);padding-top:3px">"How often should I service the saildrive in salt water?"</div>
+                      <div style="margin-top:3px;display:inline-flex;align-items:center;gap:2px;font-size:4.5px;font-weight:700;color:#FCD34D;letter-spacing:.08em;text-transform:uppercase">Ask →</div>
+                    </div>
+                  </div>
+                  <!-- Tag strip -->
+                  <div style="display:flex;gap:3px;flex-wrap:wrap;padding-top:4px;border-top:1px solid #DCE5EE">
+                    <span style="font-size:4.5px;font-weight:600;color:#0369A1;background:#E0F2FE;padding:1px 4px;border-radius:6px;letter-spacing:.04em">15 systems</span>
+                    <span style="font-size:4.5px;font-weight:600;color:#B45309;background:#fef7eb;padding:1px 4px;border-radius:6px;letter-spacing:.04em">42 manuals</span>
+                    <span style="font-size:4.5px;font-weight:600;color:#1A2438;background:#E2E8F0;padding:1px 4px;border-radius:6px;letter-spacing:.04em">3 crew</span>
+                    <span style="font-size:4.5px;font-weight:600;color:#0F766E;background:#CCFBF1;padding:1px 4px;border-radius:6px;letter-spacing:.04em">8 voyages this season</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <div class="cs-badge" style="color:#0369A1;border-color:rgba(3,105,161,.4)">In Development</div>
+          <div class="ph-ov"><a href="boat-hq.html" class="pv-btn">View Project</a></div>
+        </div>
+        <div class="pb">
+          <div class="pb-head">
+            <div class="p-tag">Marine · SaaS · AI</div>
+            <h3>Boat HQ</h3>
+            <p>A complete operations platform for live-aboard yacht owners — maintenance schedules, voyage logs, system-by-system manuals, crew, inventory, expenditure, and an AI assistant grounded in the boat's own documentation. Built on Next.js 15 / React 19 with SQLite and Anthropic Claude.</p>
+          </div>
+          <div class="feat-side">
+            <div class="feat-side-label">— Built with</div>
+            <div class="feat-meta">
+              <span class="chip">Next.js 15</span>
+              <span class="chip">React 19</span>
+              <span class="chip">TypeScript</span>
+              <span class="chip">SQLite</span>
+              <span class="chip">Anthropic Claude</span>
+              <span class="chip">15 marine systems</span>
+              <span class="chip">AI search</span>
+              <span class="chip">Drive sync</span>
+            </div>
+          </div>
+        </div>
+      </div>
 
     </div>
   </div>
@@ -1350,12 +1718,12 @@
         <form onsubmit="handleSubmit(event)" novalidate>
           <div class="f-row">
             <div class="fg">
-              <label for="fname">Your Name</label>
-              <input type="text" id="fname" name="name" placeholder="Jane Smith" required autocomplete="name">
+              <label for="fname">Your Name <span aria-hidden="true">*</span></label>
+              <input type="text" id="fname" name="name" placeholder="Jane Smith" required aria-required="true" autocomplete="name">
             </div>
             <div class="fg">
-              <label for="femail">Email Address</label>
-              <input type="email" id="femail" name="email" placeholder="jane@yourbusiness.com" required autocomplete="email">
+              <label for="femail">Email Address <span aria-hidden="true">*</span></label>
+              <input type="email" id="femail" name="email" placeholder="jane@yourbusiness.com" required aria-required="true" autocomplete="email">
             </div>
           </div>
           <div class="fg">
@@ -1363,9 +1731,10 @@
             <input type="tel" id="fphone" name="phone" placeholder="07xxx xxxxxx" autocomplete="tel">
           </div>
           <div class="fg">
-            <label for="fmsg">Tell us about your project</label>
-            <textarea id="fmsg" name="message" placeholder="I run a [type of business] and I'm looking for..." required></textarea>
+            <label for="fmsg">Tell us about your project <span aria-hidden="true">*</span></label>
+            <textarea id="fmsg" name="message" placeholder="I run a [type of business] and I'm looking for..." required aria-required="true"></textarea>
           </div>
+          <p class="f-note">* indicates a required field</p>
           <input type="text" name="botcheck" id="botcheck" style="display:none" tabindex="-1" autocomplete="off">
           <button type="submit" class="btn f-sub" id="fsub">
             Send Message
@@ -1413,6 +1782,8 @@
   </div>
 </section>
 
+</main>
+
 <!-- FOOTER -->
 <footer class="ft">
   <div class="wrap">
@@ -1431,6 +1802,7 @@
       <nav class="ft-nav" aria-label="Footer navigation">
         <a href="#services">Services</a>
         <a href="seo.html">SEO</a>
+        <a href="ai.html">AI</a>
         <a href="#portfolio">Our Work</a>
         <a href="#about">About</a>
         <a href="#process">Process</a>
@@ -1455,20 +1827,56 @@
   // Load animations
   window.addEventListener('load', () => document.body.classList.add('loaded'));
 
-  // Mobile menu
+  // Mobile menu — accessible dialog: focus move, focus trap, Escape to close.
   const hbg = document.getElementById('hbg'), mm = document.getElementById('mm');
-  hbg.addEventListener('click', () => {
-    const o = hbg.classList.toggle('op');
-    mm.classList.toggle('op', o);
-    hbg.setAttribute('aria-expanded', o);
-    document.body.style.overflow = o ? 'hidden' : '';
-  });
-  mm.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  const mmLinks = () => Array.from(mm.querySelectorAll('a'));
+
+  function openMenu() {
+    hbg.classList.add('op');
+    mm.classList.add('op');
+    hbg.setAttribute('aria-expanded', 'true');
+    hbg.setAttribute('aria-label', 'Close menu');
+    document.body.style.overflow = 'hidden';
+    const first = mmLinks()[0];
+    if (first) first.focus();
+  }
+
+  function closeMenu(returnFocus) {
     hbg.classList.remove('op');
     mm.classList.remove('op');
     hbg.setAttribute('aria-expanded', 'false');
+    hbg.setAttribute('aria-label', 'Open menu');
     document.body.style.overflow = '';
-  }));
+    if (returnFocus) hbg.focus();
+  }
+
+  hbg.addEventListener('click', () => {
+    if (mm.classList.contains('op')) closeMenu(false); else openMenu();
+  });
+
+  mm.querySelectorAll('a').forEach(a => a.addEventListener('click', () => closeMenu(false)));
+
+  // Trap Tab/Shift+Tab within the open menu; Escape closes and returns focus to the toggle.
+  mm.addEventListener('keydown', (e) => {
+    if (!mm.classList.contains('op')) return;
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      closeMenu(true);
+      return;
+    }
+    if (e.key === 'Tab') {
+      const links = mmLinks();
+      if (!links.length) return;
+      const first = links[0], last = links[links.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+  });
 
   // Motion: scroll reveals + the hero showcase tilt. CSS handles the eased/staggered transitions.
   let motionReady = false;
@@ -1532,20 +1940,44 @@
     const btn = document.getElementById('fsub');
     const errEl = document.getElementById('fs-err');
 
-    const name    = document.getElementById('fname').value.trim();
-    const email   = document.getElementById('femail').value.trim();
+    const nameEl  = document.getElementById('fname');
+    const emailEl = document.getElementById('femail');
+    const msgEl   = document.getElementById('fmsg');
+    const name    = nameEl.value.trim();
+    const email   = emailEl.value.trim();
     const phone   = document.getElementById('fphone').value.trim();
-    const message = document.getElementById('fmsg').value.trim();
+    const message = msgEl.value.trim();
+
+    // Reset validation state from any prior attempt.
+    [nameEl, emailEl, msgEl].forEach(el => {
+      el.removeAttribute('aria-invalid');
+      el.removeAttribute('aria-describedby');
+    });
+
+    // Mark invalid fields, link the error container to the first one, and move focus there.
+    const fail = (invalidEls, msg) => {
+      errEl.textContent = msg;
+      errEl.style.display = 'block';
+      if (!errEl.id) errEl.id = 'fs-err';
+      invalidEls.forEach(el => el.setAttribute('aria-invalid', 'true'));
+      const first = invalidEls[0];
+      if (first) {
+        first.setAttribute('aria-describedby', errEl.id);
+        first.focus();
+      }
+    };
 
     // Validate required fields
-    if (!name || !email || !message) {
-      errEl.textContent = 'Please fill in your name, email, and project details before sending.';
-      errEl.style.display = 'block';
+    const missing = [];
+    if (!name) missing.push(nameEl);
+    if (!email) missing.push(emailEl);
+    if (!message) missing.push(msgEl);
+    if (missing.length) {
+      fail(missing, 'Please fill in your name, email, and project details before sending.');
       return;
     }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      errEl.textContent = 'Please enter a valid email address.';
-      errEl.style.display = 'block';
+      fail([emailEl], 'Please enter a valid email address.');
       return;
     }
 

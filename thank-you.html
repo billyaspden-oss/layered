@@ -215,11 +215,18 @@
       .divider { display: none; }
     }
     @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
       .card, .check-ring { animation: none !important; opacity: 1 !important; transform: none !important; }
+      *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
     }
+    .skip-link { position: absolute; left: -9999px; top: 0; z-index: 1000; background: var(--accent); color: #fff; padding: 10px 16px; border-radius: 0 0 8px 0; font-weight: 600; text-decoration: none; }
+    .skip-link:focus { left: 0; }
+    a:focus-visible, button:focus-visible { outline: 2px solid var(--accent-mid); outline-offset: 3px; border-radius: 2px; }
   </style>
 </head>
 <body>
+
+<a class="skip-link" href="#main">Skip to content</a>
 
 <nav class="nav">
   <a href="/" class="nav-brand" aria-label="Layered — home">
@@ -236,7 +243,7 @@
   </a>
 </nav>
 
-<main>
+<main id="main">
   <div class="card">
     <div class="check-wrap">
       <div class="check-ring" aria-hidden="true">

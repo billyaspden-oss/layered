@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact Layered — Free Consultation · Web Design &amp; AI Systems, Kendal</title>
+  <title>Contact Layered — Free Web Design Consultation · Kendal</title>
   <meta name="description" content="Get in touch with Layered for a free, no-obligation consultation. We build bespoke websites and AI systems for businesses across Cumbria. Quote within 24 hours.">
   <meta name="keywords" content="contact web designer Kendal, web design quote Cumbria, bespoke website Kendal, web agency contact Cumbria">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -11,10 +11,14 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://layeredstudios.com/contact.html">
   <meta property="og:site_name" content="Layered">
-  <meta property="og:title" content="Contact Layered — Free Web Design Consultation, Kendal Cumbria">
+  <meta property="og:title" content="Contact Layered — Free Web Design Consultation · Kendal">
   <meta property="og:description" content="Get a free, no-obligation quote for your new website or AI system. Based in Kendal, Cumbria — we respond within 24 hours.">
+  <meta property="og:image" content="https://layeredstudios.com/images/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Contact Layered — Free Consultation">
+  <meta name="twitter:title" content="Contact Layered — Free Web Design Consultation · Kendal">
+  <meta name="twitter:image" content="https://layeredstudios.com/images/og.png">
   <meta name="twitter:description" content="Free, no-obligation consultation for web design &amp; AI systems. Based in Kendal, Cumbria.">
   <script type="application/ld+json">
   {
@@ -81,6 +85,11 @@
     img { display: block; max-width: 100%; }
     a { color: inherit; text-decoration: none; }
     button { cursor: pointer; font-family: var(--body); }
+
+    .skip-link{position:absolute;left:-9999px;top:0;z-index:1000;background:var(--accent);color:#fff;padding:10px 16px;border-radius:0 0 8px 0;font-weight:600;text-decoration:none}
+    .skip-link:focus{left:0}
+    a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+    .fg input:focus-visible,.fg textarea:focus-visible,.fg select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
     .rv { opacity: 0; transform: translateY(22px); transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out); }
     .rv.in { opacity: 1; transform: none; }
@@ -511,11 +520,13 @@
     }
     @media (prefers-reduced-motion: reduce) {
       .rv, .li { opacity: 1 !important; transform: none !important; }
-      * { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
     }
   </style>
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 
 <!-- NAV -->
 <nav class="nav" id="nav">
@@ -532,13 +543,14 @@
       <ul class="nav-links">
         <li><a href="/#services">Services</a></li>
         <li><a href="seo.html">SEO</a></li>
+        <li><a href="ai.html">AI</a></li>
         <li><a href="/#portfolio">Work</a></li>
         <li><a href="/#about">About</a></li>
         <li><a href="/#process">Process</a></li>
         <li><a href="contact.html" aria-current="page">Contact</a></li>
       </ul>
       <a href="contact.html" class="nav-cta">Start a Project</a>
-      <button class="hbg" id="hbg" aria-label="Open menu" aria-expanded="false">
+      <button class="hbg" id="hbg" aria-label="Open menu" aria-expanded="false" aria-controls="mm" aria-haspopup="dialog">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -546,15 +558,18 @@
 </nav>
 
 <!-- MOBILE MENU -->
-<div class="mm" id="mm" role="dialog" aria-label="Navigation">
+<div class="mm" id="mm" role="dialog" aria-modal="true" aria-label="Navigation">
   <div class="mm-link"><a href="/#services">Services</a></div>
   <div class="mm-link"><a href="seo.html">SEO</a></div>
+  <div class="mm-link"><a href="ai.html">AI</a></div>
   <div class="mm-link"><a href="/#portfolio">Work</a></div>
   <div class="mm-link"><a href="/#about">About</a></div>
   <div class="mm-link"><a href="/#process">Process</a></div>
   <div class="mm-link"><a href="contact.html">Contact</a></div>
   <div class="mm-link"><a href="contact.html" class="mm-cta">Start a Project</a></div>
 </div>
+
+<main id="main">
 
 <!-- HERO -->
 <section class="ct-hero" aria-label="Contact Layered">
@@ -588,17 +603,18 @@
         <div class="f-head">
           <h2>Tell us what you need.</h2>
           <p>Fill in as much or as little as you like. We'll read everything and come back to you personally — no automated responses, no sales scripts.</p>
+          <p class="f-note" style="text-align:left;margin-top:var(--sp-3)"><span style="color:var(--accent)">*</span> indicates a required field.</p>
         </div>
 
         <form id="ctform" onsubmit="handleSubmit(event)" novalidate>
           <div class="f-row">
             <div class="fg">
               <label for="fname">Your Name <span style="color:var(--accent)">*</span></label>
-              <input type="text" id="fname" name="name" placeholder="Jane Smith" required autocomplete="name">
+              <input type="text" id="fname" name="name" placeholder="Jane Smith" required aria-required="true" autocomplete="name">
             </div>
             <div class="fg">
               <label for="femail">Email Address <span style="color:var(--accent)">*</span></label>
-              <input type="email" id="femail" name="email" placeholder="jane@yourbusiness.com" required autocomplete="email">
+              <input type="email" id="femail" name="email" placeholder="jane@yourbusiness.com" required aria-required="true" autocomplete="email">
             </div>
           </div>
           <div class="f-row">
@@ -625,7 +641,7 @@
           </div>
           <div class="fg">
             <label for="fmsg">Tell us about your project <span style="color:var(--accent)">*</span></label>
-            <textarea id="fmsg" name="message" placeholder="I run a [type of business] and I'm looking for..." required></textarea>
+            <textarea id="fmsg" name="message" placeholder="I run a [type of business] and I'm looking for..." required aria-required="true"></textarea>
           </div>
           <input type="text" name="botcheck" id="botcheck" style="display:none" tabindex="-1" autocomplete="off">
           <button type="submit" class="f-sub" id="fsub">
@@ -694,6 +710,8 @@
   </div>
 </section>
 
+</main>
+
 <!-- FOOTER -->
 <footer class="ft">
   <div class="wrap">
@@ -712,6 +730,7 @@
       <nav class="ft-nav" aria-label="Footer navigation">
         <a href="/#services">Services</a>
         <a href="seo.html">SEO</a>
+        <a href="ai.html">AI</a>
         <a href="/#portfolio">Our Work</a>
         <a href="/#about">About</a>
         <a href="/#process">Process</a>
@@ -738,18 +757,47 @@
 
   // Mobile menu
   const hbg = document.getElementById('hbg'), mm = document.getElementById('mm');
-  hbg.addEventListener('click', () => {
-    const o = hbg.classList.toggle('op');
-    mm.classList.toggle('op', o);
-    hbg.setAttribute('aria-expanded', o);
-    document.body.style.overflow = o ? 'hidden' : '';
-  });
-  mm.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  const mmLinks = () => Array.from(mm.querySelectorAll('a'));
+
+  function openMenu() {
+    hbg.classList.add('op');
+    mm.classList.add('op');
+    hbg.setAttribute('aria-expanded', 'true');
+    hbg.setAttribute('aria-label', 'Close menu');
+    document.body.style.overflow = 'hidden';
+    const links = mmLinks();
+    if (links.length) links[0].focus();
+  }
+  function closeMenu(returnFocus) {
     hbg.classList.remove('op');
     mm.classList.remove('op');
     hbg.setAttribute('aria-expanded', 'false');
+    hbg.setAttribute('aria-label', 'Open menu');
     document.body.style.overflow = '';
-  }));
+    if (returnFocus) hbg.focus();
+  }
+
+  hbg.addEventListener('click', () => {
+    if (mm.classList.contains('op')) closeMenu(true);
+    else openMenu();
+  });
+  mm.querySelectorAll('a').forEach(a => a.addEventListener('click', () => closeMenu(false)));
+
+  // Focus trap + Escape within mobile menu
+  mm.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') { closeMenu(true); return; }
+    if (e.key !== 'Tab') return;
+    const links = mmLinks();
+    if (!links.length) return;
+    const first = links[0], last = links[links.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  });
 
   // Scroll reveals
   const io = new IntersectionObserver(entries => {
@@ -765,22 +813,44 @@
     const btn = document.getElementById('fsub');
     const errEl = document.getElementById('fs-err');
 
-    const name    = document.getElementById('fname').value.trim();
-    const email   = document.getElementById('femail').value.trim();
+    const nameEl  = document.getElementById('fname');
+    const emailEl = document.getElementById('femail');
+    const msgEl   = document.getElementById('fmsg');
+
+    const name    = nameEl.value.trim();
+    const email   = emailEl.value.trim();
     const phone   = document.getElementById('fphone').value.trim();
     const business = document.getElementById('fbusiness').value.trim();
     const service  = document.getElementById('fservice').value;
-    const message  = document.getElementById('fmsg').value.trim();
+    const message  = msgEl.value.trim();
+
+    // Reset prior invalid state
+    [nameEl, emailEl, msgEl].forEach(el => el.removeAttribute('aria-invalid'));
+    if (!errEl.id) errEl.id = 'fs-err';
+
+    // Helper to surface validation errors accessibly
+    function showError(msg, invalidFields) {
+      errEl.textContent = msg;
+      errEl.style.display = 'block';
+      invalidFields.forEach(el => el.setAttribute('aria-invalid', 'true'));
+      const firstInvalid = invalidFields[0];
+      if (firstInvalid) {
+        firstInvalid.setAttribute('aria-describedby', errEl.id);
+        firstInvalid.focus();
+      }
+    }
 
     // Validate required fields
-    if (!name || !email || !message) {
-      errEl.textContent = 'Please fill in your name, email, and project details before sending.';
-      errEl.style.display = 'block';
+    const missing = [];
+    if (!name) missing.push(nameEl);
+    if (!email) missing.push(emailEl);
+    if (!message) missing.push(msgEl);
+    if (missing.length) {
+      showError('Please fill in your name, email, and project details before sending.', missing);
       return;
     }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      errEl.textContent = 'Please enter a valid email address.';
-      errEl.style.display = 'block';
+      showError('Please enter a valid email address.', [emailEl]);
       return;
     }
 

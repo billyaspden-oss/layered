@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Systems · Built for your business | Layered</title>
+  <meta name="description" content="Custom AI assistants and workflow automations for Cumbria businesses. Built on your own knowledge, integrated into your real systems — never off-the-shelf.">
+  <meta name="keywords" content="AI Cumbria, custom AI assistant, AI automation Kendal, RAG systems, AI integration Lake District">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://layeredstudios.com/ai.html">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://layeredstudios.com/ai.html">
+  <meta property="og:site_name" content="Layered">
+  <meta property="og:title" content="AI Systems · Built for your business | Layered">
+  <meta property="og:description" content="Custom AI assistants and workflow automations — built on your own knowledge, integrated into your real systems. One Layered process, end-to-end.">
+  <meta property="og:image" content="https://layeredstudios.com/images/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://layeredstudios.com/images/og.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "serviceType": "AI Systems Integration",
+    "provider": {
+      "@type": "Organization",
+      "name": "Layered",
+      "url": "https://layeredstudios.com"
+    },
+    "areaServed": "Cumbria"
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Figtree:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:           oklch(97.5% 0.007 85);
+      --bg-alt:       oklch(95.5% 0.009 85);
+      --bg-deep:      oklch(93%   0.011 85);
+      --surface:      oklch(99.5% 0.003 85);
+      --border:       oklch(89%   0.009 85);
+      --border-str:   oklch(80%   0.011 85);
+
+      --text:         oklch(16%   0.012 85);
+      --text-2:       oklch(33%   0.011 85);
+      --text-3:       oklch(46%   0.011 85);
+
+      --accent:       oklch(38%   0.14  158);
+      --accent-mid:   oklch(50%   0.14  158);
+      --accent-lit:   oklch(96%   0.03  158);
+      --accent-sub:   oklch(94%   0.045 158);
+
+      --ai:           oklch(55%   0.12  290);
+      --ai-mid:       oklch(70%   0.10  290);
+      --ai-lit:       oklch(96%   0.025 290);
+      --ai-sub:       oklch(93%   0.04  290);
+
+      --dk:           oklch(13%   0.014 85);
+      --dk-alt:       oklch(17%   0.014 85);
+      --dk-bdr:       oklch(25%   0.013 85);
+      --dk-txt:       oklch(93%   0.007 85);
+      --dk-mut:       oklch(72%   0.011 85);
+
+      --display: 'Bricolage Grotesque', sans-serif;
+      --body:    'Figtree', sans-serif;
+
+      --sp-1:  4px;  --sp-2:  8px;  --sp-3: 12px;  --sp-4: 16px;
+      --sp-5: 24px;  --sp-6: 32px;  --sp-7: 48px;  --sp-8: 64px; --sp-9: 96px;
+
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--body);
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.55;
+    }
+    a { color: inherit; text-decoration: none; }
+    .wrap { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 var(--sp-8); }
+
+    .skip-link{position:absolute;left:-9999px;top:0;z-index:1000;background:var(--accent);color:#fff;padding:10px 16px;border-radius:0 0 8px 0;font-weight:600;text-decoration:none}
+    .skip-link:focus{left:0}
+    a:focus-visible,button:focus-visible,[role="tab"]:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+
+    /* ─── Nav ───────────────────────────────────────────── */
+    .nav {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 100;
+      padding: var(--sp-4) 0;
+    }
+    .nav-in {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--sp-5);
+      background: oklch(97.5% 0.007 85 / 0.93);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: var(--sp-3) var(--sp-4);
+      box-shadow: 0 2px 20px oklch(16% 0.012 85 / 0.07);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .nav-brand {
+      font-family: var(--display);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.02em;
+      padding: 0 var(--sp-2);
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .brand-mark { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; }
+    .nav-links { display: flex; align-items: center; gap: var(--sp-1); list-style: none; }
+    .nav-links a {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-2);
+      padding: var(--sp-2) var(--sp-3);
+      border-radius: 100px;
+      transition: color 0.2s, background 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); background: var(--bg-alt); }
+    .nav-cta {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--surface);
+      background: var(--dk);
+      padding: var(--sp-2) var(--sp-5);
+      border-radius: 100px;
+      transition: background 0.25s, transform 0.25s;
+    }
+    .nav-cta:hover { background: var(--accent); transform: scale(1.02); }
+
+    .hbg {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      width: 38px;
+      height: 38px;
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      padding: 11px;
+      cursor: pointer;
+    }
+    .hbg span { display: block; height: 1.5px; background: var(--text); transition: 0.28s var(--ease-out); transform-origin: center; }
+    .hbg.op span:nth-child(1) { transform: translateY(5.5px) rotate(45deg); }
+    .hbg.op span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hbg.op span:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
+
+    .mm {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      z-index: 99;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--sp-2);
+    }
+    .mm.op { display: flex; }
+    .mm-link { opacity: 0; transform: translateY(14px); transition: 0.4s var(--ease-out); }
+    .mm.op .mm-link { opacity: 1; transform: none; }
+    .mm.op .mm-link:nth-child(1) { transition-delay: 0.04s; }
+    .mm.op .mm-link:nth-child(2) { transition-delay: 0.09s; }
+    .mm.op .mm-link:nth-child(3) { transition-delay: 0.14s; }
+    .mm.op .mm-link:nth-child(4) { transition-delay: 0.19s; }
+    .mm.op .mm-link:nth-child(5) { transition-delay: 0.24s; }
+    .mm a {
+      font-family: var(--display);
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: var(--text);
+      padding: var(--sp-3) var(--sp-6);
+      border-radius: 12px;
+      transition: color 0.2s, background 0.2s;
+    }
+    .mm a:hover { color: var(--accent); background: var(--accent-sub); }
+    .mm .mm-cta { font-size: 1.1rem !important; color: var(--accent) !important; }
+
+    /* ─── Hero ──────────────────────────────────────────── */
+    .hero {
+      padding: 160px 0 var(--sp-8);
+      background:
+        radial-gradient(ellipse 70% 50% at 50% 0%, var(--ai-sub) 0%, transparent 60%),
+        var(--bg);
+      text-align: center;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sp-2);
+      font-family: var(--body);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ai);
+      background: var(--ai-lit);
+      padding: var(--sp-2) var(--sp-4);
+      border-radius: 100px;
+      margin-bottom: var(--sp-6);
+    }
+    .eyebrow::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--ai);
+      border-radius: 50%;
+    }
+    .hero h1 {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      line-height: 1.02;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      max-width: 920px;
+      margin: 0 auto var(--sp-5);
+    }
+    .hero h1 em { font-style: italic; font-weight: 300; color: var(--ai); }
+    .hero .lede {
+      font-size: 1.15rem;
+      color: var(--text-2);
+      max-width: 660px;
+      margin: 0 auto;
+      line-height: 1.55;
+    }
+
+    /* ─── Diagram strip ─────────────────────────────────── */
+    .diagram {
+      background: var(--dk);
+      color: var(--dk-txt);
+      padding: var(--sp-9) 0 var(--sp-8);
+      border-top: 1px solid var(--dk-bdr);
+    }
+    .diagram-head {
+      text-align: center;
+      max-width: 760px;
+      margin: 0 auto var(--sp-7);
+      padding: 0 var(--sp-5);
+    }
+    .diagram-head .eyebrow { color: var(--ai-mid); background: oklch(55% 0.12 290 / 0.14); }
+    .diagram-head .eyebrow::before { background: var(--ai-mid); }
+    .diagram-head h2 {
+      font-family: var(--display);
+      font-size: clamp(1.75rem, 3.6vw, 2.6rem);
+      font-weight: 500;
+      color: var(--dk-txt);
+      letter-spacing: -0.02em;
+      line-height: 1.12;
+      margin-bottom: var(--sp-5);
+    }
+    .diagram-head h2 em { font-style: italic; font-weight: 300; color: var(--ai-mid); }
+    .diagram-head p { font-size: 1rem; color: var(--dk-mut); line-height: 1.6; }
+    .diagram-figure { max-width: 1300px; margin: 0 auto; padding: 0 var(--sp-5); }
+    .diagram-figure .frame {
+      background: var(--dk-alt);
+      border: 1px solid var(--dk-bdr);
+      border-radius: 16px;
+      padding: var(--sp-4);
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .diagram-figure img {
+      display: block;
+      width: 100%;
+      min-width: 800px;
+      height: auto;
+      border-radius: 8px;
+    }
+    .diagram-caption {
+      font-size: 0.82rem;
+      color: var(--dk-mut);
+      text-align: center;
+      margin-top: var(--sp-5);
+      font-style: italic;
+    }
+
+    /* ─── Capabilities grid ─────────────────────────────── */
+    .capabilities {
+      background: var(--bg-alt);
+      padding: var(--sp-9) 0;
+      border-top: 1px solid var(--border);
+    }
+    .cap-head { text-align: center; max-width: 780px; margin: 0 auto var(--sp-8); padding: 0 var(--sp-5); }
+    .cap-head h2 {
+      font-family: var(--display);
+      font-size: clamp(1.75rem, 3.6vw, 2.6rem);
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      line-height: 1.12;
+      color: var(--text);
+      margin-bottom: var(--sp-4);
+    }
+    .cap-head h2 em { font-style: italic; font-weight: 300; color: var(--ai); }
+    .cap-head p { font-size: 1rem; color: var(--text-2); line-height: 1.6; }
+    .cap-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--sp-4);
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 var(--sp-5);
+    }
+    .cap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: var(--sp-6);
+      transition: transform 0.3s var(--ease-out), border-color 0.3s var(--ease-out);
+    }
+    .cap:hover { transform: translateY(-3px); border-color: var(--ai-mid); }
+    .cap-icon {
+      width: 40px; height: 40px;
+      background: var(--ai-lit);
+      color: var(--ai);
+      border-radius: 10px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: var(--sp-4);
+    }
+    .cap-icon svg {
+      width: 22px;
+      height: 22px;
+      stroke: currentColor;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+    }
+    .cap h3 {
+      font-family: var(--display);
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      line-height: 1.25;
+      margin-bottom: var(--sp-2);
+    }
+    .cap p {
+      font-size: 0.88rem;
+      color: var(--text-2);
+      line-height: 1.55;
+    }
+
+    /* ─── Plato proof point ─────────────────────────────── */
+    .proof {
+      background: var(--bg);
+      padding: var(--sp-9) 0;
+      border-top: 1px solid var(--border);
+    }
+    .proof-card {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: var(--sp-8) var(--sp-7);
+      background: var(--dk);
+      color: var(--dk-txt);
+      border-radius: 24px;
+      box-shadow: 0 24px 48px -24px oklch(16% 0.012 85 / 0.3);
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: var(--sp-8);
+      align-items: center;
+    }
+    .proof-tag {
+      font-family: var(--body);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ai-mid);
+      margin-bottom: var(--sp-4);
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sp-2);
+    }
+    .proof-tag::before {
+      content: '';
+      width: 14px; height: 1px;
+      background: var(--ai-mid);
+    }
+    .proof h2 {
+      font-family: var(--display);
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      line-height: 1.12;
+      color: var(--dk-txt);
+      margin-bottom: var(--sp-4);
+    }
+    .proof h2 em { font-style: italic; font-weight: 300; color: var(--ai-mid); }
+    .proof-lede {
+      font-size: 0.98rem;
+      color: var(--dk-mut);
+      line-height: 1.7;
+      margin-bottom: var(--sp-5);
+    }
+    .proof-link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sp-2);
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--ai-mid);
+      padding: var(--sp-3) var(--sp-5);
+      border: 1px solid var(--dk-bdr);
+      border-radius: 100px;
+      transition: background 0.25s, border-color 0.25s, transform 0.25s;
+    }
+    .proof-link:hover { background: oklch(55% 0.12 290 / 0.12); border-color: var(--ai-mid); transform: translateY(-2px); }
+    .proof-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--sp-2);
+    }
+    .proof-tags .pill {
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--dk-txt);
+      background: oklch(55% 0.12 290 / 0.16);
+      border: 1px solid oklch(55% 0.12 290 / 0.32);
+      padding: var(--sp-2) var(--sp-3);
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+
+    /* ─── Interactive timeline ──────────────────────────── */
+    .interactive {
+      background: var(--bg);
+      padding: var(--sp-9) 0;
+    }
+    .interactive-head {
+      text-align: center;
+      max-width: 780px;
+      margin: 0 auto var(--sp-8);
+      padding: 0 var(--sp-5);
+    }
+    .interactive-head h2 {
+      font-family: var(--display);
+      font-size: clamp(1.75rem, 3.6vw, 2.6rem);
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      line-height: 1.12;
+      color: var(--text);
+      margin-bottom: var(--sp-4);
+    }
+    .interactive-head h2 em { font-style: italic; font-weight: 300; color: var(--ai); }
+    .interactive-head p { font-size: 1rem; color: var(--text-2); line-height: 1.6; }
+
+    .tab-group {
+      display: flex;
+      gap: var(--sp-2);
+      justify-content: center;
+      margin-bottom: var(--sp-8);
+      padding: var(--sp-1);
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      max-width: 580px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .tab {
+      flex: 1;
+      font-family: var(--body);
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--text-3);
+      background: transparent;
+      border: none;
+      padding: var(--sp-3) var(--sp-5);
+      border-radius: 100px;
+      cursor: pointer;
+      transition: background 0.3s var(--ease-out), color 0.3s var(--ease-out);
+    }
+    .tab:hover { color: var(--text); }
+    .tab[aria-selected="true"] {
+      background: var(--dk);
+      color: var(--surface);
+    }
+
+    .timeline {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 var(--sp-5);
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-5);
+    }
+    .phase {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: var(--sp-6) var(--sp-7);
+      display: grid;
+      grid-template-columns: 200px 1fr 1fr;
+      gap: var(--sp-7);
+      align-items: start;
+      box-shadow: 0 4px 16px -8px oklch(16% 0.012 85 / 0.06);
+      transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
+    }
+    .phase:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px -14px oklch(16% 0.012 85 / 0.18);
+    }
+    .phase-head { display: flex; flex-direction: column; gap: var(--sp-2); }
+    .phase-num {
+      font-family: var(--display);
+      font-size: 2.4rem;
+      font-weight: 400;
+      line-height: 1;
+      color: var(--ai);
+      letter-spacing: -0.04em;
+    }
+    .phase-name {
+      font-family: var(--display);
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: -0.02em;
+    }
+    .phase-meta {
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--text-3);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .lane {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-3);
+      padding-left: var(--sp-5);
+      border-left: 1px solid var(--border);
+    }
+    .lane-label {
+      font-family: var(--body);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-3);
+      margin-bottom: var(--sp-1);
+    }
+    .lane-product .lane-label { color: var(--text-2); }
+    .lane-intel .lane-label { color: var(--ai); }
+    .lane ul { list-style: none; display: flex; flex-direction: column; gap: var(--sp-3); }
+    .lane li {
+      display: grid;
+      grid-template-columns: 18px 1fr;
+      gap: var(--sp-2);
+      font-size: 0.92rem;
+      color: var(--text-2);
+      line-height: 1.5;
+    }
+    .lane li::before {
+      content: '';
+      width: 8px; height: 8px;
+      margin-top: 7px;
+      background: var(--text-3);
+      border-radius: 2px;
+      transform: rotate(45deg);
+      align-self: start;
+      justify-self: center;
+    }
+    .lane-intel li::before { background: var(--ai); }
+
+    .lane.swap-out { opacity: 0; transform: translateY(4px); }
+    .lane.swap-in  { opacity: 1; transform: translateY(0); }
+    .lane { transition: opacity 0.22s var(--ease-out), transform 0.22s var(--ease-out); }
+
+    /* ─── Outcomes strip ────────────────────────────────── */
+    .outcomes {
+      background: var(--dk);
+      color: var(--dk-txt);
+      padding: var(--sp-9) 0;
+    }
+    .outcomes-head { text-align: center; margin-bottom: var(--sp-8); }
+    .outcomes-head .eyebrow { color: var(--ai-mid); background: oklch(55% 0.12 290 / 0.14); }
+    .outcomes-head .eyebrow::before { background: var(--ai-mid); }
+    .outcomes-head h2 {
+      font-family: var(--display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 500;
+      color: var(--dk-txt);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .outcomes-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--sp-7);
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .outcome { text-align: center; padding: 0 var(--sp-4); }
+    .outcome .stat {
+      font-family: var(--display);
+      font-weight: 500;
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      line-height: 1;
+      letter-spacing: -0.03em;
+      color: var(--dk-txt);
+      margin-bottom: var(--sp-3);
+    }
+    .outcome .stat em {
+      font-style: normal;
+      font-size: 0.55em;
+      font-weight: 400;
+      color: var(--dk-mut);
+      letter-spacing: 0;
+      margin-left: 4px;
+    }
+    .outcome .stat-label {
+      font-family: var(--body);
+      font-size: 0.95rem;
+      font-weight: 400;
+      color: var(--dk-mut);
+      line-height: 1.5;
+    }
+    .outcomes-foot {
+      text-align: center;
+      margin-top: var(--sp-8);
+      font-size: 0.85rem;
+      color: var(--dk-mut);
+      font-style: italic;
+    }
+
+    /* ─── CTA ───────────────────────────────────────────── */
+    .cta {
+      padding: var(--sp-9) 0;
+      text-align: center;
+      background: var(--bg-alt);
+      border-top: 1px solid var(--border);
+    }
+    .cta h2 {
+      font-family: var(--display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 500;
+      color: var(--text);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      max-width: 700px;
+      margin: 0 auto var(--sp-5);
+    }
+    .cta h2 em { font-style: italic; font-weight: 300; color: var(--ai); }
+    .cta p {
+      font-size: 1.05rem;
+      color: var(--text-2);
+      max-width: 560px;
+      margin: 0 auto var(--sp-7);
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sp-3);
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--surface);
+      background: var(--dk);
+      padding: var(--sp-4) var(--sp-7);
+      border-radius: 100px;
+      transition: background 0.25s, transform 0.25s;
+    }
+    .btn-primary:hover { background: var(--ai); transform: translateY(-2px); }
+
+    /* ─── Footer ────────────────────────────────────────── */
+    .footer {
+      padding: var(--sp-7) 0;
+      text-align: center;
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      font-size: 0.85rem;
+      color: var(--text-3);
+    }
+    .footer a { color: var(--ai); }
+
+    /* ─── Responsive ────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .wrap { padding: 0 var(--sp-5); }
+      .nav-links, .nav-cta { display: none; }
+      .hbg { display: flex; }
+      .phase {
+        grid-template-columns: 1fr;
+        gap: var(--sp-5);
+        padding: var(--sp-6);
+      }
+      .lane { padding-left: 0; border-left: none; padding-top: var(--sp-4); border-top: 1px solid var(--border); }
+      .outcomes-grid { grid-template-columns: 1fr; gap: var(--sp-6); }
+      .tab-group { max-width: none; }
+      .tab { font-size: 0.85rem; padding: var(--sp-3) var(--sp-4); }
+      .cap-grid { grid-template-columns: 1fr; gap: var(--sp-3); }
+      .proof-card { grid-template-columns: 1fr; gap: var(--sp-6); padding: var(--sp-7) var(--sp-6); }
+    }
+    @media (max-width: 1200px) and (min-width: 769px) {
+      .cap-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
+    }
+  </style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<nav class="nav">
+  <div class="wrap">
+    <div class="nav-in">
+      <a href="/" class="nav-brand" aria-label="Layered — home">
+        <svg width="116" height="22" viewBox="0 0 148 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="0" y="3"  width="22" height="5" rx="2.5" fill="oklch(50% 0.14 158)"/>
+          <rect x="0" y="12" width="15" height="5" rx="2.5" fill="oklch(50% 0.14 158)" opacity="0.72"/>
+          <rect x="0" y="21" width="9"  height="5" rx="2.5" fill="oklch(50% 0.14 158)" opacity="0.46"/>
+          <text x="31" y="24" font-family="'Bricolage Grotesque', system-ui, sans-serif" font-size="21" font-weight="700" fill="currentColor" letter-spacing="-0.84">Layered</text>
+        </svg>
+      </a>
+      <ul class="nav-links">
+        <li><a href="/#services">Services</a></li>
+        <li><a href="seo.html">SEO</a></li>
+        <li><a href="ai.html" aria-current="page">AI</a></li>
+        <li><a href="/#portfolio">Work</a></li>
+        <li><a href="/#about">About</a></li>
+        <li><a href="/#process">Process</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <a href="contact.html" class="nav-cta">Start a Project</a>
+      <button class="hbg" id="hbg" aria-label="Open menu" aria-expanded="false" aria-controls="mm" aria-haspopup="dialog">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mm" id="mm" role="dialog" aria-modal="true" aria-label="Navigation">
+  <div class="mm-link"><a href="/#services">Services</a></div>
+  <div class="mm-link"><a href="seo.html">SEO</a></div>
+  <div class="mm-link"><a href="ai.html">AI</a></div>
+  <div class="mm-link"><a href="/#portfolio">Work</a></div>
+  <div class="mm-link"><a href="/#about">About</a></div>
+  <div class="mm-link"><a href="/#process">Process</a></div>
+  <div class="mm-link"><a href="contact.html">Contact</a></div>
+  <div class="mm-link"><a href="contact.html" class="mm-cta">Start a Project</a></div>
+</div>
+
+<main id="main">
+
+<!-- ─── Hero ──────────────────────────────────────────── -->
+<section class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Layered AI · Custom, grounded, bespoke</span>
+    <h1>AI built <em>for</em> your business,<br>not bolted on.</h1>
+    <p class="lede">Custom AI systems for Cumbria businesses — chat, voice, video, search, governance, and automation. Built on your own knowledge, integrated into your real tools, deployed to production.</p>
+  </div>
+</section>
+
+<!-- ─── Diagram (visual hero) ─────────────────────────── -->
+<section class="diagram">
+  <div class="wrap">
+    <div class="diagram-head">
+      <span class="eyebrow">— How we build it</span>
+      <h2>One process, applied to <em>three kinds of AI work</em>.</h2>
+      <p>Whether it's a conversational assistant, a full knowledge platform with governance and learning, or a background automation handling repeatable work, the build follows the same five phases — with product and intelligence advancing together.</p>
+    </div>
+    <figure class="diagram-figure">
+      <div class="frame">
+        <picture>
+          <source srcset="images/ai-build-process.avif?v=4" type="image/avif">
+          <img src="images/ai-build-process.png?v=4"
+               alt="End-to-end AI build process — top band shows two Layered AI offerings (conversational assistants, workflow automations); below sits a unified five-phase timeline (Discover, Design, Build, Launch, Grow) with a Product lane and an Intelligence lane running through every phase."
+               loading="lazy"
+               width="1920" height="1500">
+        </picture>
+      </div>
+      <figcaption class="diagram-caption">AI is only as good as the intelligence behind it — we build the product and its brain in lockstep, then keep both fresh.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ─── Capabilities grid ─────────────────────────────── -->
+<section class="capabilities" id="capabilities">
+  <div class="cap-head">
+    <span class="eyebrow">— What's possible</span>
+    <h2>Modern AI is more than a chatbox. <em>Here's what we ship.</em></h2>
+    <p>Every Layered AI build draws on the same toolkit. Conversational systems and workflow automations both lean on these underlying capabilities — depending on what your business actually needs.</p>
+  </div>
+  <div class="cap-grid">
+    <article class="cap">
+      <div class="cap-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4"/><path d="M9.5 12h5M9.5 15h5M9.5 18h3"/><circle cx="18" cy="20" r="1.5"/></svg>
+      </div>
+      <h3>Grounded in your documents</h3>
+      <p>Retrieval-augmented generation with semantic chunking, vector search, and citations. The model answers only what your sources actually say — and says "I don't know" when they don't.</p>
+    </article>
+    <article class="cap">
+      <div class="cap-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0"/><path d="M12 18v3"/><path d="M9 21h6"/></svg>
+      </div>
+      <h3>Voice in, voice out</h3>
+      <p>Whisper-grade transcription for spoken input, ElevenLabs studio TTS for natural replies, multi-language support. Fallback providers wired in so a single outage never takes the system offline.</p>
+    </article>
+    <article class="cap">
+      <div class="cap-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><rect x="3" y="5" width="14" height="14" rx="2"/><path d="M17 10l4-2v8l-4-2z"/><path d="M9 9l3 3-3 3z" fill="currentColor" stroke="none"/></svg>
+      </div>
+      <h3>AI-generated training video</h3>
+      <p>From a SOP to a presenter-ready video in minutes — Claude scripts the narrative, ElevenLabs or Synthesia gives it a voice, ffmpeg stitches the slides. Used in production at Gilpin.</p>
+    </article>
+    <article class="cap">
+      <div class="cap-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><circle cx="10" cy="10" r="6"/><circle cx="10" cy="10" r="2.5"/><path d="M14.5 14.5L20 20"/></svg>
+      </div>
+      <h3>Semantic search</h3>
+      <p>Find by meaning, not keywords. Embeddings (OpenAI text-embedding-3-small) over your whole knowledge base, returning the most relevant chunks across hundreds of documents.</p>
+    </article>
+    <article class="cap">
+      <div class="cap-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="8" ry="2.5"/><path d="M4 6v5c0 1.4 3.6 2.5 8 2.5s8-1.1 8-2.5V6"/><path d="M4 11v5c0 1.4 3.6 2.5 8 2.5s8-1.1 8-2.5v-5"/></svg>
+      </div>
+      <h3>Memory + personalisation</h3>
+      <p>Per-user and per-admin persistent memory. Facts the AI learns about each person stick across sessions, with audit-trailed corrections so older versions never silently disappear.</p>
+    </article>
+    <article class="cap">
+      <div class="cap-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg>
+      </div>
+      <h3>Governance + sign-off</h3>
+      <p>HOD review queues, reliability tiers, trust/staleness scoring, full audit log of every admin action. Safety-escalation routing built into the AI prompts for safeguarding and statutory queries.</p>
+    </article>
+    <article class="cap">
+      <div class="cap-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 15-6.7"/><path d="M21 12a9 9 0 0 1-15 6.7"/><path d="M18 3v3h-3"/><path d="M6 21v-3h3"/></svg>
+      </div>
+      <h3>Spaced-repetition learning</h3>
+      <p>Auto-generated quizzes (cached by content hash so they only regenerate when the source changes), XP, streaks, badges, daily challenges. Gamification when the brief calls for retention, not just access.</p>
+    </article>
+    <article class="cap">
+      <div class="cap-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><rect x="3" y="5" width="12" height="10" rx="1.5"/><rect x="9" y="9" width="12" height="10" rx="1.5"/><path d="M3 8h12M9 12h12"/></svg>
+      </div>
+      <h3>Multi-app architecture</h3>
+      <p>Staff-facing app + admin tool on shared data, with department-scoped access. Two front doors to one system — each tuned to the user, all writes audit-logged.</p>
+    </article>
+    <article class="cap">
+      <div class="cap-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><circle cx="5" cy="6" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="M6.5 7.5L11 16.5M17.5 7.5L13 16.5M7 6h10"/></svg>
+      </div>
+      <h3>System integrations</h3>
+      <p>Google Drive/Docs for content, HR (Employment Hero) for authoritative people data, Knack for live operational records, Synthesia for avatar video. Whatever you already use, we wire it in.</p>
+    </article>
+  </div>
+</section>
+
+<!-- ─── Plato proof point ─────────────────────────────── -->
+<section class="proof">
+  <div class="wrap">
+    <div class="proof-card">
+      <div>
+        <span class="proof-tag">Built &amp; running in production</span>
+        <h2>Plato — the <em>AI training platform</em> for The Gilpin Hotel.</h2>
+        <p class="proof-lede">A five-star Lake District hotel needed every staff member, across eight departments, answered instantly and accurately — without losing the warmth that earned the Relais &amp; Châteaux badge. We built two apps sharing one knowledge base: a staff-facing chat trained on Gilpin's own SOPs, and Prof Plato, the admin tool where HODs author and govern the source material.</p>
+        <a href="gilpin.html" class="proof-link">Read the full case study →</a>
+      </div>
+      <div class="proof-tags">
+        <span class="pill">Custom RAG</span>
+        <span class="pill">Voice + TTS</span>
+        <span class="pill">AI training videos</span>
+        <span class="pill">Semantic search</span>
+        <span class="pill">User memory</span>
+        <span class="pill">Quiz generation</span>
+        <span class="pill">XP &amp; streaks</span>
+        <span class="pill">SOP governance</span>
+        <span class="pill">HOD sign-off</span>
+        <span class="pill">8 department scopes</span>
+        <span class="pill">Drive integration</span>
+        <span class="pill">Employment Hero</span>
+        <span class="pill">Safety escalation</span>
+        <span class="pill">Audit log</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Interactive timeline ──────────────────────────── -->
+<section class="interactive" id="explore">
+  <div class="wrap">
+    <div class="interactive-head">
+      <span class="eyebrow">— Explore the process</span>
+      <h2>Pick what you're building. <em>See the work that goes in.</em></h2>
+      <p>Same five phases, different specifics. Switch between the two offerings to see how the work shifts.</p>
+    </div>
+
+    <div class="tab-group" role="tablist" aria-label="AI offering">
+      <button class="tab" role="tab" id="tab-assistants" aria-selected="true" tabindex="0" aria-controls="timeline" data-product="assistants">Assistants</button>
+      <button class="tab" role="tab" id="tab-knowledge" aria-selected="false" tabindex="-1" aria-controls="timeline" data-product="knowledge_platforms">Knowledge platforms</button>
+      <button class="tab" role="tab" id="tab-automations" aria-selected="false" tabindex="-1" aria-controls="timeline" data-product="automations">Automations</button>
+    </div>
+
+    <div class="timeline" id="timeline" role="tabpanel" tabindex="0" aria-labelledby="tab-assistants">
+      <!-- Phases injected by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ─── Outcomes ──────────────────────────────────────── -->
+<section class="outcomes">
+  <div class="wrap">
+    <div class="outcomes-head">
+      <span class="eyebrow">— What it delivers</span>
+      <h2>AI that earns its keep, day after day.</h2>
+    </div>
+    <div class="outcomes-grid">
+      <div class="outcome">
+        <div class="stat">24/7<em>availability</em></div>
+        <div class="stat-label">Custom assistants answer staff and customer questions around the clock, accurately, in your own voice.</div>
+      </div>
+      <div class="outcome">
+        <div class="stat">Hands-off<em>routine work</em></div>
+        <div class="stat-label">Automations handle the repeatable work — categorising, drafting, summarising, reporting — freeing your team from repetitive questions so they focus on what needs them.</div>
+      </div>
+      <div class="outcome">
+        <div class="stat">Grounded<em>&amp; cited</em></div>
+        <div class="stat-label">Answers grounded in your own documents and data, with sources — and refusal calibration so the system says "I don't know" when it should.</div>
+      </div>
+    </div>
+    <p class="outcomes-foot">We use retrieval, evals, and citations to keep outputs anchored to your sources. We share honest projections before any build begins.</p>
+  </div>
+</section>
+
+<!-- ─── CTA ───────────────────────────────────────────── -->
+<section class="cta">
+  <div class="wrap">
+    <h2>Got a process that's <em>begging for AI</em>?</h2>
+    <p>Free 30-minute scoping call. We'll map your highest-leverage AI opportunity and tell you honestly whether it's worth building — or not.</p>
+    <a href="/contact.html" class="btn-primary">Book a scoping call →</a>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    &copy; 2026 Layered &middot; Kendal, Cumbria &middot;
+    <a href="/">Home</a> &middot;
+    <a href="seo.html">SEO</a> &middot;
+    <a href="ai.html">AI</a> &middot;
+    <a href="contact.html">Contact</a> &middot;
+    <a href="tel:07425781485">07425 781485</a> &middot;
+    <a href="mailto:hello@layeredstudios.com">hello@layeredstudios.com</a>
+  </div>
+</footer>
+
+<script>
+  // ─── Interactive timeline data ──────────────────────
+  const phases = [
+    {
+      num: '01', name: 'Discover', meta: '~1 week  ·  no cost, no pressure',
+      assistants: {
+        product:      ['Who uses it', 'What questions they actually ask', 'Success criteria + scope', 'What to refuse or refer to a human'],
+        intelligence: ['Audit SOPs, manuals, transcripts', "What's missing or unclear", 'What stays confidential', 'How fresh it needs to be']
+      },
+      knowledge_platforms: {
+        product:      ['Audiences + roles (staff, admin, HOD)', 'Content owners — who writes, who signs off', 'Department + access boundaries', 'Learning goals (retention vs reference)'],
+        intelligence: ['Source inventory (SOPs, videos, manuals)', 'Reliability tiers — which sources are authoritative', 'Governance gaps to fix at the source', 'Sensitive vs shareable']
+      },
+      automations: {
+        product:      ['Which repeatable task to automate', 'Who triggers it (and when)', "What 'good output' looks like", 'How errors get escalated to a human'],
+        intelligence: ['Audit source data — email, forms, APIs', 'Volume + frequency', "What's sensitive vs shareable", 'How stable the inputs are']
+      }
+    },
+    {
+      num: '02', name: 'Design', meta: '1 to 2 weeks',
+      assistants: {
+        product:      ['Persona + tone of voice', 'Conversation flow + handoffs', 'Interface — chat, portal, or dashboard', 'Guardrails + refusal patterns'],
+        intelligence: ['Knowledge taxonomy', 'Chunking strategy', 'Embedding model choice', 'Access controls per role']
+      },
+      knowledge_platforms: {
+        product:      ['Multi-app shape (e.g. staff portal + admin tool)', 'Content authoring + review workflow', 'Department scoping + permissions', 'Learning loops — quizzes, XP, streaks if needed'],
+        intelligence: ['Knowledge taxonomy + chunking', 'Reliability-tier scoring', 'Memory model — what persists per user', 'Trust + staleness signals']
+      },
+      automations: {
+        product:      ['Trigger flow + cadence', 'Output destination (CRM, inbox, doc, dashboard)', 'Human-in-loop checkpoints', 'Notification + exception design'],
+        intelligence: ['Data pipeline shape', 'Model choice (cost vs accuracy)', 'Prompt design + structured outputs', 'Validation schema for every result']
+      }
+    },
+    {
+      num: '03', name: 'Build', meta: '3 to 6 weeks',
+      assistants: {
+        product:      ['Custom UI, not off-the-shelf', 'Auth + role permissions', 'Admin dashboard for content owners', 'Integrations — CRM, email, internal systems'],
+        intelligence: ['Ingest + chunk pipeline', 'Vector store + RAG retrieval', 'System prompt + tool use', 'Eval harness on real questions', 'Citations turned on']
+      },
+      knowledge_platforms: {
+        product:      ['Staff-facing app + admin tool', 'Content authoring + review queue', 'Sign-off workflow + audit log', 'Gamification + spaced repetition (if scoped)', 'Voice + video where it helps'],
+        intelligence: ['Embedding pipeline over all sources', 'Memory model — per-user + per-admin', 'Quiz / question generation (cached)', 'Safety + escalation routing in prompts', 'Reliability tiers wired in']
+      },
+      automations: {
+        product:      ['Trigger orchestration', 'Output dashboard + audit log', 'Integration into existing tools', 'Kill-switch + manual override'],
+        intelligence: ['Prompt engineering + few-shot', 'Output validation rules', 'Structured-output enforcement', 'Eval harness on sample tasks', 'Cost + latency monitoring']
+      }
+    },
+    {
+      num: '04', name: 'Launch', meta: '1 to 2 weeks',
+      assistants: {
+        product:      ['Staff training session', 'Onboarding flow', 'Feedback channel for users', 'Handover walkthrough', 'Quick-start documentation'],
+        intelligence: ['Eval against real questions', 'Refusal calibration', 'Edge-case patching', 'Confidence thresholds tuned', 'Logging + observability']
+      },
+      knowledge_platforms: {
+        product:      ['HOD onboarding + review training', 'Staff rollout (per department)', 'Feedback + flagging channels live', 'Runbook for content owners'],
+        intelligence: ['Eval against real questions across departments', 'Trust + staleness alerts running', 'Safety-escalation tested end-to-end', 'Audit log verified']
+      },
+      automations: {
+        product:      ['Pilot run with manual review', 'Owner handover + runbook', 'Feedback channel for exceptions', 'Rollback / kill-switch tested'],
+        intelligence: ['Eval against real tasks', 'Validation rules tuned', 'Edge-case patching', 'Drift monitoring set up', 'Logging + alerting wired']
+      }
+    },
+    {
+      num: '05', name: 'Grow', meta: 'ongoing  ·  monthly',
+      assistants: {
+        product:      ['New capabilities + integrations', 'Usage analytics', 'Quarterly review + roadmap', 'User-feedback loop'],
+        intelligence: ['Update docs as ops change', 'Re-run evals after updates', 'Drift monitoring', 'Source authoring workflow', 'Periodic knowledge audit']
+      },
+      knowledge_platforms: {
+        product:      ['Roll out to new departments', 'Add modules — videos, quizzes, courses', 'Engagement + completion analytics', 'Quarterly review + roadmap'],
+        intelligence: ['Re-eval after SOPs change', 'Trust + staleness scoring tuned', 'New embeddings as content grows', 'Compliance + audit reviews']
+      },
+      automations: {
+        product:      ['Expand to adjacent workflows', 'Add team members + permissions', 'Usage + throughput analytics', 'Quarterly review + roadmap'],
+        intelligence: ['Refine prompts on real outputs', 'Re-eval after model or data changes', 'Edge-case handling improvements', 'Cost + latency tuning']
+      }
+    }
+  ];
+
+  function renderPhases(product) {
+    const tl = document.getElementById('timeline');
+    tl.innerHTML = phases.map(p => `
+      <article class="phase">
+        <div class="phase-head">
+          <div class="phase-num">${p.num}</div>
+          <div class="phase-name">${p.name}</div>
+          <div class="phase-meta">${p.meta}</div>
+        </div>
+        <div class="lane lane-product">
+          <div class="lane-label">— Product</div>
+          <ul>${p[product].product.map(item => `<li><span>${item}</span></li>`).join('')}</ul>
+        </div>
+        <div class="lane lane-intel">
+          <div class="lane-label">— Intelligence</div>
+          <ul>${p[product].intelligence.map(item => `<li><span>${item}</span></li>`).join('')}</ul>
+        </div>
+      </article>
+    `).join('');
+  }
+
+  function switchProduct(product) {
+    // Fade out, swap, fade in
+    const lanes = document.querySelectorAll('.lane');
+    lanes.forEach(l => l.classList.add('swap-out'));
+    setTimeout(() => {
+      renderPhases(product);
+      requestAnimationFrame(() => {
+        document.querySelectorAll('.lane').forEach(l => l.classList.add('swap-in'));
+      });
+    }, 220);
+  }
+
+  // Tab wiring — ARIA tabs with roving tabindex + keyboard support
+  const tabs = Array.from(document.querySelectorAll('.tab'));
+  const timeline = document.getElementById('timeline');
+
+  function activateTab(tab, setFocus = true) {
+    tabs.forEach(x => {
+      const selected = x === tab;
+      x.setAttribute('aria-selected', selected ? 'true' : 'false');
+      x.setAttribute('tabindex', selected ? '0' : '-1');
+    });
+    timeline.setAttribute('aria-labelledby', tab.id);
+    if (setFocus) tab.focus();
+    switchProduct(tab.dataset.product);
+  }
+
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => activateTab(t, false));
+    t.addEventListener('keydown', (e) => {
+      let target = null;
+      switch (e.key) {
+        case 'ArrowRight': target = tabs[(i + 1) % tabs.length]; break;
+        case 'ArrowLeft':  target = tabs[(i - 1 + tabs.length) % tabs.length]; break;
+        case 'Home':       target = tabs[0]; break;
+        case 'End':        target = tabs[tabs.length - 1]; break;
+        default: return;
+      }
+      e.preventDefault();
+      activateTab(target);
+    });
+  });
+
+  // Initial render
+  renderPhases('assistants');
+
+  // Mobile menu
+  const hbg = document.getElementById('hbg'), mm = document.getElementById('mm');
+  const mmLinks = Array.from(mm.querySelectorAll('a'));
+
+  function openMenu() {
+    hbg.classList.add('op');
+    mm.classList.add('op');
+    hbg.setAttribute('aria-expanded', 'true');
+    hbg.setAttribute('aria-label', 'Close menu');
+    document.body.style.overflow = 'hidden';
+    if (mmLinks[0]) mmLinks[0].focus();
+  }
+  function closeMenu(returnFocus = true) {
+    hbg.classList.remove('op');
+    mm.classList.remove('op');
+    hbg.setAttribute('aria-expanded', 'false');
+    hbg.setAttribute('aria-label', 'Open menu');
+    document.body.style.overflow = '';
+    if (returnFocus) hbg.focus();
+  }
+
+  hbg.addEventListener('click', () => {
+    if (hbg.classList.contains('op')) closeMenu(); else openMenu();
+  });
+
+  mmLinks.forEach(a => a.addEventListener('click', () => closeMenu(false)));
+
+  mm.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') { e.preventDefault(); closeMenu(); return; }
+    if (e.key === 'Tab') {
+      const first = mmLinks[0], last = mmLinks[mmLinks.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault(); last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault(); first.focus();
+      }
+    }
+  });
+</script>
+
+</body>
+</html>

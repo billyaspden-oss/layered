@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SEO Package · Local Search that Compounds | Layered</title>
-  <meta name="description" content="Four-layer SEO package built for Cumbria businesses — technical foundations, local search, on-page content, and long-term authority. Designed to compound month after month.">
+  <meta name="description" content="Four-layer SEO package for Cumbria businesses — technical foundations, local search, on-page content and authority. Web design &amp; SEO in Kendal.">
   <meta name="keywords" content="SEO Cumbria, local SEO Kendal, Google Business Profile, technical SEO, SEO packages Lake District">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="canonical" href="https://layeredstudios.com/seo.html">
@@ -13,6 +13,24 @@
   <meta property="og:site_name" content="Layered">
   <meta property="og:title" content="SEO Package · Local Search that Compounds | Layered">
   <meta property="og:description" content="Four layers of SEO work, each one building on the last. Designed for local businesses in Cumbria and the Lake District.">
+  <meta property="og:image" content="https://layeredstudios.com/images/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://layeredstudios.com/images/og.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "serviceType": "SEO / Search Engine Optimisation",
+    "areaServed": "Cumbria",
+    "provider": {
+      "@type": "Organization",
+      "name": "Layered",
+      "url": "https://layeredstudios.com"
+    }
+  }
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Figtree:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
@@ -52,6 +70,13 @@
     }
 
     html { scroll-behavior: smooth; }
+
+    .skip-link{position:absolute;left:-9999px;top:0;z-index:1000;background:var(--accent);color:#fff;padding:10px 16px;border-radius:0 0 8px 0;font-weight:600;text-decoration:none}
+    .skip-link:focus{left:0}
+
+    a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+    input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
     body {
       font-family: var(--body);
       background: var(--bg);
@@ -118,6 +143,54 @@
       transition: background 0.25s, transform 0.25s;
     }
     .nav-cta:hover { background: var(--accent); transform: scale(1.02); }
+
+    .hbg {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      width: 38px;
+      height: 38px;
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      padding: 11px;
+      cursor: pointer;
+    }
+    .hbg span { display: block; height: 1.5px; background: var(--text); transition: 0.28s var(--ease-out); transform-origin: center; }
+    .hbg.op span:nth-child(1) { transform: translateY(5.5px) rotate(45deg); }
+    .hbg.op span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hbg.op span:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
+
+    .mm {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      z-index: 99;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--sp-2);
+    }
+    .mm.op { display: flex; }
+    .mm-link { opacity: 0; transform: translateY(14px); transition: 0.4s var(--ease-out); }
+    .mm.op .mm-link { opacity: 1; transform: none; }
+    .mm.op .mm-link:nth-child(1) { transition-delay: 0.04s; }
+    .mm.op .mm-link:nth-child(2) { transition-delay: 0.09s; }
+    .mm.op .mm-link:nth-child(3) { transition-delay: 0.14s; }
+    .mm.op .mm-link:nth-child(4) { transition-delay: 0.19s; }
+    .mm.op .mm-link:nth-child(5) { transition-delay: 0.24s; }
+    .mm a {
+      font-family: var(--display);
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: var(--text);
+      padding: var(--sp-3) var(--sp-6);
+      border-radius: 12px;
+      transition: color 0.2s, background 0.2s;
+    }
+    .mm a:hover { color: var(--accent); background: var(--accent-sub); }
+    .mm .mm-cta { font-size: 1.1rem !important; color: var(--accent) !important; }
 
     /* ─── Hero ──────────────────────────────────────────── */
     .hero {
@@ -304,11 +377,75 @@
     }
     .layer-list li strong { color: var(--text); font-weight: 600; }
 
+    /* ─── Process diagram ──────────────────────────────── */
+    .process {
+      background: var(--dk);
+      color: var(--dk-txt);
+      padding: var(--sp-9) 0 var(--sp-8);
+      border-top: 1px solid var(--dk-bdr);
+    }
+    .process-head {
+      text-align: center;
+      max-width: 760px;
+      margin: 0 auto var(--sp-7);
+      padding: 0 var(--sp-5);
+    }
+    .process-head .eyebrow {
+      color: var(--accent-mid);
+      background: oklch(38% 0.14 158 / 0.12);
+    }
+    .process-head h2 {
+      font-family: var(--display);
+      font-size: clamp(1.75rem, 3.6vw, 2.6rem);
+      font-weight: 500;
+      color: var(--dk-txt);
+      letter-spacing: -0.02em;
+      line-height: 1.12;
+      margin-bottom: var(--sp-5);
+    }
+    .process-head h2 em {
+      font-style: italic;
+      font-weight: 300;
+      color: var(--accent-mid);
+    }
+    .process-head p {
+      font-size: 1rem;
+      color: var(--dk-mut);
+      line-height: 1.6;
+    }
+    .process-figure {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--sp-5);
+    }
+    .process-figure .frame {
+      background: var(--dk-alt);
+      border: 1px solid var(--dk-bdr);
+      border-radius: 16px;
+      padding: var(--sp-4);
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .process-figure img {
+      display: block;
+      width: 100%;
+      min-width: 760px;
+      height: auto;
+      border-radius: 8px;
+    }
+    .process-caption {
+      font-size: 0.82rem;
+      color: var(--dk-mut);
+      text-align: center;
+      margin-top: var(--sp-5);
+      font-style: italic;
+    }
+
     /* ─── Outcomes strip ────────────────────────────────── */
     .outcomes {
       background: var(--dk);
       color: var(--dk-txt);
-      padding: var(--sp-9) 0;
+      padding: var(--sp-8) 0 var(--sp-9);
     }
     .outcomes-grid {
       display: grid;
@@ -425,9 +562,10 @@
     .footer a { color: var(--accent); }
 
     /* ─── Responsive ────────────────────────────────────── */
-    @media (max-width: 800px) {
+    @media (max-width: 768px) {
       .wrap { padding: 0 var(--sp-5); }
-      .nav-links { display: none; }
+      .nav-links, .nav-cta { display: none; }
+      .hbg { display: flex; }
       .stack-meta { grid-template-columns: 1fr; gap: var(--sp-4); }
       .layer {
         grid-template-columns: 1fr;
@@ -440,9 +578,14 @@
       .outcomes-grid { grid-template-columns: 1fr; gap: var(--sp-6); }
       .layer-num { font-size: 2.4rem; }
     }
+    @media (prefers-reduced-motion: reduce){
+      html{scroll-behavior:auto}
+      *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+    }
   </style>
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 
 <nav class="nav">
   <div class="wrap">
@@ -458,15 +601,33 @@
       <ul class="nav-links">
         <li><a href="/#services">Services</a></li>
         <li><a href="seo.html" aria-current="page">SEO</a></li>
+        <li><a href="ai.html">AI</a></li>
         <li><a href="/#portfolio">Work</a></li>
         <li><a href="/#about">About</a></li>
         <li><a href="/#process">Process</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
       <a href="contact.html" class="nav-cta">Start a Project</a>
+      <button class="hbg" id="hbg" aria-label="Open menu" aria-expanded="false" aria-controls="mm" aria-haspopup="dialog">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </div>
 </nav>
+
+<!-- MOBILE MENU -->
+<div class="mm" id="mm" role="dialog" aria-modal="true" aria-label="Navigation">
+  <div class="mm-link"><a href="/#services">Services</a></div>
+  <div class="mm-link"><a href="seo.html">SEO</a></div>
+  <div class="mm-link"><a href="ai.html">AI</a></div>
+  <div class="mm-link"><a href="/#portfolio">Work</a></div>
+  <div class="mm-link"><a href="/#about">About</a></div>
+  <div class="mm-link"><a href="/#process">Process</a></div>
+  <div class="mm-link"><a href="contact.html">Contact</a></div>
+  <div class="mm-link"><a href="contact.html" class="mm-cta">Start a Project</a></div>
+</div>
+
+<main id="main">
 
 <!-- ─── Hero ──────────────────────────────────────────── -->
 <section class="hero">
@@ -555,6 +716,29 @@
   </div>
 </section>
 
+<!-- ─── Process diagram ──────────────────────────────── -->
+<section class="process">
+  <div class="wrap">
+    <div class="process-head">
+      <span class="eyebrow">— How it fits the build</span>
+      <h2>SEO isn't a layer we add at the end — <em>it runs in parallel</em>.</h2>
+      <p>When we build a site for you, every phase has search visibility baked in alongside the design and development work. Below: the end-to-end process, web work above the rail, SEO work below — both connecting to every milestone.</p>
+    </div>
+    <figure class="process-figure">
+      <div class="frame">
+        <picture>
+          <source srcset="images/process-end-to-end.avif?v=4" type="image/avif">
+          <img src="images/process-end-to-end.png?v=4"
+               alt="End-to-end timeline showing Layered's five-phase process — Discover, Design, Build, Launch, Grow — with web build activities above the rail and SEO activities below, both feeding into every milestone."
+               loading="lazy"
+               width="1600" height="900">
+        </picture>
+      </div>
+      <figcaption class="process-caption">Search visibility isn't an add-on at the end — it's designed into every phase, so the site you launch is already ready to be found.</figcaption>
+    </figure>
+  </div>
+</section>
+
 <!-- ─── Outcomes ──────────────────────────────────────── -->
 <section class="outcomes">
   <div class="wrap">
@@ -564,12 +748,12 @@
     </div>
     <div class="outcomes-grid">
       <div class="outcome">
-        <div class="stat">3×<em>traffic</em></div>
-        <div class="stat-label">Typical organic traffic lift for a local trade business within 6 months of completing layers 01–02.</div>
+        <div class="stat-label" style="font-family:var(--display);font-weight:500;font-size:clamp(1.6rem,3.2vw,2.2rem);line-height:1.1;letter-spacing:-0.02em;color:var(--dk-txt);margin-bottom:var(--sp-3)">Built to grow your organic traffic</div>
+        <div class="stat-label">More of the right people finding you through search — built up layer by layer once the foundations are in.</div>
       </div>
       <div class="outcome">
-        <div class="stat">Top 3<em>map pack</em></div>
-        <div class="stat-label">Target ranking for your primary service in your home town within 90 days of layer 02 landing.</div>
+        <div class="stat-label" style="font-family:var(--display);font-weight:500;font-size:clamp(1.6rem,3.2vw,2.2rem);line-height:1.1;letter-spacing:-0.02em;color:var(--dk-txt);margin-bottom:var(--sp-3)">Working toward the local map pack</div>
+        <div class="stat-label">Aiming to put your business in front of nearby "near me" and town-specific searches as layer 02 lands.</div>
       </div>
       <div class="outcome">
         <div class="stat">∞<em>compounding</em></div>
@@ -589,16 +773,71 @@
   </div>
 </section>
 
+</main>
+
 <footer class="footer">
   <div class="wrap">
     &copy; 2026 Layered &middot; Kendal, Cumbria &middot;
     <a href="/">Home</a> &middot;
     <a href="seo.html">SEO</a> &middot;
+    <a href="ai.html">AI</a> &middot;
     <a href="contact.html">Contact</a> &middot;
     <a href="tel:07425781485">07425 781485</a> &middot;
     <a href="mailto:hello@layeredstudios.com">hello@layeredstudios.com</a>
   </div>
 </footer>
+
+<script>
+  // Mobile menu with focus management + trap
+  const hbg = document.getElementById('hbg'), mm = document.getElementById('mm');
+  const mmLinks = () => Array.from(mm.querySelectorAll('a'));
+
+  function openMenu() {
+    hbg.classList.add('op');
+    mm.classList.add('op');
+    hbg.setAttribute('aria-expanded', 'true');
+    hbg.setAttribute('aria-label', 'Close menu');
+    document.body.style.overflow = 'hidden';
+    const links = mmLinks();
+    if (links.length) links[0].focus();
+  }
+  function closeMenu(returnFocus) {
+    hbg.classList.remove('op');
+    mm.classList.remove('op');
+    hbg.setAttribute('aria-expanded', 'false');
+    hbg.setAttribute('aria-label', 'Open menu');
+    document.body.style.overflow = '';
+    if (returnFocus) hbg.focus();
+  }
+
+  hbg.addEventListener('click', () => {
+    if (hbg.classList.contains('op')) closeMenu(false);
+    else openMenu();
+  });
+
+  mm.querySelectorAll('a').forEach(a => a.addEventListener('click', () => closeMenu(false)));
+
+  document.addEventListener('keydown', (e) => {
+    if (!mm.classList.contains('op')) return;
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      closeMenu(true);
+      return;
+    }
+    if (e.key === 'Tab') {
+      const links = mmLinks();
+      if (!links.length) return;
+      const first = links[0], last = links[links.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+  });
+</script>
 
 </body>
 </html>

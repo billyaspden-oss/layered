@@ -9,3 +9,6 @@ __pycache__/
 # Tool caches
 .claude-flow/
 .wrangler/
+
+# Scratch / unreferenced screenshots
+sc.png

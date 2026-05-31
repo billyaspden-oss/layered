@@ -23,7 +23,7 @@ export async function onRequestPost(context) {
       );
     }
 
-    const TO = env.CONTACT_EMAIL || "hello@layered.studio";
+    const TO = env.CONTACT_EMAIL || "hello@layeredstudios.com";
     const RESEND_KEY = env.RESEND_API_KEY;
 
     if (!RESEND_KEY) {
@@ -52,7 +52,7 @@ export async function onRequestPost(context) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: "Layered Website <hello@layered.studio>",
+        from: "Layered Website <hello@layeredstudios.com>",
         to: [TO],
         reply_to: email,
         subject: `New Enquiry — ${name}`,
