@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>The Palatine · Morecambe — concept by Layered</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#F4EDDD;
+    --cream-2:#EBE1CC;
+    --paper:#FBF5E9;
+    --ink:#262019;
+    --ink-soft:#4C463B;
+    --ink-mut:#827A69;
+    --green:#2E4636;
+    --green-2:#20342588;
+    --green-d:#1E3022;
+    --green-soft:#3C5A47;
+    --brass:#B5853C;
+    --brass-2:#C89A52;
+    --terra:#C26B4A;
+    --line:rgba(38,32,25,.12);
+    --line-d:rgba(255,255,255,.14);
+    --ease:cubic-bezier(.32,.72,0,1);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--cream);color:var(--ink);-webkit-font-smoothing:antialiased;overflow-x:hidden;line-height:1.6}
+  .serif{font-family:'Fraunces',serif;font-optical-sizing:auto}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 32px}
+  body::before{content:"";position:fixed;inset:0;z-index:60;pointer-events:none;opacity:.04;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  .eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:10.5px;text-transform:uppercase;letter-spacing:.22em;font-weight:600;padding:7px 14px;border-radius:999px;border:1px solid var(--line);color:var(--ink-soft);background:rgba(255,255,255,.45)}
+  .eyebrow.on-dark{border-color:var(--line-d);color:#EEE7D6;background:rgba(255,255,255,.07)}
+  .eyebrow .dot{width:5px;height:5px;border-radius:50%;background:var(--brass)}
+
+  /* NAV */
+  nav{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;justify-content:center;padding:20px 16px;transition:padding .6s var(--ease)}
+  .nav-pill{width:100%;max-width:1180px;display:flex;align-items:center;justify-content:space-between;padding:11px 12px 11px 22px;border-radius:999px;background:rgba(251,245,233,.78);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(38,32,25,.08);box-shadow:0 1px 0 rgba(255,255,255,.6) inset,0 16px 44px -28px rgba(46,70,54,.5)}
+  .brand{display:flex;align-items:center;gap:11px;font-family:'Fraunces',serif;font-weight:600;font-size:19px}
+  .brand .mark{width:30px;height:30px;border-radius:50%;background:radial-gradient(circle at 30% 25%,var(--brass-2),var(--brass) 55%,#8a6730);display:flex;align-items:center;justify-content:center;color:#211806;font-size:13px;font-weight:700;box-shadow:inset 0 1px 1px rgba(255,255,255,.5)}
+  .nav-links{display:flex;gap:32px;align-items:center}
+  .nav-links a{color:var(--ink-soft);text-decoration:none;font-size:14px;font-weight:500;position:relative;transition:color .4s var(--ease)}
+  .nav-links a::after{content:"";position:absolute;left:0;bottom:-6px;height:1.5px;width:0;background:var(--brass);transition:width .45s var(--ease)}
+  .nav-links a:hover{color:var(--ink)}.nav-links a:hover::after{width:100%}
+  .btn{display:inline-flex;align-items:center;gap:11px;border:none;cursor:pointer;font-family:inherit;font-weight:600;font-size:14px;border-radius:999px;padding:11px 11px 11px 22px;text-decoration:none;transition:transform .5s var(--ease),background .4s var(--ease)}
+  .btn .ic{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:transform .5s var(--ease)}
+  .btn-dark{background:var(--green);color:#F6F0E0}.btn-dark .ic{background:rgba(255,255,255,.15)}.btn-dark:hover{background:var(--green-d)}
+  .btn-brass{background:var(--brass);color:#241906}.btn-brass .ic{background:rgba(0,0,0,.14)}.btn-brass:hover{background:var(--brass-2)}
+  .btn:hover .ic{transform:translate(3px,-2px) scale(1.06)}.btn:active{transform:scale(.97)}
+  .btn-ghost{background:transparent;color:var(--ink);padding:11px 20px;border:1px solid var(--line)}
+  .btn-ghost.on-dark{color:#F6F0E0;border-color:var(--line-d)}.btn-ghost:hover{background:rgba(38,32,25,.05)}
+
+  /* HERO */
+  .hero{position:relative;min-height:100dvh;display:flex;align-items:flex-end;overflow:hidden;background:var(--green-d)}
+  .hero-bg{position:absolute;inset:0;z-index:0}
+  .sky{position:absolute;inset:0;background:
+     radial-gradient(120% 92% at 70% 86%, rgba(243,186,98,.96) 0%, rgba(223,143,86,.6) 27%, rgba(150,112,74,.22) 52%, rgba(30,48,34,0) 74%),
+     linear-gradient(180deg,#1d3a36 0%, #335049 26%, #7a7152 47%, #bb8559 70%, #e7ab5d 88%, #f3cb7e 100%)}
+  .sun{position:absolute;left:70%;top:60%;width:230px;height:230px;border-radius:50%;background:radial-gradient(circle,#ffe9bb 0%,#fbca72 38%,rgba(245,180,100,.4) 62%,rgba(245,180,100,0) 75%);filter:blur(2px);transform:translate(-50%,-50%)}
+  .hills{position:absolute;left:0;right:0;bottom:30%;height:58px;background:linear-gradient(180deg,#3c4a3a,#2c382b);clip-path:polygon(0 70%,12% 45%,22% 60%,34% 38%,48% 55%,60% 35%,72% 52%,84% 40%,100% 58%,100% 100%,0 100%);opacity:.5}
+  .sea{position:absolute;left:0;right:0;bottom:0;height:32%;background:linear-gradient(180deg,rgba(187,133,89,.5) 0%,rgba(44,56,53,.85) 42%,#16241f 100%)}
+  .shimmer{position:absolute;left:70%;bottom:0;height:32%;width:120px;transform:translateX(-50%);background:linear-gradient(180deg,rgba(255,228,170,.65),rgba(255,228,170,0));filter:blur(7px);opacity:.7}
+  .hero-veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,48,34,.55) 0%,rgba(30,48,34,.15) 30%,rgba(30,48,34,.3) 60%,rgba(16,28,22,.86) 100%)}
+  .hero-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 40%}
+  .hero-tint{position:absolute;inset:0;background:linear-gradient(160deg,rgba(120,86,40,.25),rgba(30,48,34,.35));mix-blend-mode:multiply}
+  .hero-inner{position:relative;z-index:2;width:100%;padding-bottom:72px;padding-top:140px}
+  .hero h1{font-family:'Fraunces',serif;color:#FBF6EC;font-weight:460;font-size:clamp(46px,7.4vw,102px);line-height:.98;letter-spacing:-.014em;margin:22px 0 0;text-shadow:0 2px 22px rgba(0,0,0,.22)}
+  .hero h1 em{font-style:italic;font-weight:500;color:var(--brass-2)}
+  .hero p.lede{max-width:540px;color:rgba(251,246,236,.92);font-size:clamp(16px,1.7vw,19px);margin-top:24px}
+  .hero-actions{display:flex;gap:13px;flex-wrap:wrap;margin-top:34px;align-items:center}
+  .hero-meta{display:flex;gap:24px;flex-wrap:wrap;margin-top:44px;padding-top:24px;border-top:1px solid rgba(255,255,255,.16)}
+  .hero-meta span{display:flex;align-items:center;gap:9px;color:rgba(251,246,236,.85);font-size:13.5px;font-weight:500}
+  .hero-meta svg{stroke:var(--brass-2)}
+
+  .rev{opacity:0;transform:translateY(38px);filter:blur(5px);transition:opacity .9s var(--ease),transform .9s var(--ease),filter .9s var(--ease)}
+  .rev.in{opacity:1;transform:none;filter:none}
+  .d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}
+
+  section.band{padding:114px 0}
+  .sec-head h2{font-family:'Fraunces',serif;font-weight:440;font-size:clamp(32px,4.4vw,56px);line-height:1.04;letter-spacing:-.018em;margin-top:18px}
+  .sec-head h2 em{font-style:italic;color:var(--brass)}
+  .sec-head p{color:var(--ink-soft);font-size:17px;margin-top:16px;max-width:560px}
+
+  .bento{display:grid;grid-template-columns:repeat(12,1fr);gap:18px;margin-top:54px}
+  .shell{background:rgba(38,32,25,.035);border:1px solid var(--line);border-radius:28px;padding:7px;transition:transform .6s var(--ease)}
+  .shell:hover{transform:translateY(-5px)}
+  .core{background:var(--paper);border-radius:22px;padding:30px 28px;height:100%;box-shadow:inset 0 1px 1px rgba(255,255,255,.6);position:relative;overflow:hidden}
+  .c-icon{width:46px;height:46px;border-radius:13px;background:linear-gradient(160deg,#fff,#efe5d0);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+  .c-icon svg{stroke:var(--green)}
+  .core h3{font-family:'Fraunces',serif;font-weight:560;font-size:22px}
+  .core p{color:var(--ink-mut);font-size:14.5px;margin-top:9px}
+  .core .tag{position:absolute;top:24px;right:24px;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--brass);font-weight:600}
+  .span-7{grid-column:span 7}.span-5{grid-column:span 5}
+  .core.feature{background:linear-gradient(155deg,#34513e,#20331f);color:#F6F0E0;min-height:240px;display:flex;flex-direction:column;justify-content:space-between}
+  .core.feature h3{color:#fff;font-size:26px}.core.feature p{color:rgba(246,240,224,.76)}
+  .core.feature .c-icon{background:rgba(255,255,255,.09);border-color:var(--line-d)}.core.feature .c-icon svg{stroke:var(--brass-2)}
+
+  .events{background:var(--green);color:#F6F0E0;border-radius:36px;overflow:hidden;display:grid;grid-template-columns:1.05fr .95fr}
+  .events .copy{padding:74px 60px}
+  .events h2{font-family:'Fraunces',serif;font-weight:440;font-size:clamp(30px,3.8vw,50px);line-height:1.04;letter-spacing:-.018em;margin-top:16px;color:#fff}
+  .events h2 em{font-style:italic;color:var(--brass-2)}
+  .events .copy>p{color:rgba(246,240,224,.8);font-size:16.5px;margin-top:16px;max-width:440px}
+  .ev-list{list-style:none;margin:30px 0 34px;display:grid;grid-template-columns:1fr 1fr;gap:13px 24px;max-width:440px}
+  .ev-list li{display:flex;align-items:center;gap:11px;font-size:14.5px;color:rgba(246,240,224,.94)}
+  .ev-list .tick{width:22px;height:22px;border-radius:50%;background:rgba(200,154,82,.22);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .ev-visual{position:relative;background:radial-gradient(90% 70% at 70% 18%,rgba(243,186,98,.45),rgba(46,70,54,0) 60%),linear-gradient(160deg,#3c5a47,#203325);display:flex;align-items:center;justify-content:center}
+  .ev-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .ev-visual::after{content:"";position:absolute;inset:0;background:linear-gradient(160deg,rgba(20,34,26,.5),rgba(20,34,26,.65))}
+  .ev-card{position:relative;z-index:2;background:rgba(251,246,236,.97);color:var(--ink);border-radius:20px;padding:26px;width:78%;box-shadow:0 28px 56px -30px rgba(0,0,0,.55)}
+  .ev-card .k{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--brass);font-weight:700}
+  .ev-card h4{font-family:'Fraunces',serif;font-weight:600;font-size:21px;margin:7px 0 14px}
+  .ev-card .field{height:38px;border-radius:11px;border:1px solid var(--line);background:#fff;margin-bottom:10px;display:flex;align-items:center;padding:0 13px;color:var(--ink-mut);font-size:13px}
+  .ev-card .row2{display:flex;gap:10px}.ev-card .row2 .field{flex:1}
+  .ev-card .send{margin-top:6px;width:100%;justify-content:center;padding:12px;border-radius:11px}
+
+  .reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:48px}
+  .rev-card{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:28px;box-shadow:inset 0 1px 1px rgba(255,255,255,.6);display:flex;flex-direction:column}
+  .rev-card .stars{color:var(--brass);font-size:14px;letter-spacing:3px;margin-bottom:14px}
+  .rev-card p{font-family:'Fraunces',serif;font-weight:380;font-size:17px;line-height:1.42;color:var(--ink)}
+  .rev-card .who{margin-top:auto;padding-top:18px;font-size:13px;color:var(--ink-mut);font-weight:600;display:flex;align-items:center;gap:8px}
+  .rev-card .who .g{width:20px;height:20px;border-radius:50%;background:#fff;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:700;color:var(--brass);font-size:12px}
+  .about{display:grid;grid-template-columns:.9fr 1.1fr;gap:60px;align-items:center}
+  .portrait{aspect-ratio:4/5;border-radius:28px;background:radial-gradient(80% 60% at 50% 16%,rgba(243,186,98,.32),rgba(46,70,54,0) 60%),linear-gradient(165deg,#3a5a47,#20331f);border:7px solid var(--paper);box-shadow:0 36px 72px -42px rgba(46,70,54,.6);position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:28px}
+  .portrait img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 28%}
+  .portrait .nameplate{position:relative;z-index:2;background:rgba(251,246,236,.94);border-radius:13px;padding:13px 18px}
+  .portrait .nameplate b{font-family:'Fraunces',serif;font-size:17px;display:block}
+  .portrait .nameplate span{font-size:12px;color:var(--ink-mut)}
+  .about blockquote{font-family:'Fraunces',serif;font-weight:380;font-size:clamp(23px,2.6vw,33px);line-height:1.24;letter-spacing:-.01em}
+  .about blockquote em{font-style:italic;color:var(--brass)}
+  .about .sig{margin-top:24px;display:flex;align-items:center;gap:14px;color:var(--ink-soft);font-size:14px}
+  .about .sig .ln{width:38px;height:1px;background:var(--brass)}
+
+  .visit{background:var(--paper);border-radius:36px;border:1px solid var(--line);padding:10px;display:grid;grid-template-columns:1fr 1fr}
+  .visit .info{padding:54px 50px}
+  .visit h2{font-family:'Fraunces',serif;font-weight:440;font-size:clamp(28px,3.4vw,44px);letter-spacing:-.018em;line-height:1.06}
+  .visit .rows{margin-top:32px;display:flex;flex-direction:column}
+  .visit .ri{display:flex;gap:16px;padding:18px 0;border-top:1px solid var(--line)}
+  .visit .ri:last-child{border-bottom:1px solid var(--line)}
+  .visit .ri svg{stroke:var(--brass);flex-shrink:0;margin-top:2px}
+  .visit .ri b{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-mut);font-weight:700;display:block;margin-bottom:3px}
+  .visit .ri p{font-size:15.5px;color:var(--ink)}
+  .visit .map{border-radius:28px;position:relative;overflow:hidden;min-height:420px;background:linear-gradient(150deg,#d2dccd,#b2c1b1)}
+  .visit .map .grid-lines{position:absolute;inset:0;opacity:.5;background-image:linear-gradient(rgba(255,255,255,.5) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.5) 1px,transparent 1px);background-size:46px 46px}
+  .visit .map .coast{position:absolute;left:0;right:0;bottom:0;height:55%;background:linear-gradient(180deg,#a6c8c0,#7aa9a0)}
+  .visit .map .pin{position:absolute;left:46%;top:38%;display:flex;flex-direction:column;align-items:center;gap:7px}
+  .visit .map .pin .dot{width:18px;height:18px;border-radius:50%;background:var(--brass);border:4px solid #fff;box-shadow:0 8px 18px -6px rgba(0,0,0,.5)}
+  .visit .map .pin .lbl{background:#fff;border-radius:9px;padding:6px 11px;font-size:12px;font-weight:600;box-shadow:0 8px 18px -8px rgba(0,0,0,.4)}
+  .visit .map .eden{position:absolute;right:15%;top:23%;font-size:11px;color:#2c4a3f;background:rgba(255,255,255,.72);padding:4px 9px;border-radius:7px}
+
+  footer{background:var(--green-d);color:#EAE2D0;padding:78px 0 34px;margin-top:114px}
+  .foot-top{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;padding-bottom:46px;border-bottom:1px solid var(--line-d)}
+  .foot-brand{max-width:330px}.foot-brand .brand{color:#fff;margin-bottom:16px}.foot-brand p{color:rgba(234,226,208,.62);font-size:14px}
+  .foot-cols{display:flex;gap:60px;flex-wrap:wrap}
+  .foot-cols h5{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--brass-2);margin-bottom:16px}
+  .foot-cols a{display:block;color:rgba(234,226,208,.8);text-decoration:none;font-size:14px;margin-bottom:11px;transition:color .3s var(--ease)}
+  .foot-cols a:hover{color:#fff}
+  .foot-bot{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding-top:26px;color:rgba(234,226,208,.5);font-size:12.5px}
+  .credit{display:inline-flex;align-items:center;gap:8px;color:rgba(234,226,208,.72);text-decoration:none;border:1px solid var(--line-d);padding:7px 14px;border-radius:999px;font-size:12px}
+  .credit b{color:var(--brass-2);font-weight:600}
+
+  .concept{position:fixed;left:18px;bottom:18px;z-index:55;display:inline-flex;align-items:center;gap:8px;background:rgba(46,70,54,.93);color:#F6F0E0;backdrop-filter:blur(8px);padding:9px 15px;border-radius:999px;font-size:11.5px;font-weight:500;border:1px solid rgba(255,255,255,.14);box-shadow:0 18px 40px -20px rgba(0,0,0,.6)}
+  .concept b{color:var(--brass-2);font-weight:700}
+
+  @media(max-width:980px){
+    .nav-links{display:none}
+    .events{grid-template-columns:1fr}.events .copy{padding:46px 32px}
+    .about{grid-template-columns:1fr;gap:34px}.visit{grid-template-columns:1fr}
+    .reviews-grid{grid-template-columns:1fr}
+    .span-7,.span-5{grid-column:span 12}
+  }
+  @media(max-width:560px){
+    .wrap{padding:0 20px}section.band{padding:76px 0}.hero-inner{padding-bottom:46px}
+    .ev-list{grid-template-columns:1fr}.visit .info{padding:34px 24px}
+  }
+</style>
+</head>
+<body>
+
+<div class="concept">✦ Concept by <b>Layered</b> — for The Palatine</div>
+
+<nav id="nav">
+  <div class="nav-pill">
+    <div class="brand"><span class="mark">P</span> The Palatine</div>
+    <div class="nav-links">
+      <a href="#whatson">What's On</a>
+      <a href="#eat">Eat &amp; Drink</a>
+      <a href="#events">The Room Upstairs</a>
+      <a href="#visit">Visit</a>
+    </div>
+    <a href="#" class="btn btn-brass">Book a table
+      <span class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-bg">
+    <img class="hero-photo" src="assets/br_675af275da913.jpg" alt="Inside The Palatine">
+    <div class="hero-tint"></div><div class="hero-veil"></div>
+  </div>
+  <div class="wrap hero-inner">
+    <span class="eyebrow on-dark"><span class="dot"></span> 1 The Crescent · Morecambe seafront</span>
+    <h1>A warm welcome<br>on the <em>bay.</em></h1>
+    <p class="lede">Good coffee, proper pub food, live music and a friendly face. Your local on Morecambe seafront — run by Chris &amp; Lee.</p>
+    <div class="hero-actions">
+      <a href="#" class="btn btn-brass">Book a table
+        <span class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a href="#whatson" class="btn btn-ghost on-dark">See what's on</a>
+    </div>
+    <div class="hero-meta">
+      <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> Open daily from 9am</span>
+      <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M10 5.5C8 4 5 4.5 4 7c-1.2 3 1.5 6 6 9 4.5-3 7.2-6 6-9-1-2.5-4-3-6-1.5"/></svg> Dogs &amp; kids welcome</span>
+      <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="1.5"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg> Sunny terrace</span>
+    </div>
+  </div>
+</header>
+
+<!-- WHAT'S ON -->
+<section class="band" id="whatson">
+  <div class="wrap">
+    <div class="sec-head rev">
+      <span class="eyebrow"><span class="dot"></span> What's on</span>
+      <h2>Your local, <em>morning to last orders.</em></h2>
+      <p>Pop in for a coffee and a slice of cake, stay for Sunday lunch, or settle in for a bit of live music as the sun goes down over the bay.</p>
+    </div>
+    <div class="bento" id="eat">
+      <div class="shell span-7 rev d1"><div class="core feature">
+        <div><div class="c-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.4"><path d="M4 8h13v4a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V8Z"/><path d="M17 9h2a2 2 0 0 1 0 4h-2"/><path d="M8 3v2M11 3v2"/></svg></div><span class="tag">Daytime</span></div>
+        <div><h3>Coffee &amp; Cake</h3><p>Proper coffee, homemade cakes and a comfy window seat watching the tide roll in. The nicest spot on the front for a catch-up.</p></div>
+      </div></div>
+      <div class="shell span-5 rev d2"><div class="core">
+        <div class="c-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.4"><path d="M6 3v8a3 3 0 0 0 6 0V3M9 3v18M18 3c-1.5 1-2 3-2 5s.5 4 2 5v8"/></svg></div>
+        <span class="tag">Kitchen</span><h3>The Kitchen</h3><p>Good honest pub food, generous portions, and Sunday roasts worth coming back for.</p>
+      </div></div>
+      <div class="shell span-5 rev d1"><div class="core">
+        <div class="c-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.4"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg></div>
+        <span class="tag">Nights</span><h3>Live &amp; Local</h3><p>Weekend music, quiz nights and a friendly crowd. The seafront's living room after dark.</p>
+      </div></div>
+      <div class="shell span-7 rev d2"><div class="core" style="display:flex;flex-direction:column;justify-content:space-between;min-height:200px">
+        <div><div class="c-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.4"><path d="M3 21V8l9-5 9 5v13"/><path d="M9 21v-6h6v6"/></svg></div><span class="tag">Private hire</span><h3>The Room Upstairs</h3><p>A comfy space above the pub for your big days — your own bar and a view of the bay.</p></div>
+        <a href="#events" style="color:var(--brass);font-weight:600;font-size:14px;text-decoration:none;display:inline-flex;gap:8px;align-items:center">Plan your do
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<!-- EVENTS / LEAD-GEN -->
+<section class="band" id="events" style="padding-top:14px">
+  <div class="wrap">
+    <div class="events rev">
+      <div class="copy">
+        <span class="eyebrow on-dark"><span class="dot"></span> Private hire &amp; functions</span>
+        <h2>The room upstairs, <em>for your big days.</em></h2>
+        <p>Birthdays, christenings, send-offs, team nights and live sessions — your own room above the pub, with its own bar and a view that does half the work.</p>
+        <ul class="ev-list">
+          <li><span class="tick"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#c89a52" stroke-width="2.2"><path d="M5 12l4 4 10-10"/></svg></span> Up to 60 guests</li>
+          <li><span class="tick"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#c89a52" stroke-width="2.2"><path d="M5 12l4 4 10-10"/></svg></span> Your own bar</li>
+          <li><span class="tick"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#c89a52" stroke-width="2.2"><path d="M5 12l4 4 10-10"/></svg></span> Buffets &amp; menus</li>
+          <li><span class="tick"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#c89a52" stroke-width="2.2"><path d="M5 12l4 4 10-10"/></svg></span> Bay-view windows</li>
+        </ul>
+        <a href="#" class="btn btn-brass">Ask about the room
+          <span class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+      </div>
+      <div class="ev-visual">
+        <img class="ev-photo" src="assets/br_675af27715120.jpg" alt="Inside The Palatine">
+        <div class="ev-card">
+          <div class="k">Function enquiry</div><h4>Tell us about your do</h4>
+          <div class="field">Your name</div>
+          <div class="row2"><div class="field">Date</div><div class="field">Guests</div></div>
+          <div class="field">What's the occasion?</div>
+          <a href="#" class="btn btn-dark send">Send enquiry
+            <span class="ic"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="band" id="reviews" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rev" style="text-align:center;max-width:680px;margin:0 auto">
+      <span class="eyebrow"><span class="dot"></span> What people say</span>
+      <h2>Loved by locals — <em>4.3★ on Google.</em></h2>
+      <p style="margin:16px auto 0">From 346 reviews and counting on Google.</p>
+    </div>
+    <div class="reviews-grid">
+      <div class="rev-card rev d1">
+        <div class="stars">★★★★★</div>
+        <p>“Great cask ales and a warm welcome. Ace location, just yards from the views of Morecambe Bay.”</p>
+        <div class="who"><span class="g">G</span> Ganu G. · Google review</div>
+      </div>
+      <div class="rev-card rev d2">
+        <div class="stars">★★★★★</div>
+        <p>“A beautiful, very clean space, with honest and delicious food. The seafood platter was fresh and light — highly recommended.”</p>
+        <div class="who"><span class="g">G</span> Mags · Google review</div>
+      </div>
+      <div class="rev-card rev d3">
+        <div class="stars">★★★★★</div>
+        <p>“Great selection of beers and a great night of live music on a Saturday.”</p>
+        <div class="who"><span class="g">G</span> Google review</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="band" id="about">
+  <div class="wrap about">
+    <div class="portrait rev"><img src="assets/br_69cb77d14b4f1.jpg" alt="Chris &amp; Lee, your hosts"><div class="nameplate"><b>Chris &amp; Lee Taylor-Hone</b><span>Your hosts, since 2026</span></div></div>
+    <div class="rev d1">
+      <span class="eyebrow"><span class="dot"></span> Under new ownership</span>
+      <blockquote style="margin-top:18px">“We took on the Palatine to give Morecambe seafront a proper local again — <em>somewhere everyone feels at home</em>, from the morning coffee crowd to the Saturday-night regulars.”</blockquote>
+      <div class="sig"><span class="ln"></span> Chris &amp; Lee · 25 years in hospitality</div>
+      <p style="color:var(--ink-soft);margin-top:22px;max-width:480px">A new chapter for a much-loved building on The Crescent — and a seafront on the up, with the Eden Project on its way to the bay.</p>
+    </div>
+  </div>
+</section>
+
+<!-- VISIT -->
+<section class="band" id="visit" style="padding-top:14px">
+  <div class="wrap">
+    <div class="visit rev">
+      <div class="info">
+        <span class="eyebrow"><span class="dot"></span> Find us</span>
+        <h2 style="margin-top:16px">On the Crescent,<br>right on the bay.</h2>
+        <div class="rows">
+          <div class="ri"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M12 21s7-6.5 7-12a7 7 0 0 0-14 0c0 5.5 7 12 7 12Z"/><circle cx="12" cy="9" r="2.5"/></svg><div><b>Address</b><p>1 The Crescent, Morecambe, LA4 5BZ</p></div></div>
+          <div class="ri"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><div><b>Opening hours</b><p>Mon–Sun · 9am till late</p></div></div>
+          <div class="ri"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M5 4h4l2 5-3 2a12 12 0 0 0 5 5l2-3 5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z"/></svg><div><b>Bookings</b><p>01524 410503</p></div></div>
+        </div>
+        <div style="margin-top:28px"><a href="#" class="btn btn-dark">Book a table
+          <span class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div>
+      </div>
+      <div class="map">
+        <div class="grid-lines"></div><div class="coast"></div>
+        <div class="eden">Eden Project Morecambe ↗</div>
+        <div class="pin"><span class="lbl">The Palatine</span><span class="dot"></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <div class="brand"><span class="mark">P</span> The Palatine</div>
+        <p>A family-run seafront pub on Morecambe's Crescent. Coffee, good food, live nights and a warm welcome.</p>
+      </div>
+      <div class="foot-cols">
+        <div><h5>Visit</h5><a href="#">What's On</a><a href="#">Eat &amp; Drink</a><a href="#">The Room Upstairs</a><a href="#">Book a table</a></div>
+        <div><h5>Find us</h5><a href="#">1 The Crescent, LA4 5BZ</a><a href="#">01524 410503</a><a href="#">Facebook</a><a href="#">Instagram</a></div>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <span>© 2026 The Palatine, Morecambe.</span>
+      <a class="credit" href="https://layeredstudios.com">Concept &amp; design by <b>Layered</b></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const nav=document.getElementById('nav');
+  addEventListener('scroll',()=>{nav.style.paddingTop=scrollY>30?'12px':'20px';},{passive:true});
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.15});
+  document.querySelectorAll('.rev').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
