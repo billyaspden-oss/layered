@@ -91,6 +91,24 @@ python scrape.py
 `scraper/leads.csv` — one row per matched post. The workflow commits this
 back to the branch on every run, so the file is your durable lead list.
 
+### Scoring & outreach columns
+
+When `outreach_enabled` is on (the default), every kept lead gets a second
+Haiku pass that scores it against your `business_context` as an ICP and drafts
+a reply you can send. This adds four columns:
+
+| Column             | Meaning                                                            |
+| ------------------ | ------------------------------------------------------------------ |
+| `icp_status`       | `QUALIFIED` or `DISQUALIFIED` against your ideal-customer profile  |
+| `icp_reasoning`    | One sentence on why                                                |
+| `outreach_hook`    | The single most specific detail the message opens on              |
+| `outreach_message` | A ≤300-char, 3-sentence draft reply (blank when `DISQUALIFIED`)    |
+
+The email digest shows the ICP badge and the drafted message inline, so a
+qualified lead arrives ready to action. The draft is a starting point — skim
+it before sending. Set `outreach_enabled: false` in `config.yaml` to skip this
+pass (one fewer Haiku call per kept lead).
+
 ## A note on lead volume
 
 Both sources are smaller than Reddit:

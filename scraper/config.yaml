@@ -48,6 +48,13 @@ limit_per_query: 25
 # Minimum classifier confidence to keep a lead (0.0-1.0).
 min_confidence: 0.70
 
+# Second LLM pass: for each kept lead, score it against the business_context
+# below as an ICP (QUALIFIED/DISQUALIFIED) and draft a short, ready-to-send
+# outreach reply. Results land in the icp_status / icp_reasoning /
+# outreach_hook / outreach_message columns of leads.csv and in the email
+# digest. Set to false to skip it (saves one Haiku call per kept lead).
+outreach_enabled: true
+
 # Toggle sources on/off without touching code.
 bluesky_enabled: true
 hackernews_enabled: false

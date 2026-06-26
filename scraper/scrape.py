@@ -43,6 +43,10 @@ LEADS_FIELDS = [
     "matched_query",
     "classifier_confidence",
     "classifier_reason",
+    "icp_status",
+    "icp_reasoning",
+    "outreach_hook",
+    "outreach_message",
     "found_at",
 ]
 
@@ -77,10 +81,32 @@ def load_seen_ids() -> set[str]:
 
 
 def ensure_leads_file() -> None:
-    if LEADS_PATH.exists():
+    if not LEADS_PATH.exists():
+        with LEADS_PATH.open("w", newline="") as f:
+            csv.DictWriter(f, fieldnames=LEADS_FIELDS).writeheader()
         return
+    migrate_leads_file()
+
+
+def migrate_leads_file() -> None:
+    """Rewrite leads.csv if its header predates the current LEADS_FIELDS.
+
+    Older files lack the scoring/outreach columns. Appending wider rows to a
+    narrower header would misalign the CSV, so we rewrite once, backfilling
+    the new columns with empty values for historical rows.
+    """
+    with LEADS_PATH.open(newline="") as f:
+        reader = csv.DictReader(f)
+        existing_fields = reader.fieldnames or []
+        if existing_fields == LEADS_FIELDS:
+            return
+        rows = list(reader)
+
     with LEADS_PATH.open("w", newline="") as f:
-        csv.DictWriter(f, fieldnames=LEADS_FIELDS).writeheader()
+        writer = csv.DictWriter(f, fieldnames=LEADS_FIELDS, extrasaction="ignore")
+        writer.writeheader()
+        for row in rows:
+            writer.writerow({field: row.get(field, "") for field in LEADS_FIELDS})
 
 
 def _http_json(
@@ -372,6 +398,70 @@ def classify(anthropic: Anthropic, business_context: str, candidate: Candidate) 
 
 
 # ----------------------------------------------------------------------
+# ICP scorer + outreach copywriter
+# ----------------------------------------------------------------------
+
+SCORER_SYSTEM = """You are a sharp, no-nonsense growth operator for a web design agency.
+You take a single inbound lead (a public post from someone who appears to want a
+website built) and do four things in order.
+
+ROLE 1 — RESEARCH: From the post, infer:
+  - what the poster's business or project actually is (their "value prop"),
+  - their core need in this moment,
+  - the single most specific HOOK you could open a message with — a concrete
+    detail from the post (their trade, location, the kind of site, a pain they
+    named, a deadline). Never a generic platitude.
+
+ROLE 2 — ICP GATE: Decide QUALIFIED or DISQUALIFIED against the agency's ICP
+below. DISQUALIFY if they are outside the target market (e.g. enterprise/complex
+platforms, pure dev work like scraping or apps, someone offering their own
+services, a budget far below or above the agency's range, or a post too vague or
+inactive to act on). Give a one-sentence reason either way.
+
+ROLE 3 — COPYWRITER: Only if QUALIFIED, write a reply they could receive on the
+platform they posted on. Hard rules:
+  - Maximum 300 characters, 3 sentences.
+  - Casual, peer-to-peer, confident, zero fluff.
+  - Sentence 1: a specific observation built from the HOOK.
+  - Sentence 2: tie it to a sharp, likely pain point for their situation.
+  - Sentence 3: a low-friction, open-ended question. Do NOT ask for a call and
+    do NOT pitch a price or service yet.
+  - Banned: "Hope this finds you well", "I stumbled across", "I came across",
+    "Reaching out", and exclamation marks.
+  - If DISQUALIFIED, leave outreach_message as an empty string.
+
+ROLE 4 — OUTPUT: Respond with a single JSON object, no prose, no code fences:
+{"company_value_prop": "...", "lead_core_focus": "...", "outreach_hook": "...",
+ "icp_status": "QUALIFIED"|"DISQUALIFIED", "icp_reasoning": "...",
+ "outreach_message": "..."}"""
+
+
+def score_and_draft(anthropic: Anthropic, business_context: str, candidate: Candidate) -> dict:
+    user_msg = (
+        f"Agency ICP / business context:\n{business_context}\n\n"
+        f"--- Lead post ({candidate.source}) ---\n"
+        f"Author: {candidate.author}\n"
+        f"Title: {candidate.title}\n\n"
+        f"Body:\n{candidate.selftext or '(no body)'}\n"
+    )
+    resp = anthropic.messages.create(
+        model="claude-haiku-4-5-20251001",
+        max_tokens=500,
+        system=SCORER_SYSTEM,
+        messages=[{"role": "user", "content": user_msg}],
+    )
+    text = resp.content[0].text.strip()
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError:
+        start = text.find("{")
+        end = text.rfind("}")
+        if start >= 0 and end > start:
+            return json.loads(text[start : end + 1])
+        raise
+
+
+# ----------------------------------------------------------------------
 # Output
 # ----------------------------------------------------------------------
 
@@ -441,11 +531,34 @@ def _render_digest(leads: list[dict]) -> tuple[str, str]:
             conf_str = str(conf)
 
         source = SOURCE_LABEL.get(r.get("source", ""), r.get("source", ""))
+        icp_status = (r.get("icp_status") or "").upper()
+        message = r.get("outreach_message") or ""
 
         text_lines.append(
             f"- [{conf_str}] {source}: {r['title']}\n"
             f"    {r['url']}\n"
             f"    why: {r.get('classifier_reason', '')}\n"
+            + (f"    ICP: {icp_status} — {r.get('icp_reasoning', '')}\n" if icp_status else "")
+            + (f"    draft: {message}\n" if message else "")
+        )
+
+        if icp_status == "QUALIFIED":
+            badge_bg, badge_fg = "#dafbe1", "#1a7f37"
+        elif icp_status == "DISQUALIFIED":
+            badge_bg, badge_fg = "#ffebe9", "#cf222e"
+        else:
+            badge_bg, badge_fg = "#f6f8fa", "#586069"
+        icp_html = (
+            f"<span style='display:inline-block;background:{badge_bg};color:{badge_fg};"
+            f"font-size:11px;font-weight:600;padding:1px 6px;border-radius:10px'>"
+            f"{html.escape(icp_status)}</span>"
+            if icp_status else ""
+        )
+        message_html = (
+            f"<div style='margin-top:8px;padding:8px 10px;background:#f6f8fa;"
+            f"border-left:3px solid #0366d6;font-size:13px;color:#24292e'>"
+            f"{html.escape(message)}</div>"
+            if message else ""
         )
         rows_html.append(
             "<tr>"
@@ -454,8 +567,10 @@ def _render_digest(leads: list[dict]) -> tuple[str, str]:
             f"<td style='padding:8px;border-bottom:1px solid #eee'>"
             f"<a href='{html.escape(r['url'])}' style='color:#0366d6;text-decoration:none'>"
             f"{html.escape(r['title'])}</a>"
+            f" {icp_html}"
             f"<div style='color:#586069;font-size:13px;margin-top:4px'>"
             f"{html.escape(r.get('classifier_reason', ''))}</div>"
+            f"{message_html}"
             f"</td>"
             "</tr>"
         )
@@ -516,6 +631,7 @@ def main() -> int:
 
     anthropic = Anthropic()
     min_conf = float(config.get("min_confidence", 0.0))
+    outreach_enabled = config.get("outreach_enabled", True)
     new_leads: list[dict] = []
 
     for c in candidates:
@@ -532,7 +648,7 @@ def main() -> int:
         if not verdict.get("is_lead") or float(conf) < min_conf:
             continue
 
-        new_leads.append({
+        lead = {
             "post_id": c.post_id,
             "source": c.source,
             "title": c.title,
@@ -543,8 +659,26 @@ def main() -> int:
             "matched_query": c.matched_query,
             "classifier_confidence": verdict.get("confidence", ""),
             "classifier_reason": verdict.get("reason", ""),
+            "icp_status": "",
+            "icp_reasoning": "",
+            "outreach_hook": "",
+            "outreach_message": "",
             "found_at": datetime.now(timezone.utc).isoformat(),
-        })
+        }
+
+        # Second pass: score against ICP and draft outreach for kept leads.
+        if outreach_enabled:
+            try:
+                scored = score_and_draft(anthropic, config["business_context"], c)
+                lead["icp_status"] = scored.get("icp_status", "")
+                lead["icp_reasoning"] = scored.get("icp_reasoning", "")
+                lead["outreach_hook"] = scored.get("outreach_hook", "")
+                lead["outreach_message"] = scored.get("outreach_message", "")
+                print(f"      ICP {lead['icp_status'] or '?'} — {lead['icp_reasoning']}")
+            except Exception as e:
+                print(f"  scorer failed for {c.post_id}: {e}", file=sys.stderr)
+
+        new_leads.append(lead)
 
     if new_leads:
         append_leads(new_leads)
