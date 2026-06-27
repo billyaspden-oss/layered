@@ -6,11 +6,16 @@ and appends matches to `leads.csv`. Optional SMTP email digest on runs that
 produce new leads.
 
 **Sources:**
+- **Freelancer** — public projects API (no auth), GBP-only RFPs. Highest intent.
 - **Bluesky** — requires a free Bluesky account + app password (1-minute setup)
 - **Hacker News** — uses the public Algolia search API, no auth required
+- **LinkedIn** — *outbound* prospecting via a paid third-party data API
+  (off by default). See "LinkedIn source" below.
 
-Both sources are queried in every run; results are deduped and merged into a
-single ranked list.
+Enabled sources are queried in every run; results are deduped and merged into a
+single ranked list. The first three are **inbound intent** (people asking for a
+website); LinkedIn is **outbound** (profiles matching your ICP) and is handled
+differently — see below.
 
 ## One-time setup
 
@@ -108,6 +113,45 @@ The email digest shows the ICP badge and the drafted message inline, so a
 qualified lead arrives ready to action. The draft is a starting point — skim
 it before sending. Set `outreach_enabled: false` in `config.yaml` to skip this
 pass (one fewer Haiku call per kept lead).
+
+For **LinkedIn** leads the `outreach_message` is a ≤300-char LinkedIn
+connection-request note instead of a reply, and the scorer always runs (it's
+the qualification gate), so only `QUALIFIED` profiles are saved.
+
+## LinkedIn source (outbound)
+
+LinkedIn has **no usable public API** — the official API needs partner approval
+and can't keyword-search public content, and scraping LinkedIn directly
+violates their ToS, needs a logged-in cookie, and gets blocked fast. So this
+source is **outbound prospecting through a paid third-party data API** rather
+than a scraper.
+
+Unlike the inbound sources, LinkedIn profiles aren't run through the
+"is-this-person-shopping-for-a-website" classifier (they're not). Instead each
+profile is scored against your ICP and only `QUALIFIED` ones are kept, each with
+a drafted connection note.
+
+**Setup:**
+
+1. Pick a provider. The easiest is a [RapidAPI](https://rapidapi.com)-hosted
+   "LinkedIn Data API" (search the RapidAPI hub) that offers a people-search
+   endpoint. Proxycurl-style services work too. **You pay per lookup** — check
+   the provider's pricing.
+2. Add the key as a repo secret named `RAPIDAPI_KEY` (or `LINKEDIN_API_KEY`).
+3. In `config.yaml`, set `linkedin_enabled: true` and edit the `linkedin:`
+   block: `api_host`, `search_path`, and `search_params` to match your
+   provider's docs. **Param names and response shapes differ between
+   providers** — parsing tries common field names defensively, but you may need
+   to tweak `search_params` keys. Optionally set `linkedin_icp` to target a
+   different profile than your inbound `business_context`.
+4. Run the workflow manually (**Actions → Scrape leads → Run workflow**) and
+   check the logs. If you see `linkedin: no profiles in response`, your
+   provider returns results under a field name the parser doesn't recognise —
+   share its response shape and it's a one-line fix.
+
+> **Note on compliance:** using LinkedIn data this way is subject to LinkedIn's
+> terms and your provider's terms. Use it for legitimate, low-volume outreach
+> and respect connection/messaging limits.
 
 ## A note on lead volume
 

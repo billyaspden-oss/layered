@@ -60,6 +60,39 @@ bluesky_enabled: true
 hackernews_enabled: false
 freelancer_enabled: true
 
+# LinkedIn is OUTBOUND prospecting, not inbound intent: it searches a paid
+# third-party data API for profiles matching your ICP, skips the intent
+# classifier, and keeps only profiles the scorer marks QUALIFIED (with a
+# LinkedIn connection-request note drafted for each). Off by default because
+# it needs a paid provider + API key.
+#
+# LinkedIn has no usable public API and scraping it directly breaks their ToS,
+# so you must subscribe to a provider (e.g. a RapidAPI-hosted "LinkedIn Data
+# API" or a Proxycurl-style service) and set the RAPIDAPI_KEY secret.
+linkedin_enabled: false
+
+linkedin:
+  # Host of the RapidAPI-hosted provider you subscribed to (no https://).
+  api_host: "linkedin-data-api.p.rapidapi.com"
+  # Provider's people-search endpoint path.
+  search_path: "/search-people"
+  # Filters sent as query params. Param NAMES vary by provider — check your
+  # provider's docs and adjust these keys to match.
+  search_params:
+    keywords: "founder OR owner OR director"
+    title: "founder, owner, managing director"
+    geo: "United Kingdom"
+  # Max profiles to pull per run.
+  limit: 25
+
+# Optional: a distinct ICP for LinkedIn outbound scoring. If unset, the scorer
+# falls back to business_context below. Use this to target by role/firmographics
+# (the people you'd cold-message) rather than inbound "wants a website" signals.
+# linkedin_icp: |
+#   Owners, founders, or marketing leads at UK small businesses and local
+#   service companies (1-50 staff) whose current site looks dated or DIY.
+#   Not enterprises, not agencies, not people selling their own web services.
+
 # Description of who you are — used by the classifier to judge fit.
 business_context: |
   We're a small web design agency that builds modern marketing sites

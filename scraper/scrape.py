@@ -308,6 +308,137 @@ def search_freelancer(config: dict, seen: set[str]) -> list[Candidate]:
     return list(candidates.values())
 
 
+# ----------------------------------------------------------------------
+# LinkedIn source (paid third-party data API)
+# ----------------------------------------------------------------------
+
+# Field names vary by provider, so parsing tries several common keys for each
+# piece of data. These cover the RapidAPI "LinkedIn Data API" family and most
+# Proxycurl-style responses.
+_LI_LIST_KEYS = ("data", "items", "results", "people", "elements", "profiles")
+_LI_NAME_KEYS = ("fullName", "full_name", "name", "displayName")
+_LI_HEADLINE_KEYS = ("headline", "title", "occupation", "subtitle")
+_LI_ABOUT_KEYS = ("summary", "about", "description", "bio")
+_LI_URL_KEYS = ("profileURL", "profile_url", "linkedin_url", "url", "publicProfileUrl", "navigationUrl")
+_LI_ID_KEYS = ("urn", "entityUrn", "publicIdentifier", "username", "id", "profile_id")
+_LI_COMPANY_KEYS = ("companyName", "company", "company_name", "currentCompany")
+
+
+def _li_first(obj: dict, keys: tuple[str, ...]) -> str:
+    """Return the first present, non-empty string value among candidate keys."""
+    for k in keys:
+        val = obj.get(k)
+        if isinstance(val, dict):
+            val = val.get("name") or val.get("title") or val.get("text")
+        if val:
+            return str(val)
+    return ""
+
+
+def search_linkedin(config: dict, seen: set[str]) -> list[Candidate]:
+    """Search a paid LinkedIn data API for ICP-matching profiles.
+
+    This is OUTBOUND prospecting, not inbound intent: results are people who
+    fit the target customer profile, not people who posted asking for a site.
+    They therefore bypass the intent classifier and go straight to ICP scoring.
+
+    LinkedIn has no usable public search API and scraping it directly violates
+    their ToS, so this calls a configurable third-party provider (e.g. a
+    RapidAPI-hosted "LinkedIn Data API" or a Proxycurl-style service). The
+    provider host/path/params live in config.yaml; the key comes from the
+    RAPIDAPI_KEY (or LINKEDIN_API_KEY) secret. Response shapes vary by vendor,
+    so parsing is defensive across common field names.
+    """
+    li = config.get("linkedin") or {}
+    api_key = os.environ.get("RAPIDAPI_KEY") or os.environ.get("LINKEDIN_API_KEY")
+    if not api_key:
+        print("Skipping LinkedIn (missing RAPIDAPI_KEY/LINKEDIN_API_KEY)")
+        return []
+
+    api_host = li.get("api_host")
+    search_path = li.get("search_path", "/search-people")
+    if not api_host:
+        print("Skipping LinkedIn (no linkedin.api_host in config)")
+        return []
+
+    params = dict(li.get("search_params") or {})
+    params.setdefault("limit", li.get("limit", 25))
+    url = f"https://{api_host}{search_path}?" + urllib.parse.urlencode(params)
+    headers = {
+        "X-RapidAPI-Key": api_key,
+        "X-RapidAPI-Host": api_host,
+        "Accept": "application/json",
+    }
+
+    try:
+        payload = _http_json(url, headers=headers)
+    except Exception as e:
+        print(f"  linkedin search failed: {e}", file=sys.stderr)
+        return []
+
+    # The list of profiles can sit at the top level or under a wrapper key.
+    people = payload if isinstance(payload, list) else None
+    if people is None:
+        for key in _LI_LIST_KEYS:
+            val = payload.get(key)
+            if isinstance(val, list):
+                people = val
+                break
+            if isinstance(val, dict):  # e.g. {"data": {"items": [...]}}
+                for inner in _LI_LIST_KEYS:
+                    if isinstance(val.get(inner), list):
+                        people = val[inner]
+                        break
+            if people is not None:
+                break
+    if not people:
+        print("  linkedin: no profiles in response (check provider field names)")
+        return []
+
+    limit = int(li.get("limit", 25))
+    candidates: dict[str, Candidate] = {}
+    now = time.time()
+    for person in people[:limit]:
+        if not isinstance(person, dict):
+            continue
+        profile_url = _li_first(person, _LI_URL_KEYS)
+        ident = _li_first(person, _LI_ID_KEYS) or profile_url
+        if not ident:
+            continue
+        post_id = f"linkedin:{ident}"
+        if post_id in seen or post_id in candidates:
+            continue
+
+        name = _li_first(person, _LI_NAME_KEYS) or "[unknown]"
+        headline = _li_first(person, _LI_HEADLINE_KEYS)
+        about = _li_first(person, _LI_ABOUT_KEYS)
+        company = _li_first(person, _LI_COMPANY_KEYS)
+        recent_post = _li_first(person, ("recentPost", "lastPost", "latest_post"))
+
+        body = "\n\n".join(
+            part for part in (
+                f"Headline: {headline}" if headline else "",
+                f"Company: {company}" if company else "",
+                f"About: {about}" if about else "",
+                f"Recent post: {recent_post}" if recent_post else "",
+            ) if part
+        )[:4000]
+
+        candidates[post_id] = Candidate(
+            post_id=post_id,
+            source="linkedin",
+            title=f"{name} — {headline}" if headline else name,
+            selftext=body,
+            author=name,
+            url=profile_url or "",
+            created_utc=now,
+            score=0,
+            matched_query="linkedin:icp-search",
+        )
+
+    return list(candidates.values())
+
+
 def search_hackernews(config: dict, seen: set[str]) -> list[Candidate]:
     cutoff = int(time.time() - config["lookback_hours"] * 3600)
     limit = int(config["limit_per_query"])
@@ -401,24 +532,23 @@ def classify(anthropic: Anthropic, business_context: str, candidate: Candidate) 
 # ICP scorer + outreach copywriter
 # ----------------------------------------------------------------------
 
-SCORER_SYSTEM = """You are a sharp, no-nonsense growth operator for a web design agency.
-You take a single inbound lead (a public post from someone who appears to want a
-website built) and do four things in order.
+_SCORER_HEAD = """You are a sharp, no-nonsense growth operator for a web design agency.
+You take a single lead and do four things in order.
 
-ROLE 1 — RESEARCH: From the post, infer:
-  - what the poster's business or project actually is (their "value prop"),
-  - their core need in this moment,
+ROLE 1 — RESEARCH: From the material below, infer:
+  - what the person's business or project actually is (their "value prop"),
+  - their core focus or need,
   - the single most specific HOOK you could open a message with — a concrete
-    detail from the post (their trade, location, the kind of site, a pain they
-    named, a deadline). Never a generic platitude.
+    detail (their trade, location, the kind of site, a pain they named, a
+    deadline, something from their profile or post). Never a generic platitude.
 
 ROLE 2 — ICP GATE: Decide QUALIFIED or DISQUALIFIED against the agency's ICP
 below. DISQUALIFY if they are outside the target market (e.g. enterprise/complex
 platforms, pure dev work like scraping or apps, someone offering their own
-services, a budget far below or above the agency's range, or a post too vague or
-inactive to act on). Give a one-sentence reason either way.
+services, a budget far below or above the agency's range, or a profile/post too
+vague or inactive to act on). Give a one-sentence reason either way."""
 
-ROLE 3 — COPYWRITER: Only if QUALIFIED, write a reply they could receive on the
+_ROLE3_REPLY = """ROLE 3 — COPYWRITER: Only if QUALIFIED, write a reply they could receive on the
 platform they posted on. Hard rules:
   - Maximum 300 characters, 3 sentences.
   - Casual, peer-to-peer, confident, zero fluff.
@@ -428,18 +558,37 @@ platform they posted on. Hard rules:
     do NOT pitch a price or service yet.
   - Banned: "Hope this finds you well", "I stumbled across", "I came across",
     "Reaching out", and exclamation marks.
-  - If DISQUALIFIED, leave outreach_message as an empty string.
+  - If DISQUALIFIED, leave outreach_message as an empty string."""
 
-ROLE 4 — OUTPUT: Respond with a single JSON object, no prose, no code fences:
+_ROLE3_LINKEDIN = """ROLE 3 — COPYWRITER: Only if QUALIFIED, write a LinkedIn connection-request
+note to this person. Hard rules:
+  - Maximum 300 characters, 3 sentences (LinkedIn's connection-note limit).
+  - Casual, peer-to-peer, confident, zero fluff.
+  - Sentence 1: a specific observation built from the HOOK (their role, company,
+    or a detail from their profile).
+  - Sentence 2: tie it to a sharp, likely pain point for their situation.
+  - Sentence 3: a low-friction, open-ended question. Do NOT ask for a call and
+    do NOT pitch a price or service yet.
+  - Banned: "Hope this finds you well", "I stumbled across", "I came across",
+    "Reaching out", and exclamation marks.
+  - If DISQUALIFIED, leave outreach_message as an empty string."""
+
+_SCORER_TAIL = """ROLE 4 — OUTPUT: Respond with a single JSON object, no prose, no code fences:
 {"company_value_prop": "...", "lead_core_focus": "...", "outreach_hook": "...",
  "icp_status": "QUALIFIED"|"DISQUALIFIED", "icp_reasoning": "...",
  "outreach_message": "..."}"""
 
 
-def score_and_draft(anthropic: Anthropic, business_context: str, candidate: Candidate) -> dict:
+def build_scorer_system(source: str) -> str:
+    role3 = _ROLE3_LINKEDIN if source == "linkedin" else _ROLE3_REPLY
+    return f"{_SCORER_HEAD}\n\n{role3}\n\n{_SCORER_TAIL}"
+
+
+def score_and_draft(anthropic: Anthropic, icp_context: str, candidate: Candidate) -> dict:
+    label = "profile" if candidate.source == "linkedin" else "post"
     user_msg = (
-        f"Agency ICP / business context:\n{business_context}\n\n"
-        f"--- Lead post ({candidate.source}) ---\n"
+        f"Agency ICP / business context:\n{icp_context}\n\n"
+        f"--- Lead {label} ({candidate.source}) ---\n"
         f"Author: {candidate.author}\n"
         f"Title: {candidate.title}\n\n"
         f"Body:\n{candidate.selftext or '(no body)'}\n"
@@ -447,7 +596,7 @@ def score_and_draft(anthropic: Anthropic, business_context: str, candidate: Cand
     resp = anthropic.messages.create(
         model="claude-haiku-4-5-20251001",
         max_tokens=500,
-        system=SCORER_SYSTEM,
+        system=build_scorer_system(candidate.source),
         messages=[{"role": "user", "content": user_msg}],
     )
     text = resp.content[0].text.strip()
@@ -511,7 +660,7 @@ def send_digest(leads: list[dict]) -> None:
         print(f"  email send failed: {e}", file=sys.stderr)
 
 
-SOURCE_LABEL = {"bluesky": "bsky", "hackernews": "HN"}
+SOURCE_LABEL = {"bluesky": "bsky", "hackernews": "HN", "linkedin": "LinkedIn"}
 
 
 def _render_digest(leads: list[dict]) -> tuple[str, str]:
@@ -612,31 +761,72 @@ def main() -> int:
         candidates.extend(search_hackernews(config, seen))
     if config.get("freelancer_enabled", True):
         candidates.extend(search_freelancer(config, seen))
+    if config.get("linkedin_enabled", False):
+        candidates.extend(search_linkedin(config, seen))
 
-    print(f"Found {len(candidates)} new candidate posts")
+    print(f"Found {len(candidates)} new candidate leads")
+
+    # LinkedIn results are outbound ICP matches, not inbound intent posts, so
+    # they bypass the intent classifier and its AI/DIY pre-filter.
+    intent_candidates = [c for c in candidates if c.source != "linkedin"]
+    linkedin_candidates = [c for c in candidates if c.source == "linkedin"]
 
     # Pre-filter: cheap string check before spending classifier tokens
     prefiltered = []
-    for c in candidates:
+    for c in intent_candidates:
         if _is_ai_diy_noise(c):
             print(f"  [{c.source}] pre-filter — {c.title[:80]!r}")
         else:
             prefiltered.append(c)
-    if len(prefiltered) < len(candidates):
-        print(f"  Pre-filter removed {len(candidates) - len(prefiltered)} AI/DIY noise posts")
-    candidates = prefiltered
+    if len(prefiltered) < len(intent_candidates):
+        print(f"  Pre-filter removed {len(intent_candidates) - len(prefiltered)} AI/DIY noise posts")
+    intent_candidates = prefiltered
 
-    if not candidates:
+    if not intent_candidates and not linkedin_candidates:
         return 0
 
     anthropic = Anthropic()
     min_conf = float(config.get("min_confidence", 0.0))
     outreach_enabled = config.get("outreach_enabled", True)
+    business_context = config["business_context"]
+    # Outbound prospecting can target a different ICP than inbound intent.
+    linkedin_icp = config.get("linkedin_icp") or business_context
     new_leads: list[dict] = []
 
-    for c in candidates:
+    def base_lead(c: Candidate) -> dict:
+        return {
+            "post_id": c.post_id,
+            "source": c.source,
+            "title": c.title,
+            "author": c.author,
+            "url": c.url,
+            "created_utc": datetime.fromtimestamp(c.created_utc, tz=timezone.utc).isoformat(),
+            "score": c.score,
+            "matched_query": c.matched_query,
+            "classifier_confidence": "",
+            "classifier_reason": "",
+            "icp_status": "",
+            "icp_reasoning": "",
+            "outreach_hook": "",
+            "outreach_message": "",
+            "found_at": datetime.now(timezone.utc).isoformat(),
+        }
+
+    def apply_scoring(lead: dict, c: Candidate, icp: str) -> None:
         try:
-            verdict = classify(anthropic, config["business_context"], c)
+            scored = score_and_draft(anthropic, icp, c)
+            lead["icp_status"] = scored.get("icp_status", "")
+            lead["icp_reasoning"] = scored.get("icp_reasoning", "")
+            lead["outreach_hook"] = scored.get("outreach_hook", "")
+            lead["outreach_message"] = scored.get("outreach_message", "")
+            print(f"      ICP {lead['icp_status'] or '?'} — {lead['icp_reasoning']}")
+        except Exception as e:
+            print(f"  scorer failed for {c.post_id}: {e}", file=sys.stderr)
+
+    # Inbound intent posts: classify first, then score the keepers.
+    for c in intent_candidates:
+        try:
+            verdict = classify(anthropic, business_context, c)
         except Exception as e:
             print(f"  classifier failed for {c.post_id}: {e}", file=sys.stderr)
             continue
@@ -648,36 +838,21 @@ def main() -> int:
         if not verdict.get("is_lead") or float(conf) < min_conf:
             continue
 
-        lead = {
-            "post_id": c.post_id,
-            "source": c.source,
-            "title": c.title,
-            "author": c.author,
-            "url": c.url,
-            "created_utc": datetime.fromtimestamp(c.created_utc, tz=timezone.utc).isoformat(),
-            "score": c.score,
-            "matched_query": c.matched_query,
-            "classifier_confidence": verdict.get("confidence", ""),
-            "classifier_reason": verdict.get("reason", ""),
-            "icp_status": "",
-            "icp_reasoning": "",
-            "outreach_hook": "",
-            "outreach_message": "",
-            "found_at": datetime.now(timezone.utc).isoformat(),
-        }
-
-        # Second pass: score against ICP and draft outreach for kept leads.
+        lead = base_lead(c)
+        lead["classifier_confidence"] = verdict.get("confidence", "")
+        lead["classifier_reason"] = verdict.get("reason", "")
         if outreach_enabled:
-            try:
-                scored = score_and_draft(anthropic, config["business_context"], c)
-                lead["icp_status"] = scored.get("icp_status", "")
-                lead["icp_reasoning"] = scored.get("icp_reasoning", "")
-                lead["outreach_hook"] = scored.get("outreach_hook", "")
-                lead["outreach_message"] = scored.get("outreach_message", "")
-                print(f"      ICP {lead['icp_status'] or '?'} — {lead['icp_reasoning']}")
-            except Exception as e:
-                print(f"  scorer failed for {c.post_id}: {e}", file=sys.stderr)
+            apply_scoring(lead, c, business_context)
+        new_leads.append(lead)
 
+    # Outbound LinkedIn prospects: score against the ICP; keep only QUALIFIED.
+    for c in linkedin_candidates:
+        lead = base_lead(c)
+        # ICP scoring is the gate here, so always run it regardless of toggle.
+        apply_scoring(lead, c, linkedin_icp)
+        if lead["icp_status"].upper() != "QUALIFIED":
+            print(f"  [linkedin] drop (not QUALIFIED) — {c.title[:80]!r}")
+            continue
         new_leads.append(lead)
 
     if new_leads:
