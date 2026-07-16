@@ -14,7 +14,7 @@ export async function onRequestPost(context) {
       return new Response(JSON.stringify({ success: true }), { headers });
     }
 
-    const { name, email, phone, service, message } = body;
+    const { name, email, phone, business, service, message } = body;
 
     if (!name || !email || !message) {
       return new Response(
@@ -39,8 +39,9 @@ export async function onRequestPost(context) {
       ``,
       `Name:    ${name}`,
       `Email:   ${email}`,
-      `Phone:   ${phone || "Not provided"}`,
-      `Problem: ${service || "Not specified"}`,
+      `Phone:    ${phone || "Not provided"}`,
+      `Business: ${business || "Not provided"}`,
+      `Problem:  ${service || "Not specified"}`,
       ``,
       `Message:`,
       message,

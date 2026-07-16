@@ -856,19 +856,17 @@
     errEl.style.display = 'none';
 
     const data = {
-      access_key: '0beadfb4-1eb3-4719-bbd4-ffa6037237fb',
       name,
       email,
       phone,
       business,
       service,
       message,
-      subject:    'New Enquiry — Layered (Contact Page)',
       botcheck:   document.getElementById('botcheck').value,
     };
 
     try {
-      const res = await fetch('https://api.web3forms.com/submit', {
+      const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify(data),
