@@ -1,43 +1,92 @@
 # Search tuning. Edit freely — no code changes needed.
 #
-# Bluesky queries are sent as exact phrases (Lucene quoted-string syntax).
-# Keep them SHORT (2-5 words) and conversational — they need to match
-# what someone would actually type in a social post, not a formal sentence.
+# Two different jobs are being done here, and they work differently:
+#
+#   INTENT sources (Bluesky)     — someone publicly says they want to buy.
+#   SIGNAL sources (trade press) — something changed at a named business that
+#                                  makes it worth approaching. Nobody is asking
+#                                  to buy; you are getting there first.
+#
+# Layered's customers do not post "I need an AI system" — that is not a thing
+# people say. So intent search is now the minor source and trade-press signals
+# are the main one.
 
+# ---------------------------------------------------------------------------
+# Intent search (Bluesky). Exact phrases, Lucene quoted-string syntax.
+# Keep them SHORT (2-5 words) and conversational.
+# Expect very low volume. This is a long-shot channel, not the engine.
+# ---------------------------------------------------------------------------
 queries:
-  # Direct hire intent
-  - "looking for a web designer"
-  - "need a web designer"
-  - "hire a web designer"
-  - "recommend a web designer"
-  - "anyone recommend a web designer"
-  - "web designer wanted"
-  # Website need — business owner framing
-  - "need a website for my"
-  - "website for my business"
-  - "website for my shop"
-  - "build me a website"
-  - "getting a website made"
-  - "need to get a website"
-  - "new website for my business"
-  # Price-shopping
-  - "how much does a website"
-  - "how much for a website"
-  - "web design quote"
+  - "drowning in admin"
+  - "drowning in paperwork"
+  - "so much manual work"
+  - "spend all day copying"
+  - "training new staff is"
+  - "our SOPs are"
+  - "need to automate this"
+  - "automate my business"
+  - "AI for my business"
+  - "chatbot for my website"
 
-# Freelancer.com uses keyword search (not exact phrase).
-# These are used instead of the Bluesky queries above when searching Freelancer.
-# Broader terms work better here since every result is already an active RFP.
+# Freelancer.com keyword search. Left here so the source can be re-enabled,
+# but it is OFF: every lead it produced was a £20-£750 website job, which is
+# the positioning Layered deliberately moved away from in July 2026.
 freelancer_queries:
   - "website design"
-  - "web design"
-  - "wordpress website"
-  - "small business website"
-  - "company website"
   - "business website"
-  - "landing page"
-  - "website build"
-  - "website redesign"
+
+# ---------------------------------------------------------------------------
+# Signal search (trade press RSS).
+#
+# UNVERIFIED: these feed URLs could not be reached from the environment this
+# config was written in (network policy blocked them). Run
+#     python scrape.py --check-feeds
+# once before trusting this list, and drop or correct anything that fails.
+# A bad feed logs to stderr and is skipped; it does not stop the run.
+# ---------------------------------------------------------------------------
+rss_feeds:
+  # UK hospitality trade press
+  - "https://www.hotelowner.co.uk/feed/"
+  - "https://www.boutiquehotelier.com/feed/"
+  - "https://catererlicensee.com/feed/"
+  - "https://www.hospitalitynet.org/rss/channel.xml"
+  # Regional — Cumbria and the North West
+  - "https://www.in-cumbria.com/news/rss/"
+  - "https://cumbriacrack.com/feed/"
+  - "https://www.insidermedia.com/rss/north-west"
+
+# An item must contain at least one of these to reach the classifier.
+# These are trigger events: a new decision-maker, money being spent, or
+# growing pains. All three are moments when someone will take a meeting.
+rss_keywords:
+  # New decision-maker — the single best moment to arrive
+  - "appointed"
+  - "appoints"
+  - "new general manager"
+  - "joins as"
+  - "takes the helm"
+  - "operations director"
+  - "promoted to"
+  # Money being spent
+  - "refurbishment"
+  - "refurb"
+  - "expansion"
+  - "acquires"
+  - "acquisition"
+  - "investment"
+  - "million upgrade"
+  - "opens new"
+  # Growing pains that a system solves
+  - "staff shortage"
+  - "recruitment challenge"
+  - "staff turnover"
+  - "training programme"
+  - "onboarding"
+  # Credibility moments — a business in investment mode
+  - "awards"
+  - "michelin"
+  - "aa rosette"
+  - "five-star"
 
 # Only consider posts from the last N hours.
 lookback_hours: 72
@@ -51,13 +100,51 @@ min_confidence: 0.70
 # Toggle sources on/off without touching code.
 bluesky_enabled: true
 hackernews_enabled: false
-freelancer_enabled: true
+freelancer_enabled: false
+rss_enabled: true
 
 # Description of who you are — used by the classifier to judge fit.
 business_context: |
-  We're a small web design agency that builds modern marketing sites
-  for small businesses, tradespeople, and local service companies in the UK.
-  Typical engagement: a 3-10 page site, £500-£3000, delivered in 1-3 weeks.
-  We're looking for clients who want someone to design or build their website —
-  not enterprise/complex platforms, not pure dev tasks (no web scraping, no
-  apps), not people offering their own services.
+  We're Layered, a small studio in Kendal, Cumbria. We build bespoke AI
+  systems for established businesses: staff-facing assistants grounded in a
+  company's own SOPs, workflow automations, customer-facing assistants, and
+  full operations platforms.
+
+  Our strongest reference is Plato, a staff training and knowledge platform
+  built for the Gilpin Hotel & Lake House, a five-star Lake District hotel —
+  live in production across eight departments.
+
+  Our best-fit customer is an established, owner-managed or independently
+  operated business with 20+ staff, multiple departments or sites, and real
+  operational complexity: luxury and independent hotels, hospitality groups,
+  construction firms, professional practices, marine and estate operations.
+  Typically in Cumbria, the Lake District and the North West, though we work
+  anywhere.
+
+  Projects are bespoke builds worth thousands of pounds, not off-the-shelf
+  tools and not £500 websites. We are NOT looking for: freelance web design
+  jobs, logo work, small marketing sites, cheap WordPress jobs, people
+  offering their own services, or anyone wanting a generic AI chatbot.
+
+# How the classifier should judge. Kept here rather than in code so the
+# positioning lives in one place.
+classifier_rules: |
+  Items come from two kinds of source and are judged differently.
+
+  A TRADE PRESS item is a LEAD if it names a specific, real business that
+  fits the business context above AND reports a trigger event that makes
+  an approach timely — a new general manager, ops director or owner; a
+  refurbishment, acquisition or expansion; a new site; an award or rating;
+  or reported problems with staffing, training or onboarding. The business
+  must be named. Prefer independent and family-owned operators over large
+  chains, which have in-house IT and central procurement.
+
+  A SOCIAL POST is a LEAD only if the author runs or works for a real
+  business and describes a concrete operational problem that one of our
+  systems would solve, with some sign they want to fix it.
+
+  NOT leads, from either source: anyone offering their own services;
+  DIY or how-to questions; general AI commentary, hype or opinion;
+  requests for cheap websites, logos or marketing sites; large hotel or
+  restaurant chains; recruitment adverts and job listings; items with no
+  named business attached; jokes and ironic posts.
